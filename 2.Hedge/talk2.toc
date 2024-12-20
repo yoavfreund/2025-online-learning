@@ -1,0 +1,10 @@
+\babel@toc {english}{}
+\beamer@sectionintoc {1}{{\mbox {${{\mbox {\bf Hedge}({\eta })}}$}}Algorithm}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Hedging vs. Halving}{4}{0}{1}
+\beamer@sectionintoc {2}{Bound on total loss}{8}{0}{2}
+\beamer@subsectionintoc {2}{1}{Upper bound on ${\mbox {${\DOTSB \sum@ \slimits@ _{i=1}^N {\mbox {${{w}^{{\mbox {${T}$}}+1}_{i}}$}}}$}}$}{9}{0}{2}
+\beamer@subsectionintoc {2}{2}{Lower bound on ${\mbox {${\DOTSB \sum@ \slimits@ _{i=1}^N {\mbox {${{w}^{{\mbox {${T}$}}+1}_{i}}$}}}$}}$}{13}{0}{2}
+\beamer@subsectionintoc {2}{3}{Combining Upper and Lower bounds}{14}{0}{2}
+\beamer@sectionintoc {3}{tuning $\eta $}{15}{0}{3}
+\beamer@sectionintoc {4}{Lower Bounds}{18}{0}{4}
+\beamer@sectionintoc {5}{Repeated Matrix Games}{23}{0}{5}

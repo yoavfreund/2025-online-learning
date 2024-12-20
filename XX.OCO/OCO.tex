@@ -1,0 +1,219 @@
+%\documentclass{beamer}
+\documentclass[handout]{beamer}
+% This file is a solution template for:
+
+% - Giving a talk on some subject.
+% - The talk is between 15min and 45min long.
+% - Style is ornate.
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice. 
+
+\mode<presentation>
+{
+  \usetheme{Montpellier}
+
+  %\setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+\usepackage{xmpmulti} % package that defines \multiinclude
+\usepackage{amsmath,amsfonts,amsthm,bm}
+
+\usepackage[english]{babel}
+
+\usepackage[latin1]{inputenc}
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+
+\title[\ouralg] % (optional, use only with long paper titles)
+{Online Convex Optimization}
+
+\author[Freund] % (optional, use only with lots of authors)
+{Yoav Freund}
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[Universities of Somewhere and Elsewhere] % (optional, but mostly needed)
+
+\subject{Machine Learning}
+
+\beamerdefaultoverlayspecification{<+->}
+
+\input{../macros}
+
+\begin{document}
+
+%\iffalse %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\fi %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+  \titlepage
+  \begin{small}
+    Material follows Chapters 1,2,3 of ``Online Convex Optimization''
+    / Elad Hazan.
+  \end{small}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents[pausesections]
+  % You might wish to add the option [pausesections]
+\end{frame}
+
+\section{OCO}
+\begin{frame}
+  \frametitle{Online Linear Optimization}
+  \begin{itemize}
+  \item Instance: \R{$(\vx_t,y_t) \in \real^d \times \real$}
+  \item Predictor: \R{$\vw_t \in \real^d$}
+  \item Loss \R{$\ell(\vw\cdot \vx,y)$} (online regression = square loss)
+  \item Regret: \R{$\RR_t(\vu) = 
+      \sum_{i=1}^t  \left[ \ell(\vw_t\cdot \vx_t,y_t)
+        - \ell(\vu \cdot \vx_t,y_t)\right]$}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Online convex Optimization}
+  \begin{itemize}
+  \item Optimizer chooses point:\R{$\vx_t \in \real^d$}
+  \item Adversary chooses \B{convex} loss function \R{$f_t:\real^d \to \real$}
+  \item optimizer chooses Loss \R{$f_t(\vx_t)$}
+  \item Regret: \R{$\RR_T = \sup_{f_1,\ldots,f_T}
+      \brac{ \sum_{t=1}^T  f_t(\vx_t) 
+        - \min_{\vu} \sum_{t=1}^T f_t(\vu)}$}
+  \end{itemize}
+\end{frame}
+
+\section{Standard Convex Optimization}
+
+\begin{frame}
+  \frametitle{Standard convex optimization}
+  \begin{itemize}
+  \item \B{not online} convex optimization (CO) has been studied much
+    longer than \B{Online} convex optimization (OCO)
+  \item OCO bounds use measures of convexity from CO.
+  \item \R{$f$} is a given convex function.
+  \item \R{$\cK$} is a convex set.
+  \item Goal: find \R{$\vx^* = \mbox{argmin}_{\vx\in \cK} f(\vx)$}
+  \item Method: gradient descent.
+  \item rate of convergence: rate at which \R{$h_t = f(\vx_t) - f(\vx^*)$} decreases.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The sub-gradient}
+  \includegraphics[width=\textwidth]{figures/Subgradient2.png}
+
+  \begin{itemize}
+  \item \R{$f:\real^d \to \real$} is convex.
+  \item \R{$\nabla f(\vx)$} is the set of vectors \R{$\vg \in \real^d$} such the
+    \R{$\forall \vy, f(\vy)\geq f(\vx)+ \vg\cdot (\vy-\vx)$}
+    \item If \R{$f$} is differentiable at \R{$x$}, then  \R{$\nabla
+        f(\vx)$} has only one element.
+    \item Otherwise \R{$\nabla f(\vx)$} is a continuously infinite set.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Basic Gradient descent}
+
+  \begin{enumerate}
+    \item {\bf input:} \R{$f,T$} initial point \R{$\vx_1 \in \cK$},
+      sequence of step sizes \R{$\{\eta_t\}$}
+    \item For \R{$t=1,\ldots,T$} do:
+    \item ~~~Update: \R{$\vy_{t+1} = \vx_t - \eta_t \nabla f(\vx_t)$}
+    \item ~~~Project: \R{$\vx_{t+1} = \project(\vy_{t+1})$}
+    \item End For
+    \item Return \R{$\vx_{t+1}$}
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Degrees of convexity}
+  \begin{center}
+  \includegraphics[width=0.8\textwidth]{figures/StrongConvexity.png}
+\end{center}
+  \begin{itemize}
+  \item \R{$f(x)$} is convex if
+    \R{$\forall \vx,\vy, f(\vy)\geq f(\vx)+ \nabla f(\vx) \cdot (\vy-\vx)$}
+  \item \R{$f(x)$} is \R{$\alpha$}-strongly convex if
+    \R{$\forall \vx,\vy, f(\vy)\geq f(\vx)+ \nabla f(\vx) \cdot
+      (\vy-\vx) + \frac{\alpha}{2} \|\vx - \vy\|^2$}
+  \item \R{$f(x)$} is \R{$\beta$}-smooth if
+    \R{$\forall \vx,\vy, f(\vy)\leq f(\vx)+ \nabla f(\vx) \cdot
+      (\vy-\vx) + \frac{\beta}{2} \|\vx - \vy\|^2$}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Conditioning number}
+  \begin{itemize}
+    \item If $f$ is both \R{$\alpha$}-strongly convex and
+      {$\beta$}-smooth we say it is \R{$\gamma$}-well conditioned where:
+      \R{$\gamma = \frac{\alpha}{\beta} \leq 1$}
+      \item What is the meaning of \R{$\gamma=1$}?
+  \end{itemize}
+\end{frame}
+
+\iffalse
+\begin{frame}
+  \frametitle{Pythagoras inequality}
+
+  Let \R{$\cK \subset \real^d$} be a convex set, Let \R{$\vy \in
+    \real^d$} and let \R{$\vx = \project(\vy)$}, let \R{$\vz \in \cK$}, then
+  \R{$$ \|\vy - \vz\|^2 \geq \| \vy - \vx \|^2 + \| \vx - \vz \|^2 $$}
+  Which implies
+  \R{$$ \|\vy - \vz\| \geq \| \vx - \vz \|$$}
+  
+\end{frame}
+\fi
+
+\begin{frame}
+  \frametitle{Basic Bound on Basic Gradient Descent}
+  \begin{itemize}
+  \item If \R{$f$} is \R{$\gamma$}-well conditioned.
+  \item and \R{$\eta_t = \frac{1}{\beta}$}
+  \item \R{$h_{t+1} \leq h_1 \exp \paren{\frac{\gamma t}{4}}$}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Reduction to smooth, not strongly convex functions}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Reduction to non-smooth, strongy convex functions}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Reduction to convex functions}
+\end{frame}
+
+\section{Online Convex optimization}
+
+\begin{frame}
+  \frametitle{Online Gradient Descent}
+  \R{$f_t(\vx_t)$} instead of \R{$f(\vx_t)$}
+\end{frame}
+
+\section{Stochastic Gradient Descent}
+
+\end{document}
+
+
