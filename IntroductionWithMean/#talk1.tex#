@@ -1,7 +1,7 @@
 % $Header: /data/cvsroot/Courses/OnlineLearning/talks/talk1/talk1.tex,v 1.5 2006/01/11 03:23:33 yfreund Exp $
 
-%\documentclass{beamer}
-\documentclass[handout]{beamer}
+\documentclass{beamer}
+%\documentclass[handout]{beamer}
 % This file is a solution template for:
 
 % - Giving a talk on some subject.
@@ -361,9 +361,17 @@ $ \regret_T = \sum_{t=1}^T (x_t-y_t)^2 - \sum_{t=1}^T (x^*_T-y_t)^2
 \leq 4 + 4 \ln T$
 \end{theorem}
 \begin{itemize}
-  \item HW for next monday: prove the theorem.
-\end{itemize}
+  \item 
+  \end{itemize}
 \end{frame}
 
+
 \end{document}
+
+\begin{frame}
+\frametitle{~}
+\begin{itemize}
+\item~
+\end{itemize}
+\end{frame}
 
