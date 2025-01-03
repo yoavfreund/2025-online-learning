@@ -1,7 +1,7 @@
 % $Header: /data/cvsroot/Courses/OnlineLearning/talks/talk1/talk1.tex,v 1.5 2006/01/11 03:23:33 yfreund Exp $
 
-\documentclass{beamer}
-%\documentclass[handout]{beamer}
+%\documentclass{beamer}
+\documentclass[handout]{beamer}
 % This file is a solution template for:
 
 % - Giving a talk on some subject.
@@ -137,7 +137,7 @@
 \onslide<15->\color<15>{red} 0 \\
 		    			     
 \column[t]{1cm}	    		     
-\onslide<16->\color<16>{red} $t=5$ \\ - \\ - \\ -  \\ - \\ - \\ - \\ 0  \\ - \\ ~ \\
+\onslide<16->\color<16>{red} $t=5$ \\ - \\ - \\ -  \\ - \\ - \\ - \\ -  \\ 0 \\ ~ \\
 \onslide<17->\color<17>{red} 0 \\
 \onslide<18->\color<18>{red} 0 \\
 
@@ -244,7 +244,9 @@ $\leq \|\W_i\|^2 + R^2 \leq (i+1) R^2$
 \pause
 $\|\W_i\| \geq \W_{i} \cdot \V$ because $\| \V \|=1$.\\
 \pause
-We prove a lower bound on $\W_{i} \cdot \V$ using induction over $i$
+Let $i$ denote the number of mistakes made so far.\\~\\
+\pause
+We prove a lower bound on $\W_{i} \cdot \V$ by induction over $i$
 \begin{itemize}
 \item Claim: $ \W_{i} \cdot \V \geq i g $
 \item Base: $i=0$, $\W_0 \cdot \V = 0$
@@ -273,7 +275,7 @@ $$ i \leq \left(\frac{R}{g} \right)^2 $$
 \frametitle{The mean estimation game}
 \begin{itemize}
 \item 
-An adversary choses a real number $y_t in [0,1]$ and keeps it secret.
+An adversary choses a real number $y_t \in [0,1]$ and keeps it secret.
 \item
 You make a guess of the secret number $x_t$
 \item
@@ -309,7 +311,7 @@ Optimal prediction $x_t = \mu$
 \item Make no assumption about how the sequence is generated.
 \item The best constant value for $x$ in hind-sight:\\
   $$x^*_T \doteq \argmin_{x \in [0,1]} \sum_{t=1}^T (x-y_t)^2,\;\; x^*_t=\frac{1}{T}
-  \sum_{t=1}^T X_t$$ 
+  \sum_{t=1}^T y_t$$ 
 \item Regret: the loss over and above the loss of $x^*_T$. {\bf for the
     worst-case sequence}
   $ \regret_T = \sum_{t=1}^T (x_t-y_t)^2 - \sum_{t=1}^T (x^*_T-y_t)^2
@@ -358,7 +360,7 @@ numbers. Let the algorithm output be
 $ x_t = x_{t-1}^* = \frac{1}{t-1} \sum_{i=1}^{t-1} y_i$, then\\
 ~\\
 $ \regret_T = \sum_{t=1}^T (x_t-y_t)^2 - \sum_{t=1}^T (x^*_T-y_t)^2
-\leq 4 + 4 \ln T$
+\leq 1 + \ln T$
 \end{theorem}
 \end{frame}
 
@@ -386,9 +388,9 @@ Using the fact that FTL is $x^*_t = \frac{1}{t-1} \sum_{i=1}^{t-1} y_i$ \\
 one can show that $x_{t+1}^*-y_t = \frac{t-1}{t} (x_t^* - y_t)$\\
 and therefor that $(x_t^*-y_t)^2 - (x_{t+1}^*-y_t)^2 = \frac{1}{t} (x_t^* - y_t)^2$\\
 %and that $(x_t^*-y_t)^2 - (x_{t+1}^*-y_t)^2 \leq \frac{1}{t} (x_t^* - y_t)^2$
-From the fact that $-1 \leq x_t^*,y_t \leq 1$ we get that $(x_t^*-y_t)^2\leq 4$.\\
+From the fact that $0\leq x_t^*,y_t \leq 1$ we get that $(x_t^*-y_t)^2\leq 1$.\\
 From which we obtain $\sum_{t=1}^T ((x_t^* - y_t)^2-(x_{t+1}^* - y_t)^2) \leq
-4 \sum_{t=1}^{T} \frac{1}{t}$\\
+\sum_{t=1}^{T} \frac{1}{t}$\\
 Combing the last statement with the Lemma concludes the proof of the theorem.
 
 \end{frame}
