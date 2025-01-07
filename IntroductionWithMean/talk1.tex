@@ -1,7 +1,7 @@
 % $Header: /data/cvsroot/Courses/OnlineLearning/talks/talk1/talk1.tex,v 1.5 2006/01/11 03:23:33 yfreund Exp $
 
-\documentclass{beamer}
-%\documentclass[handout]{beamer}
+%\documentclass{beamer}
+\documentclass[handout]{beamer}
 % This file is a solution template for:
 
 % - Giving a talk on some subject.
@@ -109,68 +109,11 @@
     https://github.com/yoavfreund/2025-online-learning
   \item
     \includegraphics[height=3cm]{QRcode.png}
+  \item Instructor: Yoav Freund: yfreund@ucsd.edu
+  \item TA: Parsa Mirtaheri: smirtaheri@ucsd.edu
+  \item Office Hours: TBD
   \end{itemize}
 \end{frame}
-\begin{small}
-\begin{frame}
-  \frametitle{What the class will cover}
-  \begin{columns}
-    \begin{column}[t]{3.5cm}
-      \begin{itemize}
-      \item Introduction (with Mean)
-      \item Exponential weights algorithms
-        \begin{itemize}
-        \item Hedge
-        \item Mixability
-        \item Bregman Divergences
-        \end{itemize}
-      \end{itemize}
-  \end{column}
-  \begin{column}[t]{4.5cm}
-    \begin{itemize}
-    \item Online learning and Coding
-      \begin{itemize}
-      \item Universal Coding
-      \item Continuous Experts
-      \item The Context Algorithm
-      \end{itemize}
-    \item Multiple arm Bandit
-    \item Tracking
-      \begin{itemize}
-      \item Tracking 
-      \item Tracking within a small set of experts
-      \end{itemize}
-    \end{itemize}
-  \end{column}
-  \begin{column}[t]{4cm}
-    \begin{itemize}
-    \item Online learning and game theory
-      \begin{itemize}
-      \item Reepeated Matrix Games
-      \item Internal regret.
-      \item Drifting games
-      \item NormalHedge
-      \end{itemize}
-      
-    \item Online Convex Optimizatio
-      \begin{itemize}
-      \item Follow the regularized leader
-      \item Dual Descent
-      \item AdaGrad
-      \end{itemize}
-    \end{itemize}
-  \end{column}
-\end{columns}
-\iffalse
-    1.Introduction			15.Specialists			7.Bregman			Untitled.ipynb
-10.DualDescent			2.Hedge				8.tracking			XX.OCO
-11.DriftingGames		3.UniversalCodingBayes		9.trackingASmallSetOfExpert	macros.tex
-12.RepeatedMatrix		4.ContinExperts			HW				plan.md
-13.InternalRegret		5.ContextAlg					texput.log
-14.MultipleArmBandit		6.mixable		
-\fi
-  \end{frame}
-\end{small}
 
   \begin{frame}
     \frametitle{HW /  Evaluation}
@@ -504,6 +447,66 @@ Subtracting \(x^*_t\) from both sides, we get \(x_t - x^*_t = \frac{x^*_t - y_t}
      \end{eqnarray*}
 \end{frame}
 
+\begin{small}
+\begin{frame}
+  \frametitle{What the class will cover}
+  \begin{columns}
+    \begin{column}[t]{3.5cm}
+      \begin{itemize}
+      \item Introduction (with Mean)
+      \item Exponential weights algorithms
+        \begin{itemize}
+        \item Hedge
+        \item Mixability
+        \item Bregman Divergences
+        \end{itemize}
+      \end{itemize}
+  \end{column}
+  \begin{column}[t]{4.5cm}
+    \begin{itemize}
+    \item Online learning and Coding
+      \begin{itemize}
+      \item Universal Coding
+      \item Continuous Experts
+      \item The Context Algorithm
+      \end{itemize}
+    \item Multiple arm Bandit
+    \item Tracking
+      \begin{itemize}
+      \item Tracking 
+      \item Tracking within a small set of experts
+      \end{itemize}
+    \end{itemize}
+  \end{column}
+  \begin{column}[t]{4cm}
+    \begin{itemize}
+    \item Online learning and game theory
+      \begin{itemize}
+      \item Reepeated Matrix Games
+      \item Internal regret.
+      \item Drifting games
+      \item NormalHedge
+      \end{itemize}
+      
+    \item Online Convex Optimizatio
+      \begin{itemize}
+      \item Follow the regularized leader
+      \item Dual Descent
+      \item AdaGrad
+      \end{itemize}
+    \end{itemize}
+  \end{column}
+\end{columns}
+\iffalse
+    1.Introduction			15.Specialists			7.Bregman			Untitled.ipynb
+10.DualDescent			2.Hedge				8.tracking			XX.OCO
+11.DriftingGames		3.UniversalCodingBayes		9.trackingASmallSetOfExpert	macros.tex
+12.RepeatedMatrix		4.ContinExperts			HW				plan.md
+13.InternalRegret		5.ContextAlg					texput.log
+14.MultipleArmBandit		6.mixable		
+\fi
+  \end{frame}
+\end{small}
 
 \end{document}
 

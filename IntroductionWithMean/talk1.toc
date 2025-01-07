@@ -1,5 +1,5 @@
-\babel@toc {english}{}\relax 
+\babel@toc {english}{}
 \beamer@sectionintoc {1}{About this Course}{3}{0}{1}
-\beamer@sectionintoc {2}{Halving Algorithm}{33}{0}{2}
-\beamer@sectionintoc {3}{Perceptron}{56}{0}{3}
-\beamer@sectionintoc {4}{Estimating the mean}{99}{0}{4}
+\beamer@sectionintoc {2}{Halving Algorithm}{5}{0}{2}
+\beamer@sectionintoc {3}{Perceptron}{7}{0}{3}
+\beamer@sectionintoc {4}{Estimating the mean}{15}{0}{4}
