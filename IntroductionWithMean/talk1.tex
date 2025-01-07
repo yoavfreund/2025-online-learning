@@ -390,7 +390,7 @@ Optimal prediction $x_t = \mu$
 \begin{itemize}
 \item Make no assumption about how the sequence is generated.
 \item The best constant value for $x$ in hind-sight:\\
-  $$x^*_T \doteq \argmin_{x \in [0,1]} \sum_{t=1}^T (x-y_t)^2,\;\; x^*_t=\frac{1}{T}
+  $$x^*_T \doteq \argmin_{x \in [0,1]} \sum_{t=1}^T (x-y_t)^2,\;\; x^*_T=\frac{1}{T}
   \sum_{t=1}^T y_t$$ 
 \item Regret: the loss over and above the loss of $x^*_T$. {\bf for the
     worst-case sequence}
@@ -405,7 +405,7 @@ Optimal prediction $x_t = \mu$
 \begin{itemize}
 \item Idea: set $x_{t+1}$ to be the best constant prediction on $y_1,\ldots,y_t$
 \item 
-  $x_{t+1} = \argmin_{x \in [0,1]} \sum_{i=1}^t (x-y_i)^2$ 
+  $x_{t+1} = \argmin_{x \in [0,1]} \sum_{i=1}^t (x-y_i)^2 = x^*_t$ 
 \item We will prove that the regret of this algorithm is upper bound
   by $4+4 \ln T$
 \end{itemize}
@@ -444,22 +444,36 @@ $ \regret_T = \sum_{t=1}^T (x_t-y_t)^2 - \sum_{t=1}^T (x^*_T-y_t)^2
 \end{theorem}
 \end{frame}
 
-\begin{tiny}
 \begin{frame}
 %  \frametitle{Lemma 1}
   \begin{lemma}
-    Let $x_1^*, x_2^*,\ldots$ be the squence of predictions produced by FTL. Then for all $u \in R$ (In particular, for $u=x_{T+1}^*$) :
+    Let $x_1, x_2,\ldots$ be the squence of predictions produced by FTL. Then for all $u \in R$ (In particular, for $u=x^*_T$) :
     \begin{eqnarray*}
-      \regret_T(u) &=& \sum_{t=1}^T \left( (x_t^*-y_t)^2 - (u - y_t)^2\right)\\
-      &\leq& \sum_{t=1}^T \left( (x_t^*-y_t)^2 - (x^*_{t+1}- y_t)^2\right)
+%      \regret_T(u) &=& \sum_{t=1}^T \left( (x_t-y_t)^2 - (u - y_t)^2\right)\\
+ %     &\leq& \sum_{t=1}^T \left( (x_t-y_t)^2 - (x^*_{t+1}- y_t)^2\right)
+	\sum_{t=1}^T \left( (x_t-y_t)^2 - (u - y_t)^2\right) \leq  \sum_{t=1}^T \left( (x_t-y_t)^2 - (x^*_t- y_t)^2\right)
     \end{eqnarray*}
   \end{lemma}
   {\bf proof sketch:}\\
-  Subtract $\sum_{t=1}^T (x_t^*-y_t)^2$ from both sides to get an equivalent claim:
+  Subtract $\sum_{t=1}^T (x_t-y_t)^2$ from both sides to get an equivalent claim:
   \[
-    \sum_{t=1}^T (x^*_{t+1}- y_t^*)^2 \leq \sum_{t=1}^T (u - y_t)^2
+    \sum_{t=1}^T (x^*_t- y_t)^2 \leq \sum_{t=1}^T (u - y_t)^2
   \]
 The inequality is proven by induction on $T$.
+\end{frame}
+
+\begin{frame}
+\begin{proof}
+\begin{itemize}
+\item Base case ($T=1$): $(x^*_1 - y_1)^2 = (y_1 - y_1)^2 = 0 \le (u-y_1)^2$
+\item Induction hypothesis: $\sum_{t=1}^{T-1}(x^*_t - y_t)^2 \leq \sum_{t=1}^{T-1} (u - y_t)^2$
+\item Induction step:
+    \begin{eqnarray*}
+    	\sum_{t=1}^{T-1}(x^*_t - y_t)^2 \leq \sum_{t=1}^{T-1}(x^*_{T-1} - y_t)^2 \leq \sum_{t=1}^{T-1}(x^*_{T} - y_t)^2
+    \end{eqnarray*}
+    Adding $(x^*_T - y_T)^2$ to both sides gives: $$\sum_{t=1}^{T}(x^*_t - y_t)^2 \leq \sum_{t=1}^{T} (x^*_{T} - y_t)^2  \leq \sum_{t=1}^{T} (u - y_t)^2$$
+\end{itemize}
+\end{proof}
 \end{frame}
 
 \begin{frame}
@@ -474,7 +488,6 @@ From which we obtain $\sum_{t=1}^T ((x_t^* - y_t)^2-(x_{t+1}^* - y_t)^2) \leq
 Combing the last statement with the Lemma concludes the proof of the theorem.
 
 \end{frame}
-\end{tiny}
 
 
 \end{document}
