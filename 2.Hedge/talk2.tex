@@ -43,6 +43,8 @@
 
 \author[Freund] % (optional, use only with lots of authors)
 {Yoav Freund}
+\date{}
+
 % - Give the names in the same order as the appear in the paper.
 % - Use the \inst{?} command only if the authors have different
 %   affiliation.
@@ -95,8 +97,12 @@
 \begin{frame}
   \titlepage
   \begin{small}
-    slides in \B{Hedge/talk2.handout.pdf} on:\\ \B{\tt
-      https://github.com/yoavfreund/2020-Online-Learning}
+    \begin{itemize}
+    \item slides in \B{\tt https://github.com/yoavfreund/2025-online-learning}\\
+      \B{\tt /blob/main/2.Hedge/talk2.handout.pdf}
+    \item Paper: Freund, Schapire "A decision-theoretic generalization of on-line learning and an application to boosting''
+    \item In PLG: pages 12-25
+    \end{itemize}
   \end{small}
 \end{frame}
 
@@ -107,12 +113,12 @@
 \end{frame}
 
 
-\section{\ouralg Algorithm}
-
+\section{Decision Theoretic Online learning}
 \begin{frame}
 \frametitle{The hedging problem}
 
 \begin{itemize}
+\item AKA ``Decision theoretic Online Learning'' (DTOL)
 \item \R{$N$} possible actions 
 
 \item At each time step \R{$t=1,2,\ldots,T$}:
@@ -161,6 +167,45 @@ minimal total loss of repeating one action.
 \end{itemize}
 \end{frame}
 
+\subsection{Failure of Follow the leader}
+
+\begin{frame}
+\frametitle{Failure of follow the leader}
+\begin{columns} 
+\column[t]{2.5cm}
+\onslide<1->\color<1>{red} 
+~ \\ expert1 loss\\ expert cumul\\~\\ expert2 loss\\ expert2 cumul  ~\\
+~\\ FTL cumul\\
+%\uncovered{3} outcome 
+
+\column[t]{1cm}
+\onslide<2->\color<2>{red} $t=1$   \\ 0.5\\ 0.5 \\~\\ 0.0  \\ 0.0 \\~\\~\\0.0\\
+ 		   			   
+\column[t]{1cm}	   		   
+\onslide<3->\color<3>{red} $t=2$   \\ 0.0 \\ 0.5 \\~\\ 1.0  \\ 1.0 \\~\\~\\1.0\\
+
+\column[t]{1cm}
+\onslide<4->\color<4>{red} $t=3$ \\ 1.0 \\ 1.5 \\~\\ 0.0 \\ 1.0 \\~\\~\\2.0\\
+		    			     
+\column[t]{1cm}	   		   
+\onslide<5->\color<5>{red} $t=4$   \\ 0.0 \\ 1.5 \\~\\ 1.0  \\ 2.0 \\~\\~\\3.0\\
+
+\column[t]{1cm}
+\onslide<6->\color<6>{red} $t=5$ \\ 1.0 \\ 2.5 \\~\\ 0.0 \\ 2.0 \\~\\~\\4.0\\
+		    			     
+\column[t]{1cm}	   		   
+\onslide<7->\color<7>{red} $t=6$   \\ 0.0 \\ 2.5 \\~\\ 1.0  \\ 3.0 \\~\\~\\5.0\\
+
+\column[t]{1cm}
+\onslide<8->\color<8>{red} $t=7$ \\ 1.0 \\ 3.5 \\~\\ 0.0 \\ 3.0 \\~\\~\\6.0\\
+		    			     
+
+\end{columns} 
+\end{frame}
+
+
+\section{\ouralg Algorithm}
+
 \begin{frame}
 \frametitle{The \ouralg Algorithm}
 Consider action \R{$i$} at time \R{$t$}
@@ -198,8 +243,6 @@ Note freedom to choose initial weight (\R{$\wt{1}{i}$})
 \section{Bound on total loss}
 \begin{frame}
 \frametitle{Bound on the loss of \ouralg Algorithm}
-\begin{itemize}
-\item
 \begin{theorem}[main theorem] \label{thm:basic-bnd}
 For any sequence of loss vectors \R{$\costvec{1},\ldots,\costvec{\iter}$},
 and for any \R{$i\in\{1,\ldots,N\}$}, we have
@@ -214,6 +257,8 @@ and for any \R{$i\in\{1,\ldots,N\}$}, we have
 %% 		      {1-e^{-eta}}.
 %% \end{equation}
 \end{theorem}
+\begin{itemize}
+\item Note effect of the limits \R{$\eta \to 0$} and \R{$\eta \to \infty$}
 \item
 \R{Proof}: by combining upper and lower bounds on \R{$\sumwts{\iter+1}$}
 \end{itemize}
@@ -385,7 +430,7 @@ On the other hand \R{$\min_i \lossi{i} \approx T/2 - \sqrt{2T \ln N}$}
 The difference \R{$\lossS - \min_i \lossi{i}$} is due to unlearnable
 random fluctuations!
 \item
-Detailed proof quite involved. See games paper.
+Detailed proof quite involved. See section 3.7 in PLG.
 \end{itemize}
 \end{frame}
 
@@ -426,15 +471,18 @@ A trivial random data, in which there is nothing to be learned forces
 \frametitle{Homework}
 \begin{itemize}
 \item
-  Due thursday January 16, 2020
+  Due thursday January 16, 2025
 \item
-  Turn in a latex-generated PDF printout.
+  Upload to gradescope, entry code: EV8RWE
 \item
-  From Prediction, Learning and Games by Cesa-Bianchi and Lugosi.
+  From PLG.
 \item
 \includegraphics[width=4in]{HW1.png}
 \end{itemize}
 \end{frame}
+
+
+\end{document}
 
 \section{Repeated Matrix Games}
 
@@ -496,6 +544,8 @@ In words: for \B{mixed} strategies, choosing second gives no advantage.
 \end{itemize}
 \end{frame}
 
-\end{document}
 
-
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
