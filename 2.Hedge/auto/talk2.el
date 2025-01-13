@@ -1,8 +1,6 @@
 (TeX-add-style-hook
  "talk2"
  (lambda ()
-   (TeX-add-to-alist 'LaTeX-provided-class-options
-                     '(("beamer" "handout")))
    (TeX-add-to-alist 'LaTeX-provided-package-options
                      '(("babel" "english") ("inputenc" "latin1") ("fontenc" "T1")))
    (add-to-list 'LaTeX-verbatim-environments-local "semiverbatim")
