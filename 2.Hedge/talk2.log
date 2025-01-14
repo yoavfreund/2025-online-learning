@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  13 JAN 2025 15:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  14 JAN 2025 12:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1260,17 +1260,12 @@ Package pdftex.def Info: figures/beta-bounds.jpg  used on input line 366.
 ] [70
 
 ]
-<figures/ChoosingEta.png, id=2180, 866.23625pt x 476.78125pt>
+<figures/ChoosingEta.png, id=2180, 866.23625pt x 492.84125pt>
 File: figures/ChoosingEta.png Graphic file (type png)
 <use figures/ChoosingEta.png>
 Package pdftex.def Info: figures/ChoosingEta.png  used on input line 389.
-(pdftex.def)             Requested size: 310.16617pt x 170.71652pt.
-
-Overfull \hbox (2.8763pt too wide) in paragraph at lines 389--389
-[][]  
- []
-
-[71
+(pdftex.def)             Requested size: 300.05464pt x 170.71652pt.
+ [71
 
  <./figures/ChoosingEta.png>] [72
 
@@ -1288,8 +1283,7 @@ Overfull \hbox (2.8763pt too wide) in paragraph at lines 389--389
 
 ] [79
 
-]
-[80
+] [80
 
 ] [81
 
@@ -1299,7 +1293,8 @@ Overfull \hbox (2.8763pt too wide) in paragraph at lines 389--389
 
 ] [84
 
-] [85
+]
+[85
 
 ] [86
 
@@ -1398,7 +1393,7 @@ e/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive
 mf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2020/texmf-dist
 /fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/
 type1/urw/helvetic/uhvro8a.pfb>
-Output written on talk2.pdf (91 pages, 491848 bytes).
+Output written on talk2.pdf (91 pages, 503223 bytes).
 PDF statistics:
  2877 PDF objects out of 2984 (max. 8388607)
  2609 compressed objects within 27 object streams
