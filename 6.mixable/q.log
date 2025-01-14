@@ -1,27 +1,24 @@
-This is pdfeTeX, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=latex 2005.12.28)  1 FEB 2006 20:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  13 JAN 2025 16:46
 entering extended mode
-**demo.tex
-(/sw/share/texmf-dist/tex/latex/tools/q.tex
-LaTeX2e <2003/12/01>
-Babel <v3.8d> and hyphenation patterns for american, french, german, ngerman, b
-ahasa, basque, bulgarian, catalan, croatian, czech, danish, dutch, esperanto, e
-stonian, finnish, greek, icelandic, irish, italian, latin, magyar, norsk, polis
-h, portuges, romanian, russian, serbian, slovak, slovene, spanish, swedish, tur
-kish, ukrainian, nohyphenation, loaded.
-File ignored
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**talk2.tex
+(/usr/local/texlive/2020/texmf-dist/tex/latex/tools/q.tex
+LaTeX2e <2020-02-02> patch level 5
+L3 programming layer <2020-03-06> File ignored
 )
 ! Emergency stop.
-<*> demo.tex
-            
+<*> talk2.tex
+             
 *** (job aborted, no legal \end found)
 
  
 Here is how much of TeX's memory you used:
- 7 strings out of 94501
- 211 string characters out of 1176136
- 48348 words of memory out of 1000000
- 3273 multiletter control sequences out of 10000+50000
- 3640 words of font info for 14 fonts, out of 500000 for 2000
- 580 hyphenation exceptions out of 1000
- 5i,0n,1p,88b,8s stack positions out of 1500i,500n,5000p,200000b,5000s
-No pages of output.
+ 18 strings out of 480608
+ 514 string characters out of 5903631
+ 239610 words of memory out of 5000000
+ 16009 multiletter control sequences out of 15000+600000
+ 532338 words of font info for 24 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 12i,0n,15p,89b,8s stack positions out of 5000i,500n,10000p,200000b,80000s
+!  ==> Fatal error occurred, no output PDF file produced!

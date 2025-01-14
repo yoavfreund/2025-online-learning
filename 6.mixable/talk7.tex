@@ -99,28 +99,24 @@ Section 3.5 in ``Prediction, Learning and Games''
   % You might wish to add the option [pausesections]
 \end{frame}
 
-\section{Log Loss and Absolute loss}
-
-\begin{frame}
-\frametitle{Binary log-loss}
+\begin{frame}{What we are going to investigate}
 \begin{itemize}
-\item Prediction: \R{$p \in [0,1]$} outcome \R{$x \in \{0,1\}$}
-\item Loss: \R{$\lambda(p,x) = -x \log p - (1-x) \log (1-p)$}
-\item \R{$N$} experts, expert \R{$i$} at time \R{$t$} outputs \R{$q_i^t \in [0,1]$}
-\item Cumulative loss of expert \R{$i$} at time \R{$t$}: \R{$L^t_i = \sum_{s=1}^t \lambda(q_i^s,x^s)$}
-\item Experts algorithm (Bayes Algorithm):
+\item Different loss functions and their regret bounds.
+\item Vovk's Meta Algorithm and it's analysis
+\item Instead of associating a loss with an action, we have experts
+  that make predictions, and use the following protocol
   \begin{itemize}
-    \item Assign weights: \R{$w_i^t = \frac{1}{N} \exp(-L_i^{t-1})$}
-    \item Master prediction:
-    \R{$q_M^t = \frac{\sum_{i=1}^N q_i^t w_i^t}{\sum_{i=1}^N w_i^t}$}
+  \item Each expert makes a prediction
+  \item The algorithm makes a prediction
+  \item nature chooses an outcome
+  \item each expert, and the algorithm suffer a loss that is a
+    function of the prediction and the outcome.
   \end{itemize}
-\item Regret Bound:
-  \R{\[
-    L_A^T \leq \min_i L_i^T + \ln N
-    \]
-  }
+  \item The goal is to minimize the regret.
 \end{itemize}
 \end{frame}
+
+\section{Log Loss and Absolute loss}
 
 \begin{frame}
 \frametitle{Absolute loss}
@@ -145,10 +141,55 @@ Section 3.5 in ``Prediction, Learning and Games''
     \R{\[
         L_A \leq \min_i \lossi{i} + \sqrt{2 T \ln N} + \ln N
       \]}
+    \item Is there an advantage to the algorithm relative to DTOL?
   \end{itemize}
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{Binary log-loss}
+\begin{itemize}
+\item Prediction: \R{$p \in [0,1]$} outcome \R{$x \in \{0,1\}$}
+\item Loss: \R{$\lambda(p,x) = -x \log p - (1-x) \log (1-p)$}
+\item \R{$N$} experts, expert \R{$i$} at time \R{$t$} outputs \R{$q_i^t \in [0,1]$}
+\item Cumulative loss of expert \R{$i$} at time \R{$t$}: \R{$L^t_i = \sum_{s=1}^t \lambda(q_i^s,x^s)$}
+\item Experts algorithm:
+  \begin{itemize}
+    \item Assign weights: \R{$w_i^t = \frac{1}{N} \exp(-L_i^{t-1})$}
+    \item Master prediction:
+    \R{$q_M^t = \frac{\sum_{i=1}^N q_i^t w_i^t}{\sum_{i=1}^N w_i^t}$}
+  \end{itemize}
+\item Regret Bound:
+  \R{\[
+    L_A^T \leq \min_i L_i^T + \ln N
+    \]
+  }
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Exponential Weights algorithm for log loss = Bayes Algorithm}
+\begin{itemize}
+\item Prediction: \R{$p \in [0,1]$} outcome \R{$x \in \{0,1\}$}
+\item Loss =  \R{$\lambda(p,x) = -x \log p - (1-x) \log (1-p)$}
+\item \R{$N$} distribution models, model \R{$i$} at time \R{$t$} assigns probability
+  \R{$q_i^t(x_i^t) \in [0,1]$} to outcome \R{$x^s$}
+\item Cumulative loss of expert \R{$i$} at time \R{$t$}: \R{$L^t_i = \sum_{s=1}^t \lambda(q_i^s,x^s)$}\\
+  Same as minus log likelihood of model \R{$i$}:
+  \R{$L^t_i  = -\log \prod_{s=1}^{t-1} q_i^s(x^s)$}
+\item algorithm:
+  \begin{itemize}
+  \item Assign weights to experts: \R{$w_i^t = \frac{1}{N} \exp(-L_i^{t-1})$}
+  \item Assign posterior over models= \R{$w_i^t =\frac{1}{N} \prod_{s=1}^{t-1} q_i^s(x_i^s)$}
+    \item prediction:
+      \R{$q_M^t = \frac{\sum_{i=1}^N q_i^t w_i^t}{\sum_{i=1}^N w_i^t}$}
+    \item same as posterior average
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\iffalse
 \begin{frame}
 \frametitle{Two other loss functions over $[0,1]$}
 \begin{itemize}
@@ -158,8 +199,10 @@ Section 3.5 in ``Prediction, Learning and Games''
 \item \B{Hellinger Loss} \R{$\lambda(p,x)=\frac{1}{2} \paren{
 \paren{\sqrt{p} +\sqrt{x}}^2 + 
 \paren{\sqrt{1-p}+\sqrt{1-x}}^2 }$}
+
 \end{itemize}
 \end{frame}
+\fi
 
 \section{The general prediction game}
 
@@ -183,6 +226,7 @@ Nature chooses an outcome \R{$\omega^t \in \Omega$}
 Each expert incurs loss \R{$\elloss{i}{t} = \lambda(\omega^t,\gamma_i^t)$} \\
 The learner incurs loss \R{$\elloss{A}{t} = \lambda(\omega^t,\gamma^t)$}
 \end{enumerate}
+
 \end{frame}
 
 \begin{frame}
@@ -219,7 +263,6 @@ sequences and \B{\em any} sequence of outcomes
 \end{itemize}
 \end{frame}
 
-\section{Analysis for specific loss functions}
 
 \begin{frame}
 \frametitle{Analysis for specific loss functions}
@@ -248,7 +291,12 @@ If \R{$P[\omega_t=1]=q$}, optimal prediction \R{$\gamma^t=q$}
 \item
 \B{No} triangle inequality
 \R{$ \exists p_1,p_2,p_3\;\; \lambda(p_1,p_3) > \lambda(p_1,p_2) + \lambda(p_2,p_3)$}
+\item    \R{\[
+    L_A^T \leq \min_i L_i^T + \ln N
+    \]}
 \end{itemize}
+
+
 \end{frame}
 
 \begin{frame}
@@ -264,7 +312,11 @@ Bounded loss.
 \item
 Defines a metric (symmetric and triangle ineq.)
 \item
-Corresponds to regression.
+  Corresponds to regression.
+  \item  \R{\[
+        L_A^T \leq \min_i L_i^T + \frac{1}{2}\ln N
+      \]}
+
 \end{itemize}
 \end{frame}
 
@@ -287,6 +339,10 @@ Defines a metric.
 \item 
 \R{$\lambda_{\text{hel}}(p,q)  \approx \lambda_{\text{ent}}(p,q)$} when 
 \R{$p \approx q$} and \R{$p,q \in (0,1)$}
+\item    \R{\[
+    L_A^T \leq \min_i L_i^T + \frac{1}{\sqrt{2}}\ln N
+\]}
+
 \end{itemize}
 \end{frame}
 
@@ -541,3 +597,8 @@ $}
 \end{document}
 
 
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
