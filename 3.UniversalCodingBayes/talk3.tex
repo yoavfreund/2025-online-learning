@@ -1,7 +1,7 @@
 % $Header: /data/cvsroot/Courses/OnlineLearning/talks/talk3/talk3.tex,v 1.2 2006/01/18 02:26:18 yfreund Exp $
 
-%\documentclass{beamer}
-\documentclass[handout]{beamer}
+\documentclass{beamer}
+%\documentclass[handout]{beamer}
 % This file is a solution template for:
 
 % - Giving a talk on some subject.
@@ -219,6 +219,13 @@ To decode use the same prediction algorithm
 \end{columns}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Arithmetic coding  (coding/decoding)}
+\includegraphics[height=6cm]{figures/codeDecode/Slide1.png}
+
+\end{frame}
+
+
 %\fi %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{The performance of arithmetic coding}
@@ -341,12 +348,18 @@ most likely outcome.
 \section{universal coding}
 
 \begin{frame}
-\frametitle{``Universal'' coding}
+\frametitle{`Universal coding}
 \begin{itemize}
 \item Suppose there are \R{$N$} alternative predictors / experts.
-\item We would like to code almost as well as the best predictor.
-\item We would like to make almost as much money as the best expert in hind-site.
+\item We would like to code almost as well as the best predictor in hindsight.
+\item In horse race: We would like to make almost as much money as the best expert in hind-site.
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Universal arithmetic coding}
+\includegraphics[height=6cm]{figures/codeDecode/Slide2.png}
+
 \end{frame}
 
 \subsection{Two part codes}
