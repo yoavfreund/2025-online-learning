@@ -85,6 +85,8 @@
 
 \begin{frame}
   \titlepage
+  Freund: Predicting a binary Sequence almost as well the the optimal biased coin.\\
+  Risannen: Fisher Information and Stochastic Complexity.
 \end{frame}
 
 \begin{frame}
@@ -93,28 +95,19 @@
   % You might wish to add the option [pausesections]
 \end{frame}
 
-\section{Dates}
-
-\begin{frame}
-  \frametitle{Dates}
-  \begin{itemize}
-  \item \B{Algorithmic Learning Theory (ALT)} in San Diego, February
-    8-11, 2020.
-  \item No Class On Feb 11 (Tue)
-  \item Midterm on Feb 13 (Thu)
-  \end{itemize}
-\end{frame}
-
 \section{Review}
 
 \begin{frame}
-  \frametitle{Codes = Probabilities}
+  \frametitle{Review}
+  \end{frame}
+
+\begin{frame}
+  \frametitle{Probabilities and codes}
   \begin{itemize}
   \item \R{$M_1,\ldots,M_n$} - possible messages
   \item \R{$P(M_i)$} - probability of message \R{$i$}
   \item Arithmetic coding defines a code of length \R{$\lceil -\log_2
       P(M_i) \rceil$} for message \R{$i$}
-  \item Conversely: a codebook defines a distribution.
     \end{itemize}
 \end{frame}
 
@@ -172,6 +165,11 @@ L_A^T & = & -\log W^{T+1}
 \section{The Universal prediction machine}
 
 \begin{frame}
+  \frametitle{The Universal prediction machine}
+  \end{frame}
+
+
+\begin{frame}
 \frametitle{Standardizing online prediction algorithms}
 \begin{itemize}
 \item Fix a universal Turing machine \R{$U$}.
@@ -219,12 +217,14 @@ the unused algorithms predict \R{$1/2$} (insuring a loss of \R{$1$})
 \R{$t$}th prediction in time smaller than \R{$2^t$}
 \item When \R{$t \leq |\vb(E)|$} the algorithm is not used and thus it's loss is \R{$1$}
 \item We get that the loss of the Universal algorithm is at most 
-\R{$2|\vb(E)| + \log_2 |\vb(E)| + L_E$}
-\item More careful analysis can reduce \R{$2|\vb(E)| + \log_2 |\vb(E)|$} to \R{$|\vb(E)|$}
-\item Code length is arbitrarily close to the Kolmogorov Complexity of the sequence.
-\item Ridiculously bad running time.
+\R{$|\vb(E)| + \log_2 |\vb(E)| + L_E$}
+\item More careful analysis can reduce to
+\R{$|\vb(E)| + L_E$}
+\item How good is that?
+  \item What is the two part code?
 \end{itemize}
 \end{frame}
+
 
 \begin{frame}
 \frametitle{Bayes coding is better than two part codes}
@@ -255,8 +255,6 @@ but enables online compression
 \item Can we still get a meaningful bound?
 \end{itemize}
 \end{frame}
-
-\section{Bayes using Jeffrey's prior}
 
 \begin{frame}
 \frametitle{Bayes Algorithm for biased coins}
@@ -406,15 +404,15 @@ D_{KL} (\btheta || \theta)
 The second derivative
 \R{\[
 \left. {d^2 \over d\theta^2} \right|_{\theta=\btheta} 
-D_{KL} (\btheta || \theta) = \btheta (1-\btheta)
+D_{KL} (\btheta || \theta) = \frac{1}{\btheta (1-\btheta)}
 \]}
-Is called the \B{empirical Fisher information}
+Is called the \B{Fisher information}
 \item
 The optimal prior:
 \R{\[
 \dweight{\btheta}{*} = \frac{1}{\pi \sqrt{\btheta (1-\btheta)}}
 \]}
-Known in general as \B{Jeffrey's prior}.  And, in this case, 
+Known in as \B{Jeffrey's prior}.  And, in this case, 
 the \B{Dirichlet-$(1/2,1/2)$ prior}.
 \end{itemize}
 \end{frame}
@@ -478,10 +476,13 @@ Suffers larger regret when \R{$\btheta$} is far from \R{$1/2$}
 \end{itemize}
 \end{frame}
 
+ \begin{frame}
+\frametitle{Comparing the priors}
+\includegraphics[height=6cm]{figures/dirichlet.png}
+\end{frame}
+
 %\section{Priors for finite $t$}
-
-\section{Shtarkov lower bound for finite horizon}
-
+\subsection{Lower Bound}
 \begin{frame}
 \frametitle{Shtarkov Lower bound}
 \begin{itemize}
@@ -498,6 +499,10 @@ L_*^T - \min_\theta L_\theta^T \geq \frac{1}{2} \ln(T+1) + \frac{1}{2}
 \section{Generalization to larger sets of distributions}
 
 \begin{frame}
+  \frametitle{Generalization to larger sets of distributions}
+  \end{frame}
+
+\begin{frame}
 \frametitle{Multinomial Distributions}
 \begin{itemize}
 \item For a distribution over \R{$k$} elements (Multinomial) \B{[Xie and Barron]}
@@ -512,25 +517,82 @@ The constant C is optimal.
 \end{itemize}
 \end{frame}
 
+
+
+\subsection{Fisher Information}
 \begin{frame}
-\frametitle{Exponential Distributions}
-\begin{itemize}
-\item For any set of distributions from the exponential family
-  defined by \R{$k$} parameters (Some technical conditions on closure
-  of set??) \B{[Rissanen??]}
-\item Use Bayes Algorithm with Jeffrey's prior:
-\R{\[
-\dweight{\btheta}{*} = \frac{1}{Z} 
-\frac{1}{\sqrt{
-\left| \left. {\mathbf H} \paren{D_{KL} (\btheta || \theta) } \right|_{\theta=\btheta} \right|
-}}
+  \frametitle{The Fisher Information Matrix}
+  \begin{itemize}
+    \item \R{\[
+\mathbf{I}(\theta) = \nabla_{\theta'}^2 D_{\text{KL}}(p(x;\theta) \| p(x;\theta')) \bigg|_{\theta'=\theta}
 \]}
-\R{$\mathbf H$} denotes the Hessian.
 \item
-\R{\[\TAloss - \BEloss \leq \frac{k-1}{2}\ln T - \ln Z + o(1)\]}
+\R{\[
+\mathbf{I}(\theta) = 
+\begin{bmatrix}
+\frac{\partial^2}{\partial\theta_1^2} D_{\text{KL}} & \frac{\partial^2}{\partial\theta_1\partial\theta_2} D_{\text{KL}} & \cdots & \frac{\partial^2}{\partial\theta_1\partial\theta_n} D_{\text{KL}} \\
+\frac{\partial^2}{\partial\theta_2\partial\theta_1} D_{\text{KL}} & \frac{\partial^2}{\partial\theta_2^2} D_{\text{KL}} & \cdots & \frac{\partial^2}{\partial\theta_2\partial\theta_n} D_{\text{KL}} \\
+\vdots & \vdots & \ddots & \vdots \\
+\frac{\partial^2}{\partial\theta_n\partial\theta_1} D_{\text{KL}} & \frac{\partial^2}{\partial\theta_n\partial\theta_2} D_{\text{KL}} & \cdots & \frac{\partial^2}{\partial\theta_n^2} D_{\text{KL}}
+\end{bmatrix}_{\theta'=\theta}
+\]
+}
+\item Jeffrey's prior
+\R{\[
+\pi_J(\boldsymbol{\theta}) \propto \sqrt{\det(\mathbf{I}(\boldsymbol{\theta}))}
+\]}
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Properties of Jeffrey's prior}
+  \begin{itemize}
+  \item Known as ``least informative prior'' in Bayesian statistics.
+  \item Min/max: Equalizes the risk for all parameter setting
+  \item invariant under re-parametrization.
+  \item Often improper (integral = $\infty$).
+  \end{itemize}
+
+\end{frame}
+
+\subsection{Exponential Families of Distribution}
+
+\begin{frame}
+\frametitle{Exponential Distributions}
+\begin{itemize}
+\item The canonical form of an exponential distribution is
+  \R{\[ p(x | \theta) =  \exp \left[ \eta(\theta) \cdot T(x)\right]
+    \]}
+  for some fixed functions \R{$\eta,T$}
+\item \B{Multinomial:} \R{$p(i | <p_1,\ldots,p_k>) = p_i$\\
+  $\eta(\theta) = <\log p_1,\ldots,\log p_k>$\\
+  $T: i \to (0,\ldots,1,0,\ldots,0)$}
+\item \B{Normal}: \R{$p(y|\mu,\sigma) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\left( \frac{(y-\mu)^2}{2 \sigma^2} \right)  $}
+  \R{$\eta(\mu,\sigma^2)=\left[\frac{\mu^2}{2\sigma^2}-\frac{1}{2}\log 2 \pi \sigma^2,\frac{\mu}{\sigma^2},-\frac{1}{2\sigma^2} \right] $}\\
+  \R{$T(y)=(1,y,y^2)$}
+\item \B{Many more:} \R{1D}: Poisson, Exponential, Gamma ... \R{Multi-Variate:} Gaussian, Dirichlet, Multivariate t-distribution
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Online learning for Exponential Families}
+\begin{itemize}
+\item For any set of distributions from the exponential family
+  defined by \R{$k$} parameters, where the observed values come from a bounded set.
+\item Use Bayes Algorithm with Jeffrey's prior:
+\R{\[
+\dweight{\theta}{*} = \frac{1}{Z} 
+\sqrt{
+\mbox{det}  \left( I(\theta)\right)}
+\]}
+
+\item
+  \R{\[\TAloss - \BEloss \leq \frac{k-1}{2}\ln T - \ln Z + o(1)\]}
+  
+\end{itemize}
+\end{frame}
+
+\iffalse
 \begin{frame}
 \frametitle{General Distributions}
 \begin{itemize}
@@ -551,13 +613,14 @@ N(1/\epsilon) = O\paren{e^{\epsilon^{-\alpha}}}
 For all \R{$\alpha \leq 5/2$}.
 \end{itemize}
 \end{frame}
+\fi
 
 \begin{frame}
 \frametitle{next Class}
 \begin{itemize}
 \item Variable-length markov models - a set of distributions with
   increasing number of parameters.
-\item THe context algorithm: An efficient implementation of the Bayes
+\item The context algorithm: An efficient implementation of the Bayes
   algorithm which achieves close-to-optimal worst case bounds.
 \end{itemize}
 \end{frame}
@@ -575,3 +638,8 @@ For all \R{$\alpha \leq 5/2$}.
 \end{document}
 
 
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
