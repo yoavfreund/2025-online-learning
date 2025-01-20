@@ -86,6 +86,10 @@
 
 \begin{frame}
   \titlepage
+\begin{itemize}
+\item  Willems, Frans MJ, Yuri M. Shtarkov, and Tjalling J. Tjalkens. "The context-tree weighting method: Basic properties." (1995)  \\
+\item  Willems, Frans MJ, Ali Nowbakht, and Paul AJ Volf. "Maximum a posteriori probability tree models." (2002)
+\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -273,7 +277,6 @@ L_A^T & = & -\log W^{T+1}
 
 \section{Efficient Implementation}
 
-\iffalse
 \begin{frame}
 \frametitle{Efficient implementation}
 \begin{itemize}
@@ -282,7 +285,6 @@ L_A^T & = & -\log W^{T+1}
 \item \B{Second idea:} Compute the average over the prior efficiently.
 \end{itemize}
 \end{frame}
-\fi
 
 
 \begin{frame}
@@ -301,7 +303,7 @@ L_A^T & = & -\log W^{T+1}
 \end{frame}
 
 % computing the posterior takes linear time because we can use the
-% random process definition.
+% random process definition.`
 \begin{frame}
 \frametitle{Efficient averaging over the prior (observations)}
 \begin{itemize}
@@ -317,71 +319,100 @@ L_A^T & = & -\log W^{T+1}
 \begin{frame}
 \frametitle{Efficient averaging over the prior (procedure)}
 \begin{itemize}
-\item This is not the method used in the original paper, it appears in
-  a later paper by \em{Willems, Tjalkens and Ignatenko}. Available on
-  github.
+\item This is not the method used in the original paper, it appears in\\
+  ~\\
+  Willems, Frans MJ, Ali Nowbakht, and Paul AJ Volf. "Maximum a posteriori probability tree models." (2002)
+
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Definitions}
 \begin{itemize}
-\item \R{$s$} is a bit sequence corresponding to a node in the
+\item \R{$s$} is the past bit sequence corresponding to a node in the
   tree. The chidren of this node are \R{$0s$} and \R{$1s$}.
-\item The sequence of past bits up to time \R{$t$} is denoted
-  \R{$x_1^{t-1}$}, the \R{$t$}'th bit is denoted \R{$X_t$}
+\item The sequence of past realized bits up to time \R{$t$} is denoted
+  \R{$x_1^{t-1}$}, the \R{$t$}'th bit (RV) is denoted \R{$X_t$}
 \item \R{$s$} determines a subsequence of \R{$x_1^{t-1}$}: the locations
   preceded by the reverse of \R{$s$}.
-\item \R{$a_s(x_{1}^{t-1}), b_s(x_{1}^{t-1})$} count the number of 0's
+\item \R{$P_{\{e,w\}}^s(x_1^{t-1})$} is the probability assigned to the subsequence of \R{$x_1^{t-1}$} associated with the node $s$
+\item \R{
+    \[P_{\{e,w\}}^s(X_t=1|x_1^{t-1}) = \
+      frac{P_{\{e,w\}}^s(x_1^{t-1},X_t=1)}{P_{\{e,w\}}^s(x_1^{t-1})}
+      \]}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The KT predictor}
+  \begin{itemize}
+    \item \R{$a_s(x_{1}^{t-1}), b_s(x_{1}^{t-1})$} count the number of 0's
   and 1's in the subsequence corresponding to \R{$s$}
 \item     The KT estimate associated with node \R{$s$}.
   \R{$$
     P_e^s\paren{X_t=1 | x_1^{t-1}} = \frac{b_s(x_1^{t-1})+1/2}{a_s(x_1^{t-1})+b_s(x_1^{t-1})+1}
           $$}
 \end{itemize}
+
 \end{frame}
 
 \begin{frame}
-\frametitle{Assigning probabilities to complete sequences}
-\begin{itemize}
-\item Using the chain rule, we can use a prediction rule to 
-assign probabilities to a complete sequence.
-\R{\[
-P \paren{x_1=y_1,\ldots,x_T=y_T} = p \paren{x_1=y_1} p\paren{x_2=y_2|x_1=y_1} \ldots
-\]}
-\item
-We can translate probabilities for complete sequences back into predictions.
-\R{\begin{eqnarray*}
-p \paren{ x_t=1 | x_1=y_1,\ldots,x_{t-1}=y_{t-1}} = \\
-\frac{p\paren{x_1=y_1,\ldots,x_{t-1}=y_{t-1},x_t=1}}
-{p\paren{x_1=y_1,\ldots,x_{t-1}=y_{t-1}}}
-\end{eqnarray*}}
+  \frametitle{The averaged predictor}
+  \begin{itemize}
+\item 
+  \R{$P_w^s\paren{X_t=1 | x_1^{t-1}}$} is the conditional probability associated with the tree rooted at \R{$s$}
+\item \R{
+    \begin{eqnarray*}      P_w^s(x_1^{t-1},X_1=1) &=& \frac{1}{2}P_e^s(x_1^{t-1},X_t=1)\\
+    &+& \frac{1}{2}P_w^{0s}(x_1^{t-1},X_t=1)P_w^{1s}(x_1^{t-1},X_t=1)
+    \end{eqnarray*}
+  }
 \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Conditioning and defining the mixing factor}
+  \begin{small}
+  \begin{itemize}
+  \item \R{
+      \begin{eqnarray*}
+        &&P_w^s(X_t=1 | x_1^{t-1})\\
+        &=& \frac{P_e^s(x_1^{t-1},X_t=1)
+            +P_w^{0s}(x_1^{t-1},X_T=1)P_w^{1s}(x_1^{t-1},X_T=1)}{P_e^s(x_1^{t-1})+P_w^{0s}(x_1^{t-1})P_w^{1s}(x_1^{t-1})}\\
+        &=& \frac{\beta^s(x_1^{t-1}) P^s_e(X_t=1|x_1^{t-1})
+        +P_w^{0s}(X_t=1|x_1^{t-1})P_w^{1s}(X_t=1|x_1^{t-1})}
+        {\beta^s(x_1^{t-1}) +1}
+    \end{eqnarray*}
+  }
+\item Where \R{
+    \[\beta^s(x_1^{t-1}) \doteq \frac{P^s_e(x_1^{t-1})}
+  {P^{0s}_w(x_1^{t-1})P^{1s}_w(x_1^{t-1})}\]}
+\end{itemize}
+\end{small}
+
 \end{frame}
 
 \begin{frame}
 \frametitle{Mixing Factors}
 \begin{itemize}
-\item \R{$P_w^s\paren{X_t=1 | x_1^{t-1}}$} The posterior average of
-  the predictions associated with the descendants of the node \R{$s$}.
-\item Using the chain rule we can also define unconditional
-  probabilities \R{$P_w^s\paren{x_1^{t-1}}$}
-\item The mixing factors according to the \B{Prior} distribution is
-  0.5: stop, 0.5: continue
-\item After observing \R{$x_1^{t-1}$} the odds change. The updated
-  odds are represented by \R{$\beta^s(x_1^{t-1})$}:
-\item \R{$P_w^s\paren{X_t=1 | x_1^{t-1}}$} The posterior average of
-  the predictions associated with the descendants of the node \R{$s$}.
+\item The mixing factor for node \R{$s$} is\R{
+    \[\beta^s(x_1^{t-1}) \doteq \frac{P^s_e(x_1^{t-1})}
+      {P^{0s}_w(x_1^{t-1})P^{1s}_w(x_1^{t-1})}\]}
+\item Interpretation: The ratio between the posterior probability of
+  using the KT predictor at $s$ \B{(stop)} and the probability of using the predictions due to the children \B{(continue)}
+\item The mixing factors \B{Prior} distribution is \R{$1=0.5/0.5$}
+\item If \R{$\beta(s)$} is large: use mostly \R{$P_e^s(X_T=1|x_1^{t-1})$}
+\item If \R{$\beta(s)$} is small: use mostly \R{$P^{0s}_w(X_T=1|x_1^{t-1})P^{1s}_w(X_T=1|x_1^{t-1})$}
 \end{itemize}
 \end{frame}
 
 \begin{frame}
 \frametitle{Outline of algorithm}
 \begin{itemize}
-\item {\bf Forward}: Traverse the tree from root to leaf.
+\item {\bf Forward Pass}: Traverse the tree from root to leaf.
 \item {\bf extend}: Add two children to the leaf. Initialized counts
   to 0,1.
-\item {\bf Backward traversal}: Traverse back to root.\\
+\item {\bf Backward Pass}: Traverse back to root.\\
   For each node
   \R{$s$}
   \begin{itemize}
@@ -390,32 +421,33 @@ p \paren{ x_t=1 | x_1=y_1,\ldots,x_{t-1}=y_{t-1}} = \\
     \item update counts: \R{$a^s,b^s$}.
     \item update \R{$\beta^s$}
     \end{itemize}
+    \item Complexity: each forward and backwards takes \B{O(depth of tree)}
   \end{itemize}
 \end{frame}
 
 \section{Slides from Frans Willems}
-\newpage
-\bf{Slides from Frans Willems}\\
-\includegraphics[width=4in]{figures/Betas1.pdf}
+%   \newpage
+% \bf{Slides from Frans Willems}\\
+% \includegraphics[width=4in]{figures/Betas1.pdf}
 
 \newpage
 \bf{Slides from Frans Willems}\\
 \includegraphics[width=4in]{figures/Betas2.pdf}
-
-\begin{frame}
-  \frametitle{Binary Tree}
-  Sequence: 0,0,1,1,0,1,0,1,0,1,1,0,1,1,1\\~\\
-  
-\includegraphics[width=4in]{figures/BinaryTree.png}
-\end{frame}
 
 % Recaping the algorithm.
 
 % generalizing the algorithm to Hedge.
 
 % Next class thursday.
+\iffalse
 
 
+\fi
 \end{document}
 
 
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

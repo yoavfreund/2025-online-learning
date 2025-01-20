@@ -1,8 +1,7 @@
-\beamer@endinputifotherversion {3.33pt}
-\select@language {english}
-\beamer@sectionintoc {1}{Review}{8}{0}{1}
-\beamer@sectionintoc {2}{Fixed Length Markov Models}{33}{0}{2}
-\beamer@sectionintoc {3}{Variable Length Markov Model (VMM)}{49}{0}{3}
-\beamer@sectionintoc {4}{Universal coding, an inefficient solution}{73}{0}{4}
-\beamer@sectionintoc {5}{Efficient Implementation}{78}{0}{5}
-\beamer@sectionintoc {6}{Slides from Frans Willems}{110}{0}{6}
+\babel@toc {english}{}
+\beamer@sectionintoc {1}{Review}{9}{0}{1}
+\beamer@sectionintoc {2}{Fixed Length Markov Models}{34}{0}{2}
+\beamer@sectionintoc {3}{Variable Length Markov Model (VMM)}{50}{0}{3}
+\beamer@sectionintoc {4}{Universal coding, an inefficient solution}{74}{0}{4}
+\beamer@sectionintoc {5}{Efficient Implementation}{79}{0}{5}
+\beamer@sectionintoc {6}{Slides from Frans Willems}{119}{0}{6}

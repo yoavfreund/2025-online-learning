@@ -374,7 +374,7 @@ Z =\sqrt{1 \over 2 \pi}\;\;
 \begin{frame}
 \frametitle{The bound for the optimal prior}
 \begin{itemize}
-\item Plugging in we get
+\item We get that the regret is 
 \R{\begin{eqnarray*}
 \TAloss - \BEloss &\leq&
 \ln \int_0^1 \dweight{\theta}{*} 
@@ -418,9 +418,9 @@ the \B{Dirichlet-$(1/2,1/2)$ prior}.
 \end{frame}
 
 \begin{frame}
-\frametitle{The cumulative log loss of Bayes using Jeffrey's prior}
+\frametitle{The regret of Bayes using Jeffrey's prior}
 \begin{itemize}
-\item
+\item The regret (for coding: redundancy) is
 \R{\[
 \TAloss - \BEloss \leq {1 \over 2} \ln (T+1) 
                      + {1 \over 2} \ln {\pi \over 2}
@@ -484,15 +484,26 @@ Suffers larger regret when \R{$\btheta$} is far from \R{$1/2$}
 %\section{Priors for finite $t$}
 \subsection{Lower Bound}
 \begin{frame}
-\frametitle{Shtarkov Lower bound}
+\frametitle{Shtarkov's Normalized Maximal Likelihood (NML)}
 \begin{itemize}
 \item What is the \B{optimal} prediction when \R{$T$} is know in
   advance?
-\item
+\item Equalize the reducndancy over all sequences.
+\item Assign to each {\bf sequence} the {\bf Maximal} likelihood:
+\R{$P(x) =  \frac{1}{Z} \max_p P_p(x)$}
+\item \R{$\log Z$} is the regret (redundancy).
+\item For Bernoulli distributions:
 \R{\[
 L_*^T - \min_\theta L_\theta^T \geq \frac{1}{2} \ln(T+1) + \frac{1}{2}
 \ln \frac{\pi}{2} - O(\frac{1}{\sqrt{T}})
 \]}
+\item The regret (for coding: redundancy) is
+\R{\[
+\TAloss - \BEloss \leq {1 \over 2} \ln (T+1) 
+                     + {1 \over 2} \ln {\pi \over 2}
+                     + O(1/T)
+\]}
+
 \end{itemize}
 \end{frame}
 
@@ -578,17 +589,17 @@ The constant C is optimal.
 \frametitle{Online learning for Exponential Families}
 \begin{itemize}
 \item For any set of distributions from the exponential family
-  defined by \R{$k$} parameters, where the observed values come from a bounded set.
+  defined by \R{$k$} parameters, the observations and the parameters
+  come from compact sets.
 \item Use Bayes Algorithm with Jeffrey's prior:
 \R{\[
 \dweight{\theta}{*} = \frac{1}{Z} 
 \sqrt{
 \mbox{det}  \left( I(\theta)\right)}
 \]}
-
-\item
+\R{$I(\theta),Z$} do not depend on \R{$T$}. 
+\item Redundancy bound
   \R{\[\TAloss - \BEloss \leq \frac{k-1}{2}\ln T - \ln Z + o(1)\]}
-  
 \end{itemize}
 \end{frame}
 

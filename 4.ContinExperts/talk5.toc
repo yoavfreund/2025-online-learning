@@ -7,6 +7,6 @@
 \beamer@subsectionintoc {3}{3}{Kritchevski Trofimov Prediction Rule}{90}{0}{3}
 \beamer@subsectionintoc {3}{4}{Laplace Rule of Succession}{94}{0}{3}
 \beamer@subsectionintoc {3}{5}{Lower Bound}{99}{0}{3}
-\beamer@sectionintoc {4}{Generalization to larger sets of distributions}{101}{0}{4}
-\beamer@subsectionintoc {4}{1}{Fisher Information}{106}{0}{4}
-\beamer@subsectionintoc {4}{2}{Exponential Families of Distribution}{113}{0}{4}
+\beamer@sectionintoc {4}{Generalization to larger sets of distributions}{105}{0}{4}
+\beamer@subsectionintoc {4}{1}{Fisher Information}{110}{0}{4}
+\beamer@subsectionintoc {4}{2}{Exponential Families of Distribution}{117}{0}{4}
