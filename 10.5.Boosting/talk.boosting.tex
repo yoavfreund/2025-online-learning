@@ -1,0 +1,643 @@
+%\documentclass{beamer}
+\documentclass[handout]{beamer}
+
+% This file is a solution template for:
+
+% - Giving a talk on some subject.
+% - The talk is between 15min and 45min long.
+% - Style is ornate.
+
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice. 
+
+
+\mode<presentation>
+{
+  \usetheme{Montpellier}
+
+  %\setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+\usepackage{xmpmulti} % package that defines \multiinclude
+
+\usepackage[english]{babel}
+
+\usepackage[utf8]{inputenc}
+
+%\usepackage[latin1]{inputenc}
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+% Or whatever. Note that the encoding and the font should match. If T1
+% does not look nice, try deleting the line with the fontenc.
+
+\title[\ouralg] % (optional, use only with long paper titles)
+{Exponential Weights Algorithms for Online Learning}
+
+\author[Freund] % (optional, use only with lots of authors)
+{Yoav Freund}
+\date{}
+
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[Universities of Somewhere and Elsewhere] % (optional, but mostly needed)
+
+\subject{Machine Learning}
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
+% \logo{\pgfuseimage{university-logo}}
+
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+%% \AtBeginSubsection[]
+%% {
+%%   \begin{frame}<beamer>
+%%     \frametitle{Outline}
+%%     \tableofcontents[currentsection,currentsubsection]
+%%   \end{frame}
+%% }
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command: 
+
+\beamerdefaultoverlayspecification{<+->}
+
+% \newcommand{\R}[1]{{\color{red}{#1}}}
+% \newcommand{\W}{\vec{W}}
+% \newcommand{\V}{\vec{V}}
+% \newcommand{\X}{\vec{X}}
+% \newcommand{\loss}{\vec{\ell}}
+% \newcommand{\HedgeLoss}{L_{\mbox{\footnotesize Hedge}}}
+
+\input{../macros}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+  \begin{small}
+  \end{small}
+\end{frame}
+
+
+\begin{frame}{Probably Approximately Correct (PAC) Learning}
+  \begin{itemize}
+    \item Sample space \R{$X$} with a fixed but unknown distribution \R{$P$}.
+    \item Concept class \R{$C$}, with \R{$c \in C$} and \R{$c : X \to \{0,1\}$}.
+    \item \textbf{Learning Input}: A training set \R{$\{(x_1,y_1), \ldots, (x_n,y_n)\}$} 
+          drawn i.i.d.\ according to \R{$P$}, labeled by some \R{$c \in C$}.
+    \item \textbf{Learning Output}: A concept \R{$c'$} such that 
+      \[
+         \R{P\bigl(c(x) \neq c'(x)\bigr) \leq \epsilon}
+      \]
+    \item \textbf{Strong PAC Learning} of \R{$C$}: There exists an algorithm such that 
+      for all \R{$\epsilon$}, \R{$\delta$}, the algorithm runs in time polynomial 
+      in \R{$1/\epsilon$} and \R{$1/\delta$} and outputs \R{$c'$} with
+      \[
+        \R{P\bigl(c(x) \neq c'(x)\bigr) \leq \epsilon}
+      \]
+    \item \textbf{Weak PAC Learning}: Same as strong PAC, 
+      but only required to hold for a single \R{$\epsilon < \tfrac12$}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Boosting}
+  \begin{itemize}
+  \item A boosting algorithm can translate a weak PAC learner into a strong pac learner.
+  \item How it is done: by giving the weak learner different distributions.
+  \end{itemize}
+  \end{frame}
+
+\section{Min/Max Theorems}
+
+\begin{frame}
+\frametitle{Zero sum games in matrix form}
+\begin{itemize}
+\item Game between two players.
+\item Defined by \R{$n \times m$} matrix \R{$\M$}
+\item \B{Row} player chooses \R{$i \in \{1,\ldots,n\}$}
+\item \B{Column} player chooses \R{$j \in \{1,\ldots,m\}$}
+\item \B{Row} player gains \R{$\M(i,j) \in [0,1]$}
+\item \B{Column} player looses \R{$\M(i,j)$}
+\item Game repeated many times.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Pure vs. mixed strategies}
+\begin{itemize}
+\item Choosing a \B{single} action = \B{pure} strategy.
+\item Choosing a \B{Distribution} over actions = \B{mixed} strategy.
+\item \B{Row} player chooses dist. over rows \R{$\P$}
+\item \B{Column} player chooses dist. over columns \R{$\Q$}
+\item \B{Row} player gains \R{$\M(\P,\Q)$}.
+\item \B{Column} player looses \R{$\M(\P,\Q)$}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Mixed strategies in matrix notation}
+\includegraphics[width=8cm]{figures/matrixProduct.jpg}
+\pause \\
+\R{$\Q$} is a \B{column} vector. \R{$\P^T$} is a row vector.
+%\R{$\P = \angles{ \P(1),\ldots,\P(n) }, \Q = \angles{ \Q(1),\ldots,\Q(m)}$}
+\pause \\ ~\\
+\R{$\M(\P,\Q) = \P^T \M \Q = \sum_{i=1}^n \sum_{j=1}^m \P(i) \M(i,j) \Q(j)$}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The minmax Theorem}
+~\\
+When using pure strategies, second player has an advantage.
+~\\~\\ ~\pause
+\B{John von Neumann, 1928.}
+\\ ~ \\ 
+\R{\[ \minp \maxq \mpq = \maxq \minp \mpq \]}
+\\ ~ \\ 
+In words: for \B{mixed} strategies, choosing second gives no advantage.
+\end{frame}
+
+\begin{frame}{The learning game matrix}
+  \centering
+  \begin{tabular}{lccc}
+    \hline
+    & \textbf{Example 1} & \textbf{Example 2} & \textbf{Example 3} \\
+    \hline
+    \textbf{Rule 1} & 0 & 1 & 0 \\
+    \textbf{Rule 2} & 1 & 1 & 0 \\
+    \textbf{Rule 3} & 0 & 0 & 1 \\
+    \textbf{Rule 4} & 1 & 0 & 1 \\
+    \textbf{Rule 5} & 0 & 1 & 1 \\
+    \hline
+  \end{tabular}
+  ~\\~\\
+  
+  entries: 1 = rule is correct on example, 0= incorrect
+\end{frame}
+
+\begin{frame}
+  \frametitle{Boosting is implied my min/max theorem}
+  \begin{itemize}
+  \item For any distribution \R{${\bf Q}$} over the examples there exists a row
+    (rule) that is correct on \R{$\frac{1}{2} + \gamma$} of the (dist over the) examples.
+  \item From min/max theorem we get that there exists a distribution \R{${\bf P}$} over the rules such that for any example at least\R{$\frac{1}{2} + \gamma$} of rhw (dist over the) rules are correct.
+  \item The weighted majority is always correct.
+  \item Existence proof, but not an algorithm.
+  \end{itemize}
+\end{frame}
+
+\section{Schapire's algorithm}
+\begin{frame}{Schapire's boosting algorithm}
+
+  Calls the weak learner 3 times, on 3 different distributions, combines the rules using a majority.
+
+  The distributions are
+  \begin{itemize}
+  \item \R{$h_1$}: use the training set as is.
+  \item \R{$h_2$}: Filter examples so that \R{$P(h_1(x)=c(x))=\frac{1}{2}$}
+    \item \R{$h_3$} Filter out examples such that \R{$h_1(x)=h_2(x)$}
+  \end{itemize}
+  
+\end{frame}
+
+\begin{frame}{Idea of proof}
+  \begin{itemize}
+  \item If errors of weak rules are at most $x<1/2$ then error of combined rule is at most \R{$3x^2-2x^3$}.
+  \item   \includegraphics[width=5cm]{figures/SchapireBoostg-graph.png}
+  \item Let the available rules have error $\frac{1}{2}-\gamma$ and assume we want a rule whose error is $\epsilon$.
+  \item Using 3-combiner recursively for depth at most $O(\frac{1}{\gamma^2} \log \frac{1}{\epsilon})$
+  achieves the error $\epsilon$.
+  \end{itemize}
+  \end{frame}
+
+\section{Boost by Majority}
+\begin{frame}{Boost By Majority}
+  Majority vote over many weak rules, rather than 3.
+  ~\\
+\includegraphics[width=8cm]{figures/BBMvsSchapire.png}
+\end{frame}
+
+\begin{frame}{Game between booster and learner}
+  \begin{itemize}
+  \item Booster chooses distribution over examples.
+  \item Weak learner chooses where weak rules makes a mistake.
+  \item Weak learner constrained to make weighted error smaller than \R{$(1/2)-\gamma$}
+  \end{itemize}
+\includegraphics[width=6cm]{figures/BBMFigure.png}
+\end{frame}
+
+\begin{frame}{Potential function}
+\includegraphics[width=8cm]{figures/BBMPotential.png}
+\end{frame}
+
+\begin{frame}{Weight function}
+\includegraphics[width=8cm]{figures/BBMWeighting.png}
+\end{frame}
+
+\begin{frame}{Potential is non increasing}
+  \begin{itemize}
+  \item Let \R{$q_r^i$} be the fraction of the examples that have
+    \R{$r$} mistakes on iteration \R{$i$}. 
+  \item Then if the booster uses the weights $\alpha_r^i$ then
+    \R{\[
+        \beta_{0}^{0}
+        \;>\;
+        \sum_{r=0}^{1} q_{r}^{1}\,\beta_{r}^{1}
+        \;>\;
+        \sum_{r=0}^{2} q_{r}^{2}\,\beta_{r}^{2}
+        \;>\;
+        \cdots
+        \;>\;
+        \sum_{r=0}^{k} q_{r}^{k}\,\beta_{r}^{k}.
+      \]}
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Error bound}
+
+  Given a weak learner with error $(1/2)-\gamma$, find $k$ that satisfies
+\R{\[
+  \sum_{j=0}^{\left\lfloor \frac{k}{2} \right\rfloor}
+  \binom{k}{j}
+  \bigl(\tfrac12 + \gamma\bigr)^{j}\,
+  \bigl(\tfrac12 - \gamma\bigr)^{\,k - j}
+  \;\;\le\;\;
+  \epsilon.
+\]}
+Then running Boost-by-majority for $k$ iterations will generate a rule with 
+error at most $\epsilon$.
+
+\end{frame}
+
+
+
+\section{Adaboost}
+
+\begin{frame}
+  \frametitle{{Adaboost}}
+\end{frame}
+%------------------------------------------------
+\begin{frame}{Algorithm AdaBoost (Setup)}
+\textbf{Input:}
+\begin{itemize}
+  \item \R{Sequence of $N$ labeled examples $\langle (x_1,y_1),\ldots,(x_N,y_N)\rangle$}
+  \item \R{Distribution $D$ over the $N$ examples}
+  \item \R{Weak learning algorithm \textit{WeakLearn}}
+  \item \R{Integer $T$ specifying number of iterations}
+\end{itemize}
+
+\textbf{Initialize:} 
+\[
+  \R{w_i^1 = D(i)\quad \text{for } i=1,\ldots,N.}
+\]
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Algorithm AdaBoost (Main Loop)}
+\textbf{For} \R{$t = 1, 2, \ldots, T$:}
+\begin{enumerate}
+  \item \R{$p^t = \frac{w^t}{\sum_{i=1}^N w_i^t}\,.$}
+  \item Call \R{\textit{WeakLearn}}, providing the distribution \R{$p^t$}. 
+        Get back a hypothesis \R{$h_t : X \to \{0,1\}$}.
+  \item Calculate the error of \R{$h_t$}: 
+    \[
+      \R{\epsilon_t = \sum_{i=1}^N p_i^t\,|\,h_t(x_i) - y_i\,|.}
+    \]
+  \item Set 
+    \[
+      \R{\beta_t = \frac{\epsilon_t}{1 - \epsilon_t}.}
+    \]
+  \item Update the weights:
+    \[
+      \R{w_i^{t+1} = w_i^t\,\beta_t^{\,\bigl(1 - |\,h_t(x_i)-y_i\,|\bigr)}.}
+    \]
+\end{enumerate}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Algorithm AdaBoost (Final Output)}
+\textbf{Output the final hypothesis} \R{$h_f$}, defined by:
+\[
+  \R{
+    h_f(x) =
+    \begin{cases}
+      1, &\text{if } \sum_{t=1}^T \bigl(\ln \tfrac{1}{\beta_t}\bigr)\,h_t(x)
+            \;\ge\; \tfrac12 \sum_{t=1}^T \ln \tfrac{1}{\beta_t},\\[6pt]
+      0, &\text{otherwise}.
+    \end{cases}
+  }
+\]
+\end{frame}
+
+
+% --- Theorem Slide ---
+\begin{frame}{Main Theorem}
+  \textbf{Theorem 6} 
+  Suppose the weak learning algorithm \R{\text{WeakLearn}}, 
+  when called by \R{\text{AdaBoost}}, 
+  generates hypotheses with errors \R{$\epsilon_1, \ldots, \epsilon_T$}. 
+  Then the error 
+  \R{$\epsilon = \Pr_{i \sim \mathcal{D}}[\,h_f(x_i) \neq y_i\,]$} 
+  of the final hypothesis \R{$h_f$} is bounded above by
+  \[
+    \R{\epsilon \;\le\; 2^T \prod_{t=1}^T \sqrt{\epsilon_t \,\bigl(1 - \epsilon_t\bigr)}.}
+  \]
+\end{frame}
+
+% --- Proof Slide ---
+\begin{frame}{Upper bound on total weight}
+  
+  \R{
+    \begin{eqnarray*}
+    \sum_{i=1}^N w_i^{t+1}
+      &\;=\;& \sum_{i=1}^N w_i^t \,\beta_t^{\,\bigl(1 - |\,h_t(x_i) - y_i\,|\bigr)} \\
+      &\;\le\;& \sum_{i=1}^N w_i^\prime 
+      \Bigl(1 - (1-\beta_t)\bigl(1 - |\,h_t(x_i) - y_i\,|\bigr)\Bigr)\\
+      & \;\le\;& \Bigl(\sum_{i=1}^N w_i^t\Bigr)\!
+               \Bigl(1 - (1-\epsilon_t)\,\bigl(1 - \beta_t\bigr)\Bigr).
+    \end{eqnarray*}
+    }
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Combining over iterations}
+Combining the weight‐update inequality over \R{$t = 1,\ldots,T$}, we get 
+\[
+  \R{\sum_{i=1}^N w_i^{T+1} 
+       \le \prod_{t=1}^T 
+         \Bigl(1 - (1-\epsilon_t)\,(1-\beta_t)\Bigr).}
+  \tag{16}
+\]
+\end{frame}
+
+\begin{frame}{Lower bound on total weight}
+The final hypothesis \R{$h_f$} makes a mistake on instance \R{$i$} only if
+\[
+  \R{
+    \prod_{t=1}^T \beta_t^{\,\bigl(1-|\,h_t(x_i)-y_i\,|\bigr)}
+    \;\ge\;
+    \Bigl(\prod_{t=1}^T \beta_t\Bigr)^{-\tfrac12}.
+  }
+  \tag{17}
+\]
+
+The final weight of instance \R{$i$} is
+\[
+  \R{w_i^{T+1} = D(i)\,\prod_{t=1}^T \beta_t^{\,\bigl(1-|\,h_t(x_i)-y_i\,|\bigr)}.}
+  \tag{18}
+\]
+
+By comparing the sum of all final weights to those on examples where \R{$h_f$} is incorrect, one obtains
+\[
+  \R{\sum_{i=1}^N w_i^{T+1}
+       \;\ge\;
+       \sum_{\,i : h_f(x_i)\neq y_i\,} w_i^{T+1}
+       \;\ge\;
+       e \,\Bigl(\prod_{t=1}^T \beta_t\Bigr)^{\!1/2},}
+\]
+where \R{$e$} is the error of \R{$h_f$}. 
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Resulting Error Bound}
+Combining (16) and the above,
+\[
+  \R{
+    e 
+    \;\le\;
+    \prod_{t=1}^T \frac{\,1 - (1-\epsilon_t)\,(1-\beta_t)\,}{\sqrt{\beta_t}}.
+  }
+  \tag{20}
+\]
+Minimizing each factor leads to \R{$\beta_t = \epsilon_t / (1-\epsilon_t)$}. Plugging back yields
+\[
+  \R{
+    e 
+    \;\le\;
+    2^T \,\prod_{t=1}^T \sqrt{\epsilon_t\,(1-\epsilon_t)},
+  }
+\]
+\end{frame}
+
+\begin{frame}{Alternative forms of the bound}
+  \R{
+    \begin{eqnarray*}
+      e &\;\le\;& \prod_{t=1}^T \sqrt{\,1 - 4\,\gamma_t^2}
+      \;=\; \exp\Bigl(-\sum_{t=1}^T \mathrm{KL}\bigl(\tfrac12\,\|\,\tfrac12 - \gamma_t\bigr)\Bigr)\\
+      &\;\le\;&
+      \exp\Bigl(-2\sum_{t=1}^T \gamma_t^2\Bigr).
+    \end{eqnarray*}
+  }
+\end{frame}
+
+
+
+\begin{frame}{Comparing Hedge vs Adaboost}
+  \begin{columns}[T,onlytextwidth] 
+    % [T] aligns columns at the top; [onlytextwidth] allows full use of slide width.
+
+    \column{0.48\textwidth}
+    \textbf{Hedge}
+    \begin{itemize}
+      \item Each iteration adds an Example
+      \item Weights assigned to Experts
+      \item Upper bound on potential: Loss of alg.
+      \item Lower bound on potential: Loss of best expert
+    \end{itemize}
+
+    \column{0.48\textwidth}
+    \textbf{Adaboost}
+    \begin{itemize}
+    \item Each iteration adds a Weak Rule
+    \item Weights assigned to examples.
+    \item Upper bound on Potential: Edges of weak rules.
+    \item Lower bound on Potential: Error of majority vote.
+    \end{itemize}
+
+  \end{columns}
+\end{frame}
+
+
+
+\section{\ouralg Algorithm}
+
+\begin{frame}
+\frametitle{The \ouralg Algorithm}
+Consider action \R{$i$} at time \R{$t$}
+\begin{itemize}
+\item Total loss:
+\R{$$L_i^t = \sum_{s=1}^{t-1} \ell_i^s$$}
+\item Weight:
+\R{$$\wt{t}{i} = \wt{1}{i} e^{-\eta L_i^t}$$}
+Note freedom to choose initial weight (\R{$\wt{1}{i}$})
+\R{$\sum_{i=1}^n \wt{1}{i} = 1$}.
+\item
+\R{$\eta>0$} is the learning rate parameter. Halving: \R{$\eta \to \infty$}
+\item Probability:
+\R{$$\dist{t}{i} = \frac{\wt{t}{i}}{\sum_{j=1}^N \wt{t}{i}},\;\;
+\pause     \distvec{t} = \frac{\wtvec{t}}{\sum_{j=1}^N \wt{t}{i}}$$}
+\end{itemize}
+\end{frame}
+
+\section{Bound on total loss}
+\begin{frame}
+\frametitle{Bound on the loss of \ouralg Algorithm}
+\begin{theorem}[main theorem] \label{thm:basic-bnd}
+For any sequence of loss vectors \R{$\costvec{1},\ldots,\costvec{\iter}$},
+and for any \R{$i\in\{1,\ldots,N\}$}, we have
+\R{\begin{equation*}
+\lossouralg \leq \frac{-\ln(\wt{1}{i}) + \eta \lossi{i}}
+		      {1-e^{-\eta}}.
+\end{equation*}}
+%% More generally, for any nonempty set $S\subseteq\{1,\ldots,N\}$, we have
+%% \begin{equation}\label{eqn:set-bnd}
+%% \lossouralg \leq \frac{-\ln(\sum_{i\in S}\wt{1}{i})
+%% 			 - \eta \max_{i\in S} \lossi{i}}
+%% 		      {1-e^{-eta}}.
+%% \end{equation}
+\end{theorem}
+\begin{itemize}
+\item Note effect of the limits \R{$\eta \to 0$} and \R{$\eta \to \infty$}
+\item
+  \R{Proof}: by combining upper and lower bounds on
+  \R{\[\ln \sumwts{\iter+1} = \ln \left(\sum_{i-1}^N e^{-\eta L_i^t}\right)
+  \]}
+\end{itemize}
+\end{frame}
+
+\subsection{Upper bound on $\sumwts{\iter+1}$}
+
+\begin{frame}
+\frametitle{Upper bound on \R{$\sumwts{\iter+1}$}}
+\begin{lemma}[upper bound] 
+For any sequence of loss vectors \R{$\costvec{1},\ldots,\costvec{\iter}$}
+we have
+\R{\[
+\ln\paren{\sumwts{\iter+1}} \leq -(1-e^{-\eta}) \lossouralg.
+\]}
+\end{lemma}
+\end{frame}
+
+
+\subsection{Lower bound on $\sumwts{\iter+1}$}
+
+\begin{frame}
+\frametitle{Lower bound on $\sumwts{\iter+1}$}
+
+For any \R{$j=1,\ldots,N$}:
+\R{\[
+\sumwts{\iter+1} \geq \wt{\iter+1}{j} = \wt{1}{j} e^{-\eta \lossi{j}}
+\]}
+\end{frame}
+
+\subsection{Combining Upper and Lower bounds}
+
+\begin{frame}
+\frametitle{Combining Upper and Lower bounds}
+\begin{itemize}
+\item
+Combining bounds on \R{$\ln \paren{\sumwts{\iter+1}}$}
+\R{\[
+ \ln \wt{1}{j} -\eta \lossi{j} \leq \ln \sumwts{\iter+1} 
+ \leq -(1-e^{-\eta}) \sum_{t=1}^T \distvec{t}\cdot\costvec{t}
+\]}
+\item
+Reversing signs, using \R{$\lossouralg = \sum_{t=1}^T \distvec{t}\cdot\costvec{t}$} 
+and reorganizing we get
+\R{\[
+\lossouralg \leq \frac{-\ln(\wt{1}{i}) + \eta \lossi{i}}
+		      {1-e^{-\eta}}
+\]}
+\end{itemize}
+\end{frame}
+
+\end{document}
+
+\section{Repeated Matrix Games}
+
+\begin{frame}
+\frametitle{Zero sum games in matrix form}
+\begin{itemize}
+\item Game between two players.
+\item Defined by \R{$n \times m$} matrix \R{$\M$}
+\item \B{Row} player chooses \R{$i \in \{1,\ldots,n\}$}
+\item \B{Column} player chooses \R{$j \in \{1,\ldots,m\}$}
+\item \B{Row} player gains \R{$\M(i,j) \in [0,1]$}
+\item \B{Column} player looses \R{$\M(i,j)$}
+\item Game repeated many times.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Pure vs. mixed strategies}
+\begin{itemize}
+\item Choosing a \B{single} action = \B{pure} strategy.
+\item Choosing a \B{Distribution} over actions = \B{mixed} strategy.
+\item \B{Row} player chooses dist. over rows \R{$\P$}
+\item \B{Column} player chooses dist. over columns \R{$\Q$}
+\item \B{Row} player gains \R{$\M(\P,\Q)$}.
+\item \B{Column} player looses \R{$\M(\P,\Q)$}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Mixed strategies in matrix notation}
+\includegraphics[width=8cm]{figures/matrixProduct.jpg}
+\pause \\
+\R{$\Q$} is a \B{column} vector. \R{$\P^T$} is a row vector.
+%\R{$\P = \angles{ \P(1),\ldots,\P(n) }, \Q = \angles{ \Q(1),\ldots,\Q(m)}$}
+\pause \\ ~\\
+\R{$\M(\P,\Q) = \P^T \M \Q = \sum_{i=1}^n \sum_{j=1}^m \P(i) \M(i,j) \Q(j)$}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The minmax Theorem}
+~\\
+When using pure strategies, second player has an advantage.
+~\\~\\ ~\pause
+\B{John von Neumann, 1928.}
+\\ ~ \\ 
+\R{\[ \minp \maxq \mpq = \maxq \minp \mpq \]}
+\\ ~ \\ 
+In words: for \B{mixed} strategies, choosing second gives no advantage.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Minmax is weaker than diminishing regret}
+\begin{itemize}
+\item The minmax theorem proves the existence of an \B{Equilibrium}.
+\item Learning guarantees no regret with respect to the past.
+\item If all sides use learning, then game will converge to minmax equilibrium.
+\item If opponent is not optimally adversarial (limited by knowledge, computationa power...) then learning gives \B{better} performance than min-max.
+\item Our goal is to minimize regret.
+\end{itemize}
+\end{frame}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

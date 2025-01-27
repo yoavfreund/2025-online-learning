@@ -1,0 +1,11 @@
+\babel@toc {english}{}
+\beamer@sectionintoc {1}{Decision Theoretic Online learning}{9}{0}{1}
+\beamer@subsectionintoc {1}{1}{Hedging vs. Halving}{18}{0}{1}
+\beamer@subsectionintoc {1}{2}{Failure of Follow the leader}{28}{0}{1}
+\beamer@sectionintoc {2}{{\mbox {${{\mbox {\bf Hedge}({\eta })}}$}}Algorithm}{37}{0}{2}
+\beamer@sectionintoc {3}{Bound on total loss}{47}{0}{3}
+\beamer@subsectionintoc {3}{1}{Upper bound on ${\mbox {${\DOTSB \sum@ \slimits@ _{i=1}^N {\mbox {${{w}^{{\mbox {${T}$}}+1}_{i}}$}}}$}}$}{50}{0}{3}
+\beamer@subsectionintoc {3}{2}{Lower bound on ${\mbox {${\DOTSB \sum@ \slimits@ _{i=1}^N {\mbox {${{w}^{{\mbox {${T}$}}+1}_{i}}$}}}$}}$}{63}{0}{3}
+\beamer@subsectionintoc {3}{3}{Combining Upper and Lower bounds}{64}{0}{3}
+\beamer@sectionintoc {4}{tuning $\eta $}{66}{0}{4}
+\beamer@sectionintoc {5}{Lower Bounds}{74}{0}{5}
