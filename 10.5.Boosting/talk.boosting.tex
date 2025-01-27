@@ -271,6 +271,7 @@ In words: for \B{mixed} strategies, choosing second gives no advantage.
         \;>\;
         \sum_{r=0}^{k} q_{r}^{k}\,\beta_{r}^{k}.
       \]}
+    \item Idea of proof, consider last and next to last steps.
   \end{itemize}
 
 \end{frame}
@@ -303,14 +304,13 @@ error at most $\epsilon$.
 \textbf{Input:}
 \begin{itemize}
   \item \R{Sequence of $N$ labeled examples $\langle (x_1,y_1),\ldots,(x_N,y_N)\rangle$}
-  \item \R{Distribution $D$ over the $N$ examples}
   \item \R{Weak learning algorithm \textit{WeakLearn}}
   \item \R{Integer $T$ specifying number of iterations}
 \end{itemize}
 
 \textbf{Initialize:} 
 \[
-  \R{w_i^1 = D(i)\quad \text{for } i=1,\ldots,N.}
+  \R{w_i^1 = \frac{1}{N}\quad \text{for } i=1,\ldots,N.}
 \]
 \end{frame}
 
@@ -338,10 +338,10 @@ error at most $\epsilon$.
 
 %------------------------------------------------
 \begin{frame}{Algorithm AdaBoost (Final Output)}
-\textbf{Output the final hypothesis} \R{$h_f$}, defined by:
+\textbf{Output the final hypothesis} \R{$h_{final}$}, defined by:
 \[
   \R{
-    h_f(x) =
+    h_{final}(x) =
     \begin{cases}
       1, &\text{if } \sum_{t=1}^T \bigl(\ln \tfrac{1}{\beta_t}\bigr)\,h_t(x)
             \;\ge\; \tfrac12 \sum_{t=1}^T \ln \tfrac{1}{\beta_t},\\[6pt]
@@ -359,8 +359,8 @@ error at most $\epsilon$.
   when called by \R{\text{AdaBoost}}, 
   generates hypotheses with errors \R{$\epsilon_1, \ldots, \epsilon_T$}. 
   Then the error 
-  \R{$\epsilon = \Pr_{i \sim \mathcal{D}}[\,h_f(x_i) \neq y_i\,]$} 
-  of the final hypothesis \R{$h_f$} is bounded above by
+  \R{$\epsilon = \frac{1}{N} \#[h_{final}(x_i) \neq y_i]$} 
+  of the final hypothesis \R{$h_{final}$} is bounded above by
   \[
     \R{\epsilon \;\le\; 2^T \prod_{t=1}^T \sqrt{\epsilon_t \,\bigl(1 - \epsilon_t\bigr)}.}
   \]
@@ -393,7 +393,7 @@ Combining the weight‐update inequality over \R{$t = 1,\ldots,T$}, we get
 \end{frame}
 
 \begin{frame}{Lower bound on total weight}
-The final hypothesis \R{$h_f$} makes a mistake on instance \R{$i$} only if
+The final hypothesis \R{$h_{final}$} makes a mistake on instance \R{$i$} only if
 \[
   \R{
     \prod_{t=1}^T \beta_t^{\,\bigl(1-|\,h_t(x_i)-y_i\,|\bigr)}
@@ -409,15 +409,15 @@ The final weight of instance \R{$i$} is
   \tag{18}
 \]
 
-By comparing the sum of all final weights to those on examples where \R{$h_f$} is incorrect, one obtains
+By comparing the sum of all final weights to those on examples where \R{$h_{final}$} is incorrect, one obtains
 \[
   \R{\sum_{i=1}^N w_i^{T+1}
        \;\ge\;
-       \sum_{\,i : h_f(x_i)\neq y_i\,} w_i^{T+1}
+       \sum_{\,i : h_{final}(x_i)\neq y_i\,} w_i^{T+1}
        \;\ge\;
        e \,\Bigl(\prod_{t=1}^T \beta_t\Bigr)^{\!1/2},}
 \]
-where \R{$e$} is the error of \R{$h_f$}. 
+where \R{$e$} is the error of \R{$h_{final}$}. 
 \end{frame}
 
 %------------------------------------------------
@@ -479,99 +479,15 @@ Minimizing each factor leads to \R{$\beta_t = \epsilon_t / (1-\epsilon_t)$}. Plu
   \end{columns}
 \end{frame}
 
+\begin{frame}{Main Concepts}
+  \begin{itemize}
+    \item \B{Margin:} the coordinate of interrest \R{$x$}
+  \item \B{Potential:} An upper bound on the error. \R{$\phi(x)$}
+  \item \B{Weight:} The gradient of the potential. \R{$\nu = \frac{\partial}{\partial x} \phi(x)$}
+  \end{itemize}
 
-
-\section{\ouralg Algorithm}
-
-\begin{frame}
-\frametitle{The \ouralg Algorithm}
-Consider action \R{$i$} at time \R{$t$}
-\begin{itemize}
-\item Total loss:
-\R{$$L_i^t = \sum_{s=1}^{t-1} \ell_i^s$$}
-\item Weight:
-\R{$$\wt{t}{i} = \wt{1}{i} e^{-\eta L_i^t}$$}
-Note freedom to choose initial weight (\R{$\wt{1}{i}$})
-\R{$\sum_{i=1}^n \wt{1}{i} = 1$}.
-\item
-\R{$\eta>0$} is the learning rate parameter. Halving: \R{$\eta \to \infty$}
-\item Probability:
-\R{$$\dist{t}{i} = \frac{\wt{t}{i}}{\sum_{j=1}^N \wt{t}{i}},\;\;
-\pause     \distvec{t} = \frac{\wtvec{t}}{\sum_{j=1}^N \wt{t}{i}}$$}
-\end{itemize}
-\end{frame}
-
-\section{Bound on total loss}
-\begin{frame}
-\frametitle{Bound on the loss of \ouralg Algorithm}
-\begin{theorem}[main theorem] \label{thm:basic-bnd}
-For any sequence of loss vectors \R{$\costvec{1},\ldots,\costvec{\iter}$},
-and for any \R{$i\in\{1,\ldots,N\}$}, we have
-\R{\begin{equation*}
-\lossouralg \leq \frac{-\ln(\wt{1}{i}) + \eta \lossi{i}}
-		      {1-e^{-\eta}}.
-\end{equation*}}
-%% More generally, for any nonempty set $S\subseteq\{1,\ldots,N\}$, we have
-%% \begin{equation}\label{eqn:set-bnd}
-%% \lossouralg \leq \frac{-\ln(\sum_{i\in S}\wt{1}{i})
-%% 			 - \eta \max_{i\in S} \lossi{i}}
-%% 		      {1-e^{-eta}}.
-%% \end{equation}
-\end{theorem}
-\begin{itemize}
-\item Note effect of the limits \R{$\eta \to 0$} and \R{$\eta \to \infty$}
-\item
-  \R{Proof}: by combining upper and lower bounds on
-  \R{\[\ln \sumwts{\iter+1} = \ln \left(\sum_{i-1}^N e^{-\eta L_i^t}\right)
-  \]}
-\end{itemize}
-\end{frame}
-
-\subsection{Upper bound on $\sumwts{\iter+1}$}
-
-\begin{frame}
-\frametitle{Upper bound on \R{$\sumwts{\iter+1}$}}
-\begin{lemma}[upper bound] 
-For any sequence of loss vectors \R{$\costvec{1},\ldots,\costvec{\iter}$}
-we have
-\R{\[
-\ln\paren{\sumwts{\iter+1}} \leq -(1-e^{-\eta}) \lossouralg.
-\]}
-\end{lemma}
-\end{frame}
-
-
-\subsection{Lower bound on $\sumwts{\iter+1}$}
-
-\begin{frame}
-\frametitle{Lower bound on $\sumwts{\iter+1}$}
-
-For any \R{$j=1,\ldots,N$}:
-\R{\[
-\sumwts{\iter+1} \geq \wt{\iter+1}{j} = \wt{1}{j} e^{-\eta \lossi{j}}
-\]}
-\end{frame}
-
-\subsection{Combining Upper and Lower bounds}
-
-\begin{frame}
-\frametitle{Combining Upper and Lower bounds}
-\begin{itemize}
-\item
-Combining bounds on \R{$\ln \paren{\sumwts{\iter+1}}$}
-\R{\[
- \ln \wt{1}{j} -\eta \lossi{j} \leq \ln \sumwts{\iter+1} 
- \leq -(1-e^{-\eta}) \sum_{t=1}^T \distvec{t}\cdot\costvec{t}
-\]}
-\item
-Reversing signs, using \R{$\lossouralg = \sum_{t=1}^T \distvec{t}\cdot\costvec{t}$} 
-and reorganizing we get
-\R{\[
-\lossouralg \leq \frac{-\ln(\wt{1}{i}) + \eta \lossi{i}}
-		      {1-e^{-\eta}}
-\]}
-\end{itemize}
-\end{frame}
+  
+  \end{frame}
 
 \end{document}
 

@@ -2,8 +2,3 @@
 \BOOKMARK [2][]{Outline0.2}{Schapire's algorithm}{}% 2
 \BOOKMARK [2][]{Outline0.3}{Boost by Majority}{}% 3
 \BOOKMARK [2][]{Outline0.4}{Adaboost}{}% 4
-\BOOKMARK [2][]{Outline0.5}{Hedge\(\)Algorithm}{}% 5
-\BOOKMARK [2][]{Outline0.6}{Bound on total loss}{}% 6
-\BOOKMARK [3][]{Outline0.6.1.31}{Upper bound on i=1N wT+1i}{Outline0.6}% 7
-\BOOKMARK [3][]{Outline0.6.2.32}{Lower bound on i=1N wT+1i}{Outline0.6}% 8
-\BOOKMARK [3][]{Outline0.6.3.33}{Combining Upper and Lower bounds}{Outline0.6}% 9

@@ -22,8 +22,6 @@
     "babel"
     "inputenc"
     "times"
-    "fontenc")
-   (LaTeX-add-labels
-    "thm:basic-bnd"))
+    "fontenc"))
  :latex)
 
