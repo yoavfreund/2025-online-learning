@@ -1,5 +1,5 @@
 \babel@toc {english}{}
-\beamer@sectionintoc {1}{Min/Max Theorems}{4}{0}{1}
-\beamer@sectionintoc {2}{Schapire's algorithm}{10}{0}{2}
-\beamer@sectionintoc {3}{Boost by Majority}{12}{0}{3}
-\beamer@sectionintoc {4}{Adaboost}{18}{0}{4}
+\beamer@sectionintoc {1}{Min/Max Theorems}{10}{0}{1}
+\beamer@sectionintoc {2}{Schapire's algorithm}{33}{0}{2}
+\beamer@sectionintoc {3}{Boost by Majority}{40}{0}{3}
+\beamer@sectionintoc {4}{Adaboost}{50}{0}{4}
