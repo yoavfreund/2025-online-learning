@@ -42,7 +42,7 @@
 % does not look nice, try deleting the line with the fontenc.
 
 \title[\ouralg] % (optional, use only with long paper titles)
-{Exponential Weights Algorithms for Online Learning}
+{Boosting}
 
 \author[Freund] % (optional, use only with lots of authors)
 {Yoav Freund}
@@ -293,9 +293,6 @@ error at most $\epsilon$.
 \end{frame}
 
 
-
-\section{Adaboost}
-
 \begin{frame}
   \frametitle{{Adaboost}}
 \end{frame}
@@ -350,6 +347,7 @@ error at most $\epsilon$.
   }
 \]
 \end{frame}
+
 
 
 % --- Theorem Slide ---
@@ -463,8 +461,8 @@ Minimizing each factor leads to \R{$\beta_t = \epsilon_t / (1-\epsilon_t)$}. Plu
     \begin{itemize}
       \item Each iteration adds an Example
       \item Weights assigned to Experts
-      \item Upper bound on potential: Loss of alg.
-      \item Lower bound on potential: Loss of best expert
+      \item Upper bound on score: Loss of alg.
+      \item Lower bound on score: Loss of best expert
     \end{itemize}
 
     \column{0.48\textwidth}
@@ -472,22 +470,83 @@ Minimizing each factor leads to \R{$\beta_t = \epsilon_t / (1-\epsilon_t)$}. Plu
     \begin{itemize}
     \item Each iteration adds a Weak Rule
     \item Weights assigned to examples.
-    \item Upper bound on Potential: Edges of weak rules.
-    \item Lower bound on Potential: Error of majority vote.
+    \item Upper bound on Score: Edges of weak rules.
+    \item Lower bound on Score: Error of majority vote.
     \end{itemize}
 
   \end{columns}
 \end{frame}
 
-\begin{frame}{Main Concepts}
+\section{Alternative formulation of adaboost}
+\begin{frame}{Algorithm 1.1: The boosting algorithm AdaBoost}
+\begin{itemize}
+\item \textbf{Given:} $(x_1, y_1), \ldots, (x_m, y_m)$ where $x_i \in \mathcal{X}, y_i \in \{-1,+1\}$  \textbf{Initialize:} $D_1(i) = 1/m$ for $i = 1,\ldots,m$
+\item \textbf{For} $t = 1,\ldots,T$:
   \begin{itemize}
-    \item \B{Margin:} the coordinate of interrest \R{$x$}
-  \item \B{Potential:} An upper bound on the error. \R{$\phi(x)$}
-  \item \B{Weight:} The gradient of the potential. \R{$\nu = \frac{\partial}{\partial x} \phi(x)$}
+    \item Train weak learner using dist. $D_t$ to get $h_t: \mathcal{X} \to \{-1,+1\}$
+    \item Choose $\alpha_t = \frac{1}{2}\ln\left(\frac{1-\epsilon_t}{\epsilon_t}\right)$
+    \item Update, for $i = 1,\ldots,m$:
+        \[ D_{t+1}(i) = \frac{D_t(i)\exp(-\alpha_t y_i h_t(x_i))}{Z_t} \]
+      \end{itemize}
+\item \textbf{Output} the final hypothesis:
+    \[ \text{sign}(H(x));\;\; H(x) = \left(\sum_{t=1}^T \alpha_t h_t(x)\right) \]
   \end{itemize}
+\end{frame}
+
+\begin{frame}{General Concepts}
+  \begin{itemize}
+  \item \R{$T$} step game, final configuration associated with a real value.
+  \item The \B{potential} of an configuration is an approximation/upper bound/lower  bound of the final value given the current configuration.
+  \item The Weight is the difference in score of reachable next steps.
+  \item similar to board evaluation in Chess.
+  \item Our special case:  state is a vector, Potential is defined as
+    \R{
+      \[
+        \Phi({\mathbf u})=\psi\left( \sum_{i=1}^n \phi(u_i)\right)
+      \]}
+    \item I sometimes (mis)use the word \B{potential} to refer to \R{$\phi$} and \B{Score} to refer to \R{$\Phi$}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Concepts when analyzing boosting}
+  \begin{itemize}
+  \item booster tries to minimize Potential, adversary - to maximize.
+  \item \B{Adaboost:} \B{COnfiguration:} Margins\R{$m(x)=yH(x)$}:\\
+      larger than zero = correct.
+     \R{$$\Phi(x_1,\ldots,x_n) = \sum_i \exp(-m(x_i))$$}
+   \item \B{Boost by majority:} \B{Configuration}= number of marks on each example
+     \begin{small}
+       \R{\[
+           \Phi(x_1,\ldots,x_n) = \sum_j (\beta^i_{r(x_i)})
+         \]
+         \[
+       \beta^i_r = \sum_{j=0}^{\lfloor k/2 \rfloor-r} \binom{k-i}{j}\left(\frac{1}{2}+\gamma\right)^j\left(\frac{1}{2}-\gamma\right)^{k-1-j}
+     \]}
+ \end{small}
+\end{itemize}
+\end{frame}
+\begin{frame}
+  \begin{itemize}
+   \item \B{Weight assigned to examples:} The gradient of the potential.
+     \R{$$\nu = \frac{\partial}{\partial x_i} \Phi(x_1,\ldots,x_n)
+       = \frac{\partial}{\partial x_i} \phi(x_i)$$}
+   \item Adaboost - same as potentials
+     \item Boost by majority: the binomial PMF.
+  \end{itemize}
+\end{frame}
+  
+\begin{frame}{Concepts when analyzing online learning}
+  \begin{itemize}
+   \item \B{Configuration:} \R{$R_i$}: regret relative to expert $i$
+   \item \B{Potential:}
+     \R{$$\Phi(R_1,\ldots,R_n) = \frac{1}{\eta} \log \left(\sum_i \exp(-\eta R_i)\right)$$}
+  \item \B{Weight:} The gradient of the potential. assigned to experts. For exponential potential has the same form as the potential.
+  \item \B{Score:} Average potential: \R{$\Psi (\vec{m}) = \frac{1}{n} \sum_{i=1}^n \phi(m_i)$} experts try to maximize, learner, to minimize.
+  \item score upper bounds error of combined rule.
+  \end{itemize}
+\end{frame}
 
   
-  \end{frame}
 
 \end{document}
 

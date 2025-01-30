@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  27 JAN 2025 14:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  30 JAN 2025 13:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -972,7 +972,7 @@ LaTeX Font Info:    Font shape `T1/phv/m/it' in size <8> not available
 [22
 
 ]
-<figures/matrixProduct.jpg, id=650, 513.92pt x 228.855pt>
+<figures/matrixProduct.jpg, id=652, 513.92pt x 228.855pt>
 File: figures/matrixProduct.jpg Graphic file (type jpg)
 <use figures/matrixProduct.jpg>
 Package pdftex.def Info: figures/matrixProduct.jpg  used on input line 167.
@@ -1015,7 +1015,7 @@ Package pdftex.def Info: figures/matrixProduct.jpg  used on input line 167.
 ] [35
 
 ]
-<figures/SchapireBoostg-graph.png, id=1019, 1158.3275pt x 879.285pt>
+<figures/SchapireBoostg-graph.png, id=1023, 1158.3275pt x 879.285pt>
 File: figures/SchapireBoostg-graph.png Graphic file (type png)
 <use figures/SchapireBoostg-graph.png>
 Package pdftex.def Info: figures/SchapireBoostg-graph.png  used on input line 2
@@ -1049,7 +1049,7 @@ Package pdftex.def Info: figures/SchapireBoostg-graph.png  used on input line 2
  [39
 
 ]
-<figures/BBMvsSchapire.png, id=1135, 1269.74374pt x 578.16pt>
+<figures/BBMvsSchapire.png, id=1137, 1269.74374pt x 578.16pt>
 File: figures/BBMvsSchapire.png Graphic file (type png)
 <use figures/BBMvsSchapire.png>
 Package pdftex.def Info: figures/BBMvsSchapire.png  used on input line 239.
@@ -1057,7 +1057,7 @@ Package pdftex.def Info: figures/BBMvsSchapire.png  used on input line 239.
  [40
 
  <./figures/BBMvsSchapire.png>]
-<figures/BBMFigure.png, id=1164, 1233.60875pt x 1119.18124pt>
+<figures/BBMFigure.png, id=1168, 1233.60875pt x 1119.18124pt>
 File: figures/BBMFigure.png Graphic file (type png)
 <use figures/BBMFigure.png>
 Package pdftex.def Info: figures/BBMFigure.png  used on input line 248.
@@ -1091,7 +1091,7 @@ Overfull \vbox (5.72803pt too high) detected at line 248
 [43
 
 ]
-<figures/BBMPotential.png, id=1251, 967.615pt x 555.07375pt>
+<figures/BBMPotential.png, id=1255, 967.615pt x 555.07375pt>
 File: figures/BBMPotential.png Graphic file (type png)
 <use figures/BBMPotential.png>
 Package pdftex.def Info: figures/BBMPotential.png  used on input line 252.
@@ -1099,7 +1099,7 @@ Package pdftex.def Info: figures/BBMPotential.png  used on input line 252.
  [44
 
  <./figures/BBMPotential.png>]
-<figures/BBMWeighting.png, id=1280, 820.06375pt x 499.8675pt>
+<figures/BBMWeighting.png, id=1284, 820.06375pt x 499.8675pt>
 File: figures/BBMWeighting.png Graphic file (type png)
 <use figures/BBMWeighting.png>
 Package pdftex.def Info: figures/BBMWeighting.png  used on input line 256.
@@ -1124,31 +1124,31 @@ Package pdftex.def Info: figures/BBMWeighting.png  used on input line 256.
 ] [53
 
 ]
-Overfull \vbox (2.23593pt too high) detected at line 337
+Overfull \vbox (2.23593pt too high) detected at line 334
  []
 
 [54
 
 ]
-Overfull \vbox (2.23593pt too high) detected at line 337
+Overfull \vbox (2.23593pt too high) detected at line 334
  []
 
 [55
 
 ]
-Overfull \vbox (2.23593pt too high) detected at line 337
+Overfull \vbox (2.23593pt too high) detected at line 334
  []
 
 [56
 
 ]
-Overfull \vbox (2.23593pt too high) detected at line 337
+Overfull \vbox (2.23593pt too high) detected at line 334
  []
 
 [57
 
 ]
-Overfull \vbox (2.23593pt too high) detected at line 337
+Overfull \vbox (2.23593pt too high) detected at line 334
  []
 
 [58
@@ -1167,7 +1167,7 @@ Overfull \vbox (2.23593pt too high) detected at line 337
 
 ]
 LaTeX Font Info:    Trying to load font information for T1+ptm on input line 45
-3.
+1.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
@@ -1196,11 +1196,54 @@ File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 
 ] [76
 
-] [77
+]
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 494.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <7> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 494.
+ [77
 
 ] [78
 
 ] [79
+
+] [80
+
+] [81
+
+]
+[82
+
+] [83
+
+] [84
+
+] [85
+
+] [86
+
+] [87
+
+] [88
+
+] [89
+
+] [90
+
+] [91
+
+] [92
+
+] [93
+
+] [94
+
+] [95
+
+] [96
+
+]
+[97
 
 ]
 \tf@nav=\write6
@@ -1212,21 +1255,20 @@ File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 \tf@snm=\write8
 \openout8 = `talk.boosting.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 492.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 492.
-
-(./talk.boosting.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 492.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 492.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 549.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 549.
+ (./talk.boosting.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 549.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 549.
 Package rerunfilecheck Info: File `talk.boosting.out' has not changed.
-(rerunfilecheck)             Checksum: 8786F10FE4F4F2A6CDC5D4E5F8754146;201.
+(rerunfilecheck)             Checksum: F6E61B109E606887BD2E1E2F05145C8B;228.
  ) 
 Here is how much of TeX's memory you used:
- 19244 strings out of 480608
- 359802 string characters out of 5903631
- 627580 words of memory out of 5000000
- 34477 multiletter control sequences out of 15000+600000
- 583889 words of font info for 79 fonts, out of 8000000 for 9000
+ 19336 strings out of 480608
+ 361287 string characters out of 5903631
+ 627454 words of memory out of 5000000
+ 34528 multiletter control sequences out of 15000+600000
+ 603192 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  58i,19n,67p,780b,586s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
@@ -1234,20 +1276,22 @@ exlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
 xlive/2020/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local
 /texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/
 texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/te
-xlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texl
-ive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texli
-ve/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive
-/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/
-2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/20
-20/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texliv
-e/2020/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2020/
-texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2020/texmf-d
-ist/fonts/type1/urw/helvetic/uhvro8a.pfb></usr/local/texlive/2020/texmf-dist/fo
-nts/type1/urw/times/utmr8a.pfb>
-Output written on talk.boosting.pdf (79 pages, 565956 bytes).
+xlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texl
+ive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texliv
+e/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive
+/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2
+020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/20
+20/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2020
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2020/t
+exmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/20
+20/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2020/texm
+f-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2020/texmf-dist/
+fonts/type1/urw/helvetic/uhvro8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/
+type1/urw/times/utmr8a.pfb>
+Output written on talk.boosting.pdf (97 pages, 632229 bytes).
 PDF statistics:
- 2364 PDF objects out of 2487 (max. 8388607)
- 2164 compressed objects within 22 object streams
- 163 named destinations out of 1000 (max. 500000)
+ 2891 PDF objects out of 2984 (max. 8388607)
+ 2648 compressed objects within 27 object streams
+ 199 named destinations out of 1000 (max. 500000)
  105 words of extra memory for PDF output out of 10000 (max. 10000000)
 
