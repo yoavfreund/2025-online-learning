@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  2 FEB 2025 10:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  4 FEB 2025 11:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -973,7 +973,7 @@ LaTeX Font Info:    Font shape `T1/phv/m/it' in size <8> not available
 [22
 
 ]
-<figures/matrixProduct.jpg, id=652, 513.92pt x 228.855pt>
+<figures/matrixProduct.jpg, id=656, 513.92pt x 228.855pt>
 File: figures/matrixProduct.jpg Graphic file (type jpg)
 <use figures/matrixProduct.jpg>
 Package pdftex.def Info: figures/matrixProduct.jpg  used on input line 167.
@@ -1016,7 +1016,7 @@ Package pdftex.def Info: figures/matrixProduct.jpg  used on input line 167.
 ] [35
 
 ]
-<figures/SchapireBoostg-graph.png, id=1023, 1158.3275pt x 879.285pt>
+<figures/SchapireBoostg-graph.png, id=1027, 1158.3275pt x 879.285pt>
 File: figures/SchapireBoostg-graph.png Graphic file (type png)
 <use figures/SchapireBoostg-graph.png>
 Package pdftex.def Info: figures/SchapireBoostg-graph.png  used on input line 2
@@ -1050,7 +1050,7 @@ Package pdftex.def Info: figures/SchapireBoostg-graph.png  used on input line 2
  [39
 
 ]
-<figures/BBMvsSchapire.png, id=1137, 1269.74374pt x 578.16pt>
+<figures/BBMvsSchapire.png, id=1141, 1269.74374pt x 578.16pt>
 File: figures/BBMvsSchapire.png Graphic file (type png)
 <use figures/BBMvsSchapire.png>
 Package pdftex.def Info: figures/BBMvsSchapire.png  used on input line 239.
@@ -1058,7 +1058,7 @@ Package pdftex.def Info: figures/BBMvsSchapire.png  used on input line 239.
  [40
 
  <./figures/BBMvsSchapire.png>]
-<figures/BBMFigure.png, id=1168, 1233.60875pt x 1119.18124pt>
+<figures/BBMFigure.png, id=1172, 1233.60875pt x 1119.18124pt>
 File: figures/BBMFigure.png Graphic file (type png)
 <use figures/BBMFigure.png>
 Package pdftex.def Info: figures/BBMFigure.png  used on input line 248.
@@ -1092,7 +1092,7 @@ Overfull \vbox (5.72803pt too high) detected at line 248
 [43
 
 ]
-<figures/BBMPotential.png, id=1255, 967.615pt x 555.07375pt>
+<figures/BBMPotential.png, id=1259, 967.615pt x 555.07375pt>
 File: figures/BBMPotential.png Graphic file (type png)
 <use figures/BBMPotential.png>
 Package pdftex.def Info: figures/BBMPotential.png  used on input line 252.
@@ -1100,7 +1100,7 @@ Package pdftex.def Info: figures/BBMPotential.png  used on input line 252.
  [44
 
  <./figures/BBMPotential.png>]
-<figures/BBMWeighting.png, id=1284, 820.06375pt x 499.8675pt>
+<figures/BBMWeighting.png, id=1288, 820.06375pt x 499.8675pt>
 File: figures/BBMWeighting.png Graphic file (type png)
 <use figures/BBMWeighting.png>
 Package pdftex.def Info: figures/BBMWeighting.png  used on input line 256.
@@ -1252,8 +1252,6 @@ LaTeX Font Info:    Font shape `T1/phv/m/it' in size <7> not available
 
 ] [100
 
-] [101
-
 ]
 \tf@nav=\write6
 \openout6 = `talk.boosting.nav'.
@@ -1264,50 +1262,46 @@ LaTeX Font Info:    Font shape `T1/phv/m/it' in size <7> not available
 \tf@snm=\write8
 \openout8 = `talk.boosting.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 559.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 559.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 558.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 558.
  (./talk.boosting.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 559.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 559.
-
-
-Package rerunfilecheck Warning: File `talk.boosting.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `talk.boosting.out':
-(rerunfilecheck)             Before: F6E61B109E606887BD2E1E2F05145C8B;228
-(rerunfilecheck)             After:  9DAE49FD160169FE893DD08F18A49D3B;279.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 558.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 558.
+Package rerunfilecheck Info: File `talk.boosting.out' has not changed.
+(rerunfilecheck)             Checksum: 9DAE49FD160169FE893DD08F18A49D3B;279.
  ) 
 Here is how much of TeX's memory you used:
- 19345 strings out of 480608
- 361377 string characters out of 5903631
+ 19352 strings out of 480608
+ 361437 string characters out of 5903631
  627454 words of memory out of 5000000
- 34528 multiletter control sequences out of 15000+600000
+ 34536 multiletter control sequences out of 15000+600000
  603192 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  58i,19n,67p,780b,586s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
-exlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
-xlive/2020/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local
-/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/
-texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/te
-xlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texl
-ive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texliv
-e/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive
-/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2
-020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/20
-20/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2020
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2020/t
-exmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/20
-20/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2020/texm
-f-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2020/texmf-dist/
-fonts/type1/urw/helvetic/uhvro8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/
-type1/urw/times/utmr8a.pfb>
-Output written on talk.boosting.pdf (101 pages, 640197 bytes).
+pdfTeX warning (dest): name{Navigation101} has been referenced but does not e
+xist, replaced by a fixed one
+
+{/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/tex
+live/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texl
+ive/2020/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/local/t
+exlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/te
+xlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texl
+ive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texliv
+e/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/
+2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2
+020/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/202
+0/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2020
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2020/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2020/tex
+mf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2020
+/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2020/texmf-
+dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2020/texmf-dist/fo
+nts/type1/urw/helvetic/uhvro8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/ty
+pe1/urw/times/utmr8a.pfb>
+Output written on talk.boosting.pdf (100 pages, 636194 bytes).
 PDF statistics:
- 3006 PDF objects out of 3580 (max. 8388607)
- 2754 compressed objects within 28 object streams
- 208 named destinations out of 1000 (max. 500000)
- 105 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2982 PDF objects out of 2984 (max. 8388607)
+ 2732 compressed objects within 28 object streams
+ 207 named destinations out of 1000 (max. 500000)
+ 113 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -545,12 +545,11 @@ Minimizing each factor leads to \R{$\beta_t = \epsilon_t / (1-\epsilon_t)$}. Plu
 
 \begin{frame}{Concepts when analyzing online learning}
   \begin{itemize}
-   \item \B{Configuration:} \R{$R_i$}: regret relative to expert $i$
+   \item \B{Configuration:} \R{$R_i = L_A - L_i$}: regret relative to expert $i$
    \item \B{Potential:}
-     \R{$$\Phi(R_1,\ldots,R_n) = \frac{1}{\eta} \log \left(\sum_i \exp(-\eta R_i)\right)$$}
+     \R{$$\Phi(R_1,\ldots,R_n) = \frac{1}{\eta} \log \left(\sum_i \exp(\eta R_i)\right)$$}
   \item \B{Weight:} The gradient of the potential. assigned to experts. For exponential potential has the same form as the potential.
-  \item \B{Score:} Average potential: \R{$\Psi (\vec{m}) = \frac{1}{n} \sum_{i=1}^n \phi(m_i)$} experts try to maximize, learner, to minimize.
-  \item score upper bounds error of combined rule.
+  \item score upper bounds maximal regret.
   \end{itemize}
 \end{frame}
 
