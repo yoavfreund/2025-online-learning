@@ -1,0 +1,126 @@
+\documentclass{beamer}
+
+\usepackage{xcolor}
+\usepackage{amsmath}
+
+\title{Online Learning and Online Convex Optimization}
+\author{Shai Shalev-Shwartz}
+\date{}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Contents}
+\tableofcontents
+\end{frame}
+
+\section{Introduction}
+\begin{frame}{Introduction}
+    \textbf{Overview}
+    \begin{itemize}
+        \item Motivation for online learning
+        \item Core principles and applications
+    \end{itemize}
+\end{frame}
+
+\subsection{Examples}
+\begin{frame}{Examples}
+    \begin{itemize}
+        \item Real-world applications of online learning
+        \item Comparison with batch learning
+    \end{itemize}
+\end{frame}
+
+\subsection{A Gentle Start}
+\begin{frame}{A Gentle Start}
+    \textbf{Basic Concepts:}
+    \begin{itemize}
+        \item Online decision-making
+        \item Regret minimization
+    \end{itemize}
+\end{frame}
+
+\subsection{Organization and Scope}
+\begin{frame}{Organization and Scope}
+    \textbf{Key topics covered:}
+    \begin{itemize}
+        \item Online convex optimization
+        \item Online classification
+    \end{itemize}
+\end{frame}
+
+\section{Online Convex Optimization}
+\begin{frame}{Definition}
+    \textbf{Convex Functions:}
+    \begin{equation}
+        \textcolor{red}{f(y) \geq f(x) + \nabla f(x)^{\top} (y - x)}
+    \end{equation}
+\end{frame}
+
+\subsection{Convexification}
+\begin{frame}{Convexification}
+    \textbf{Strategy:}
+    \begin{itemize}
+        \item Transforming non-convex problems into convex ones
+        \item Convex relaxations
+    \end{itemize}
+\end{frame}
+
+\subsection{Follow-the-Leader and Regularization}
+\begin{frame}{Follow-the-Leader}
+    \textbf{Algorithm:}
+    \begin{equation}
+        \textcolor{red}{w_{t+1} = \arg\min_w \sum_{i=1}^{t} L(w, x_i, y_i)}
+    \end{equation}
+\end{frame}
+
+\subsection{Online Gradient Descent}
+\begin{frame}{Gradient Descent}
+    \textbf{Update Rule:}
+    \begin{equation}
+        \textcolor{red}{w_{t+1} = w_t - \eta \nabla L(w_t)}
+    \end{equation}
+\end{frame}
+
+\subsection{Online Mirror Descent}
+\begin{frame}{Mirror Descent}
+    \textbf{Update Rule:}
+    \begin{equation}
+        \textcolor{red}{w_{t+1} = \arg\min_w \left( \eta \nabla L(w_t) + D(w, w_t) \right)}
+    \end{equation}
+\end{frame}
+
+\section{Online Classification}
+\begin{frame}{Finite Hypothesis Classes}
+    \textbf{Key Ideas:}
+    \begin{itemize}
+        \item PAC learning framework
+        \item Expert advice methods
+    \end{itemize}
+\end{frame}
+
+\subsection{Learnability and Standard Optimal Algorithm}
+\begin{frame}{Learnability}
+    \textbf{Main Result:}
+    \begin{equation}
+        \textcolor{red}{R_T = O(\sqrt{T})}
+    \end{equation}
+\end{frame}
+
+\section{Conclusion}
+\begin{frame}{Summary}
+    \textbf{Key Takeaways:}
+    \begin{itemize}
+        \item Online learning offers flexibility and efficiency
+        \item Convex optimization techniques are foundational
+        \item Future research directions
+    \end{itemize}
+\end{frame}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -1,0 +1,198 @@
+\documentclass{beamer}
+\usetheme{Madrid}
+\usepackage{amsmath,amssymb,xcolor}
+\usepackage{algorithm,algorithmic}
+
+\newcommand{\mathred}[1]{\textcolor{red}{$#1$}} % Red math
+
+\title{Online Convex Optimization}
+\subtitle{Chapter 2: Complete Treatment with Proofs}
+\author{Shai Shalev-Shwartz}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\section{Convexification}
+\begin{frame}{Convexification Techniques}
+\begin{block}{Two Key Methods}
+\begin{itemize}
+\item \mathred{\text{Randomization}}: Allow probabilistic predictions
+\item \mathred{\text{Surrogate Loss}}: Replace original loss with convex upper bound
+\end{itemize}
+\end{block}
+
+\begin{example}[Prediction with Expert Advice]
+\begin{itemize}
+\item Original problem: Discrete choices
+\item Convexification: \mathred{w_t \in \Delta_d} (probability simplex)
+\item Loss becomes \mathred{\langle w_t, z_t \rangle}
+\end{itemize}
+\end{example}
+
+\begin{example}[Online Classification]
+\begin{itemize}
+\item Surrogate loss: \mathred{f_t(w) = 2|\langle w,v_t \rangle - y_t|}
+\item Maintains \mathred{w_t \in \Delta_{|H|}} (version space probabilities)
+\end{itemize}
+\end{example}
+\end{frame}
+
+\section{Follow-the-Leader (FTL)}
+\begin{frame}{FTL Algorithm and Analysis}
+\begin{block}{FTL Update Rule}
+\mathred{w_t = \argmin_{w \in S} \sum_{i=1}^{t-1} f_i(w)}
+\end{block}
+
+\begin{lemma}[Regret Decomposition]
+For any \mathred{u \in S}:
+\mathred{\text{Regret}_T(u) \leq \sum_{t=1}^T [f_t(w_t) - f_t(w_{t+1})]}
+\end{lemma}
+
+\begin{proof}[Inductive Proof Sketch]
+Base case: \mathred{T=1} trivial. Inductive step uses:
+\mathred{\sum_{t=1}^T f_t(w_t) \leq \sum_{t=1}^T f_t(w_{T+1})}
+\end{proof}
+
+\begin{example}[Quadratic Loss]
+For \mathred{f_t(w) = \frac{1}{2}\|w-z_t\|^2}:
+\begin{itemize}
+\item FTL: \mathred{w_t = \frac{1}{t-1}\sum_{i=1}^{t-1} z_i}
+\item Regret \mathred{O(\log T)}
+\end{itemize}
+\end{example}
+\end{frame}
+
+\section{Follow-the-Regularized-Leader}
+\begin{frame}{FTRL Framework}
+\begin{block}{Regularized Objective}
+\mathred{w_t = \argmin_{w \in S} \left( \sum_{i=1}^{t-1} f_i(w) + R(w) \right)}
+\end{block}
+
+\begin{theorem}[FTRL Regret Bound]
+For linear \mathred{f_t} and \mathred{R(w) = \frac{1}{2\eta}\|w\|^2}:
+\mathred{\text{Regret}_T(u) \leq \frac{\|u\|^2}{2\eta} + \eta \sum_{t=1}^T \|z_t\|^2}
+\end{theorem}
+
+\begin{proof}[Key Steps]
+\begin{itemize}
+\item Apply FTL analysis to regularized losses
+\item Use Lemma 2.3: \mathred{\sum (f_t(w_t) - f_t(u)) \leq R(u) + \sum (f_t(w_t) - f_t(w_{t+1}))}
+\item Bound stability terms via strong convexity
+\end{itemize}
+\end{proof}
+
+\begin{block}{Doubling Trick}
+Adaptive \mathred{\eta} selection without knowing \mathred{T}:
+\mathred{\eta_m = \frac{B}{L\sqrt{2^m}}} for epoch \mathred{m}
+\end{block}
+\end{frame}
+
+\section{Online Gradient Descent}
+\begin{frame}{OGD Algorithm and Analysis}
+\begin{algorithm}[H]
+\caption{Online Gradient Descent}
+\begin{algorithmic}[1]
+\REQUIRE \mathred{\eta > 0}
+\STATE Initialize \mathred{w_1 = 0}
+\FOR{\mathred{t=1} to \mathred{T}}
+\STATE Predict \mathred{w_t}, receive \mathred{z_t \in \partial f_t(w_t)}
+\STATE Update \mathred{w_{t+1} = w_t - \eta z_t}
+\ENDFOR
+\end{algorithmic}
+\end{algorithm}
+
+\begin{theorem}[OGD Regret Bound]
+For \mathred{L}-Lipschitz losses:
+\mathred{\text{Regret}_T(u) \leq \frac{\|u\|^2}{2\eta} + \eta TL^2}
+\end{theorem}
+
+\begin{proof}
+\begin{itemize}
+\item Use FTRL analysis with \mathred{R(w) = \frac{1}{2\eta}\|w\|^2}
+\item Show \mathred{\sum \|z_t\|^2 \leq TL^2}
+\item Optimize \mathred{\eta = \frac{B}{L\sqrt{T}}}
+\end{itemize}
+\end{proof}
+\end{frame}
+
+\section{Strong Convexity}
+\begin{frame}{Strongly Convex Regularizers}
+\begin{definition}[\mathred{\sigma}-Strong Convexity]
+\mathred{R(u) \geq R(w) + \langle \nabla R(w), u-w \rangle + \frac{\sigma}{2}\|u-w\|^2}
+\end{definition}
+
+\begin{example}[Common Regularizers]
+\begin{itemize}
+\item Euclidean: \mathred{R(w) = \frac{1}{2}\|w\|_2^2} (1-strongly convex)
+\item Entropic: \mathred{R(w) = \sum w_i\log w_i} (1-strongly convex w.r.t. \mathred{\ell_1})
+\end{itemize}
+\end{example}
+
+\begin{lemma}[Implication for FTRL]
+For \mathred{\sigma}-strongly convex \mathred{R}:
+\mathred{\text{Regret}_T(u) \leq \frac{R(u)}{\eta} + \eta \sum_{t=1}^T \|z_t\|_*^2}
+\end{lemma}
+\end{frame}
+
+\section{Online Mirror Descent}
+\begin{frame}{OMD and Duality}
+\begin{block}{OMD Framework}
+\begin{itemize}
+\item Primal update: \mathred{w_{t+1} = \argmin_w \langle \eta z_t, w \rangle + D_R(w\|w_t)}
+\item Dual view: \mathred{\theta_{t+1} = \theta_t - \eta z_t} with \mathred{w_t = \nabla R^*(\theta_t)}
+\end{itemize}
+\end{block}
+
+\begin{theorem}[General Regret Bound]
+For \mathred{R} \mathred{(1/\eta)}-strongly convex:
+\mathred{\text{Regret}_T(u) \leq R(u) + \eta \sum_{t=1}^T \|z_t\|_*^2}
+\end{theorem}
+
+\begin{example}[EG Algorithm]
+\begin{itemize}
+\item Regularizer: \mathred{R(w) = \sum w_i\log w_i}
+\item Update: \mathred{w_{t+1,i} \propto w_{t,i}e^{-\eta z_{t,i}}}
+\end{itemize}
+\end{example}
+\end{frame}
+
+\section{Local Norm Bounds}
+\begin{frame}{Local Norm Analysis}
+\begin{theorem}[Normalized EG]
+For \mathred{0 \leq z_{t,i} \leq 1}:
+\mathred{\text{Regret}_T(u) \leq \frac{\log d}{\eta} + \eta \sum_{t=1}^T \sum_i w_{t,i}z_{t,i}^2}
+\end{theorem}
+
+\begin{proof}[Key Inequality]
+Using \mathred{e^{-a} \leq 1 - a + a^2} for \mathred{a \geq -1}:
+\begin{align*}
+D_{R^*}(-z_{1:t}\|-z_{1:t-1}) &\leq \eta \sum_i w_{t,i}z_{t,i}^2
+\end{align*}
+\end{proof}
+
+\begin{block}{Optimal Tuning}
+Set \mathred{\eta = \sqrt{\frac{\log d}{T}}} for \mathred{O(\sqrt{T\log d})} regret
+\end{block}
+\end{frame}
+
+\section{Bibliography}
+\begin{frame}{Key References}
+\begin{itemize}
+\item Zinkevich (2003): Original OGD framework
+\item Hazan et al. (2007): Adaptive gradient methods
+\item Shalev-Shwartz (2011): Survey synthesis
+\item Rakhlin (2014): Duality approaches
+\item Cesa-Bianchi \& Lugosi (2006): Prediction with expert advice
+\end{itemize}
+\end{frame}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "talk"
+%%% End:

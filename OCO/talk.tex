@@ -1,0 +1,162 @@
+\documentclass{beamer}
+
+\usepackage{xcolor}
+\usepackage{amsmath}
+
+\title{Online Learning and Online Convex Optimization}
+\author{Shai Shalev-Shwartz}
+\date{}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section{Online Convex Optimization}
+\begin{frame}{Online Convex Optimization (OCO)}
+\begin{block}{Algorithm}
+\textbf{Input:} A convex set \( \textcolor{red}{S} \)
+
+\textbf{For} \( \textcolor{red}{t = 1,2,\dots} \)
+\begin{itemize}
+    \item Predict a vector \( \textcolor{red}{w_t \in S} \)
+    \item Receive a convex loss function \( \textcolor{red}{f_t: S \to \mathbb{R}} \)
+    \item Suffer loss \( \textcolor{red}{f_t(w_t)} \)
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Regret Definition}
+    \textbf{Regret of the Algorithm:}
+    \begin{equation}
+        \textcolor{red}{\text{Regret}_T(u) = \sum_{t=1}^{T} f_t(w_t) - \sum_{t=1}^{T} f_t(u).}
+    \end{equation}
+    \textbf{Regret relative to a set of vectors \( U \):}
+    \begin{equation}
+        \textcolor{red}{\text{Regret}_T(U) = \max_{u \in U} \text{Regret}_T(u).}
+    \end{equation}
+\end{frame}
+
+
+\newcommand{\mathred}[1]{\textcolor{red}{#1}} % New command for red math
+
+\begin{frame}{Follow-the-Leader Algorithm}
+\begin{block}{FTL Strategy}
+At round $\mathred{t}$, select:
+\[
+\mathred{w_t = \operatorname{argmin}_{w \in S} \sum_{i=1}^{t-1} f_i(w)}
+\]
+\end{block}
+
+\begin{itemize}
+\item Natural approach: Choose best performer on past data
+\item Simple but can be unstable
+\item Requires solving optimization problem each round
+\end{itemize}
+\end{frame}
+
+\begin{frame}{FTL Regret Analysis}
+\begin{theorem}[Lemma 2.1]
+For any $\mathred{u \in S}$:
+\[
+\mathred{\text{Regret}_T(u) \leq \sum_{t=1}^T [f_t(w_t) - f_t(w_{t+1})]}
+\]
+\end{theorem}
+
+\begin{proof}[Complete Proof]
+By induction on $\mathred{T}$:
+\begin{itemize}
+\item \textcolor{red}{Base case:} $\mathred{T=1}$ trivial as $\mathred{f_1(w_1) - f_1(u) \leq 0}$
+
+\item \textcolor{red}{Inductive step:} Assume holds for $\mathred{T-1}$, then
+\begin{align*}
+\mathred{\sum_{t=1}^T} &\mathred{[f_t(w_t) - f_t(u)]} \\
+&\mathred{= \underbrace{\sum_{t=1}^{T-1} [f_t(w_t) - f_t(u)]}_{\leq \sum_{t=1}^{T-1} [f_t(w_t) - f_t(w_{t+1})]} + [f_T(w_T) - f_T(u)]} \\
+&\mathred{\leq \sum_{t=1}^T [f_t(w_t) - f_t(w_{t+1})]}
+\end{align*}
+using $\mathred{w_{T+1} = \operatorname{argmin}_w \sum_{t=1}^T f_t(w)}$
+\end{itemize}
+\end{proof}
+\end{frame}
+
+\begin{frame}{Quadratic Optimization Example}
+\begin{example}[Quadratic Loss]
+For $\mathred{f_t(w) = \frac{1}{2}\|w - z_t\|_2^2}$:
+\begin{itemize}
+\item FTL update: $\mathred{w_t = \frac{1}{t-1}\sum_{i=1}^{t-1} z_i}$
+\item Regret bound: $\mathred{O(\log T)}$
+\end{itemize}
+\end{example}
+
+\begin{proof}[Regret Calculation]
+\begin{align*}
+\mathred{\text{Regret}_T(u)} &\mathred{\leq \sum_{t=1}^T \frac{1}{t} \|w_t - z_t\|^2} \\
+&\mathred{\leq \sum_{t=1}^T \frac{(2L)^2}{t} = 4L^2(\log T + 1)}
+\end{align*}
+where $\mathred{L = \max_t \|z_t\|}$
+\end{proof}
+\end{frame}
+
+\begin{frame}{FTRL Regret Bound}
+\begin{theorem}[Theorem 2.4]
+For linear $\mathred{f_t(w) = \langle w,z_t\rangle}$ and $\mathred{R(w) = \frac{1}{2\eta}\|w\|_2^2}$:
+\[
+\mathred{\text{Regret}_T(U) \leq \frac{B^2}{2\eta} + \eta T L^2}
+\]
+\end{theorem}
+
+\begin{proof}
+Using lemma 3.3 and strong convexity:
+\begin{align*}
+\mathred{\sum_{t=1}^T \langle w_t - u, z_t \rangle} &\mathred{\leq \frac{1}{2\eta}\|u\|^2 + \eta \sum_{t=1}^T \|z_t\|^2} \\
+&\mathred{\leq \frac{B^2}{2\eta} + \eta T L^2}
+\end{align*}
+Minimizing over $\mathred{\eta}$ gives $\mathred{O(\sqrt{T})}$ bound
+\end{proof}
+\end{frame}
+
+\begin{frame}{Online Gradient Descent Example}
+\begin{example}[OGD from FTRL]
+Update rule:
+\[
+\mathred{w_{t+1} = w_t - \eta z_t}
+\]
+Special case of FTRL with $\mathred{R(w) = \frac{1}{2\eta}\|w\|_2^2}$
+\end{example}
+
+\begin{proof}[Regret Bound]
+From FTRL theorem:
+\begin{align*}
+\mathred{\text{Regret}} &\mathred{\leq \frac{\|u\|^2}{2\eta} + \eta \sum_{t=1}^T \|z_t\|^2} \\
+&\mathred{\leq \frac{B^2}{2\eta} + \eta T L^2}
+\end{align*}
+\end{proof}
+\end{frame}
+
+\begin{frame}{Practical Considerations}
+\begin{block}{Doubling Trick}
+\begin{itemize}
+\item Removes need to know time horizon $\mathred{T}$
+\item Divide time into epochs $\mathred{2^m,2^{m+1}-1}$
+\item Regret increases by constant factor:
+\[
+\mathred{\sum_{m=0}^{\log T} \sqrt{2^m} = O(\sqrt{T})}
+\]
+\end{itemize}
+\end{block}
+
+\begin{example}[Optimal $\mathred{\eta}$]
+Setting $\mathred{\eta = \frac{B}{L}\sqrt{\frac{2}{T}}}$ gives:
+\[
+\mathred{BL\sqrt{2T}}
+\]
+\end{example}
+\end{frame}
+
+\end{document}
+
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

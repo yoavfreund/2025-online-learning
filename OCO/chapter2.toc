@@ -1,0 +1,8 @@
+\beamer@sectionintoc {1}{Convexification}{2}{0}{1}
+\beamer@sectionintoc {2}{Follow-the-Leader (FTL)}{3}{0}{2}
+\beamer@sectionintoc {3}{Follow-the-Regularized-Leader}{4}{0}{3}
+\beamer@sectionintoc {4}{Online Gradient Descent}{5}{0}{4}
+\beamer@sectionintoc {5}{Strong Convexity}{6}{0}{5}
+\beamer@sectionintoc {6}{Online Mirror Descent}{7}{0}{6}
+\beamer@sectionintoc {7}{Local Norm Bounds}{8}{0}{7}
+\beamer@sectionintoc {8}{Bibliography}{9}{0}{8}

@@ -476,9 +476,24 @@ Minimizing each factor leads to \R{$\beta_t = \epsilon_t / (1-\epsilon_t)$}. Plu
 
   \end{columns}
 \end{frame}
+\section{General concepts}
+\begin{frame}{General Concepts}
+  \begin{itemize}
+  \item \R{$T$} step game, final configuration associated with a real value.
+  \item The \B{potential} of an configuration is an approximation/upper bound/lower  bound of the final value given the current configuration.
+  \item The Weight is the difference between potential of reachable next steps.
+  \item similar to board evaluation in Chess.
+  \item Our special case:  state is a vector, Potential is defined as
+    \R{
+      \[
+        \Phi({\mathbf u})=\psi\left( \sum_{i=1}^n \phi(u_i)\right)
+      \]}
+    \item I will (mis)use the word \B{potential} to refer to \R{$\phi$} and \B{Score} to refer to \R{$\Phi$}
+\end{itemize}
+\end{frame}
 
 \section{Alternative formulation of adaboost}
-\begin{frame}{Algorithm 1.1: The boosting algorithm AdaBoost}
+\begin{frame}{AdaBoost: The symmetric version}
 \begin{itemize}
 \item \textbf{Given:} $(x_1, y_1), \ldots, (x_m, y_m)$ where $x_i \in \mathcal{X}, y_i \in \{-1,+1\}$  \textbf{Initialize:} $D_1(i) = 1/m$ for $i = 1,\ldots,m$
 \item \textbf{For} $t = 1,\ldots,T$:
@@ -492,22 +507,10 @@ Minimizing each factor leads to \R{$\beta_t = \epsilon_t / (1-\epsilon_t)$}. Plu
     \[ \text{sign}(H(x));\;\; H(x) = \left(\sum_{t=1}^T \alpha_t h_t(x)\right) \]
   \end{itemize}
 \end{frame}
-
-\begin{frame}{General Concepts}
-  \begin{itemize}
-  \item \R{$T$} step game, final configuration associated with a real value.
-  \item The \B{potential} of an configuration is an approximation/upper bound/lower  bound of the final value given the current configuration.
-  \item The Weight is the difference in score of reachable next steps.
-  \item similar to board evaluation in Chess.
-  \item Our special case:  state is a vector, Potential is defined as
-    \R{
-      \[
-        \Phi({\mathbf u})=\psi\left( \sum_{i=1}^n \phi(u_i)\right)
-      \]}
-    \item I sometimes (mis)use the word \B{potential} to refer to \R{$\phi$} and \B{Score} to refer to \R{$\Phi$}
-\end{itemize}
+\begin{frame}
+  \frametitle{show boosting examples}
+  
 \end{frame}
-
 \begin{frame}{Concepts when analyzing boosting}
   \begin{itemize}
   \item booster tries to minimize Potential, adversary - to maximize.
@@ -517,7 +520,7 @@ Minimizing each factor leads to \R{$\beta_t = \epsilon_t / (1-\epsilon_t)$}. Plu
    \item \B{Boost by majority:} \B{Configuration}= number of marks on each example
      \begin{small}
        \R{\[
-           \Phi(x_1,\ldots,x_n) = \sum_j (\beta^i_{r(x_i)})
+           \Phi(x_1,\ldots,x_n) = \sum_j \beta^i_{r(x_j)}
          \]
          \[
        \beta^i_r = \sum_{j=0}^{\lfloor k/2 \rfloor-r} \binom{k-i}{j}\left(\frac{1}{2}+\gamma\right)^j\left(\frac{1}{2}-\gamma\right)^{k-1-j}
@@ -534,7 +537,12 @@ Minimizing each factor leads to \R{$\beta_t = \epsilon_t / (1-\epsilon_t)$}. Plu
      \item Boost by majority: the binomial PMF.
   \end{itemize}
 \end{frame}
+\begin{frame}
+  \frametitle{Show boosting margin figures.}
   
+\end{frame}
+
+
 \begin{frame}{Concepts when analyzing online learning}
   \begin{itemize}
    \item \B{Configuration:} \R{$R_i$}: regret relative to expert $i$

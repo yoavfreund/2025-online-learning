@@ -65,19 +65,26 @@
 \headcommand {\beamer@framepages {66}{76}}
 \headcommand {\beamer@sectionpages {40}{76}}
 \headcommand {\beamer@subsectionpages {40}{76}}
-\headcommand {\sectionentry {4}{Alternative formulation of adaboost}{77}{Alternative formulation of adaboost}{0}}
+\headcommand {\sectionentry {4}{General concepts}{77}{General concepts}{0}}
 \headcommand {\slideentry {4}{0}{1}{77/82}{}{0}}
 \headcommand {\beamer@framepages {77}{82}}
-\headcommand {\slideentry {4}{0}{2}{83/88}{}{0}}
+\headcommand {\beamer@sectionpages {77}{82}}
+\headcommand {\beamer@subsectionpages {77}{82}}
+\headcommand {\sectionentry {5}{Alternative formulation of adaboost}{83}{Alternative formulation of adaboost}{0}}
+\headcommand {\slideentry {5}{0}{1}{83/88}{}{0}}
 \headcommand {\beamer@framepages {83}{88}}
-\headcommand {\slideentry {4}{0}{3}{89/90}{}{0}}
-\headcommand {\beamer@framepages {89}{90}}
-\headcommand {\slideentry {4}{0}{4}{91/92}{}{0}}
-\headcommand {\beamer@framepages {91}{92}}
-\headcommand {\slideentry {4}{0}{5}{93/97}{}{0}}
-\headcommand {\beamer@framepages {93}{97}}
-\headcommand {\beamer@partpages {1}{97}}
-\headcommand {\beamer@subsectionpages {77}{97}}
-\headcommand {\beamer@sectionpages {77}{97}}
-\headcommand {\beamer@documentpages {97}}
-\headcommand {\gdef \inserttotalframenumber {33}}
+\headcommand {\slideentry {5}{0}{2}{89/89}{}{0}}
+\headcommand {\beamer@framepages {89}{89}}
+\headcommand {\slideentry {5}{0}{3}{90/92}{}{0}}
+\headcommand {\beamer@framepages {90}{92}}
+\headcommand {\slideentry {5}{0}{4}{93/95}{}{0}}
+\headcommand {\beamer@framepages {93}{95}}
+\headcommand {\slideentry {5}{0}{5}{96/96}{}{0}}
+\headcommand {\beamer@framepages {96}{96}}
+\headcommand {\slideentry {5}{0}{6}{97/101}{}{0}}
+\headcommand {\beamer@framepages {97}{101}}
+\headcommand {\beamer@partpages {1}{101}}
+\headcommand {\beamer@subsectionpages {83}{101}}
+\headcommand {\beamer@sectionpages {83}{101}}
+\headcommand {\beamer@documentpages {101}}
+\headcommand {\gdef \inserttotalframenumber {35}}

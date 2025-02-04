@@ -2,4 +2,5 @@
 \beamer@sectionintoc {1}{Min/Max Theorems}{10}{0}{1}
 \beamer@sectionintoc {2}{Schapire's algorithm}{33}{0}{2}
 \beamer@sectionintoc {3}{Boost by Majority}{40}{0}{3}
-\beamer@sectionintoc {4}{Alternative formulation of adaboost}{77}{0}{4}
+\beamer@sectionintoc {4}{General concepts}{77}{0}{4}
+\beamer@sectionintoc {5}{Alternative formulation of adaboost}{83}{0}{5}
