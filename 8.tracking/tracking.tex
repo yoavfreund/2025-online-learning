@@ -93,90 +93,6 @@
   Prediction learning and Games.
 \end{frame}
 
-\section{}
-\includegraphics[width=4in]{ManfredSlides/skitch9.png}\\
-\includegraphics[width=4in]{ManfredSlides/skitch8.png}\\
-\includegraphics[width=4in]{ManfredSlides/skitch7.png}\\
-\includegraphics[width=4in]{ManfredSlides/skitch6.png}
-
-\begingroup
-\small
-\begin{frame}
-\frametitle{Unnormalized Relative entropy} 
-\begin{itemize}
-\item prediction, outcome \R{$\vecp,\vecq$} are \R{$n$} dimensional
-  vectors with non-negative coordinates. 
-\item Loss is RE extended to non-negative vectors:
-\R{\[ \RE{\vecp}{\vecq} = \sum_{i=1}^n p_i \log \frac{p_i}{q_i} -
-    \sum_{i=1}^n (q_i-p_i) \]}
-Coincides with \R{RE} when \R{$\sum_{i=1}^n p_i = \sum_{i=1}^n q_i = 1$}
-\item Unnormalized \R{RE} is the Bregman divergence corresponding to
-  the unnormalized entropy:
-  \R{\[
-      F(\vecp) = \sum_{i=1}^n p_i \log p_i - \sum_{i=1}^n p_i
-    \]}
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{Inequalities for Unnormalized Relative entropy} 
-\begin{itemize}
-\item
-\B{No} \B{triangle inequality}
-\R{$ \exists \vecp_1,\vecp_2,\vecp_3\;\; \RE{\vecp_1}{\vecp_3} >
-  \RE{\vecp_1}{\vecp_2} + \RE{\vecp_2}{\vecp_3}
-$}
-\item \B{Generalized Pythagorean inequality}
-  For any closed convex set \R{$S$} and any point \R{$\vecp_1 \notin
-    S$}, define the projection of \R{$\vecp_1$} on \R{$S$} to be
-  \R{$\vecp_2 = \mbox{argmin}_{\vu \in S} \RE{\vecp_1}{\vu}$}, then:
-  \R{\[
-       \forall \vecp_3 \in S;\;\; \RE{\vecp_1}{\vecp_3} \geq \RE{\vecp_1}{\vecp_2} + \RE{\vecp_2}{\vecp_3}
-\]}
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{half squared euclidean distance}
-\begin{itemize}
-\item prediction, outcome \R{$\vu,\vv \in R^n$}
-\item
-  \R{\[ \lambda_{\text{sq}}(\vu,\vv)  = \frac{1}{2} \|\vu-\vv\|^2 =
-      \frac{1}{2} \sum_{i=1}^n (u_i - v_i)^2
-  \]}
-\item
-Bregman divergence with respect to the square euclidean norm
-\R{$$\| \vv \|_2$$}
-\item Triangle inequality does not hold.
-\item \B{Pythagoras inequality} :
-  For any closed convex set \R{$S$} and any point \R{$\vv_1 \notin
-    S$}, define the projection of \R{$\vv_1$} on \R{$S$} to be 
-  \R{$\vv_2 = \mbox{argmin}_{\vu \in S} \| \vv_1 - \vu \|^2$}, then:
-  \R{\[
-      \forall \vv_3 \in S;\;\; \| \vv_1 - \vv_3 \|^2 \geq \| \vv_1 - \vv_2 \|^2 + \| \vv_2 - \vv_3 \|^2
-    \]}
-\end{itemize}
-\end{frame}
-\endgroup
-
-\includegraphics[width=4in]{ManfredSlides/skitch.2.png}
-
-
-\begin{frame}
-\frametitle{Bregman divergence regularization}
-\begin{itemize}
-\item Idea: Set $\vw_{t+1}$ to be  \R{$\vu$} that minimizes:
-  \R{\[
-       \Delta_F(\vw_t,\vu) + \alpha \costvec{t}(\vu) 
-  \]}
-\item In general, hard to compute the minimum.
-\item Efficient approximation \B{Mirror Descent}. Will be covered later.
-\end{itemize}
-\end{frame}
-
-\includegraphics[width=4in]{ManfredSlides/skitch3.png}\\
-\includegraphics[width=4in]{ManfredSlides/skitch.1.png}
-
 \section{Tracking linear experts}
 \begin{frame}
 \frametitle{Tracking Linear Experts }
@@ -426,3 +342,88 @@ k \paren{1 + \frac{1}{\eta} \paren{ \ln {n-1} + \ln \frac{1}{\alpha} + \ln \frac
 \end{document}
 
 
+
+\section{}
+\includegraphics[width=4in]{ManfredSlides/skitch9.png}\\
+\includegraphics[width=4in]{ManfredSlides/skitch8.png}\\
+\includegraphics[width=4in]{ManfredSlides/skitch7.png}\\
+\includegraphics[width=4in]{ManfredSlides/skitch6.png}
+
+\begingroup
+\small
+\begin{frame}
+\frametitle{Unnormalized Relative entropy} 
+\begin{itemize}
+\item prediction, outcome \R{$\vecp,\vecq$} are \R{$n$} dimensional
+  vectors with non-negative coordinates. 
+\item Loss is RE extended to non-negative vectors:
+\R{\[ \RE{\vecp}{\vecq} = \sum_{i=1}^n p_i \log \frac{p_i}{q_i} -
+    \sum_{i=1}^n (q_i-p_i) \]}
+Coincides with \R{RE} when \R{$\sum_{i=1}^n p_i = \sum_{i=1}^n
+  q_i = 1$}
+\item Unnormalized \R{RE} is the Bregman divergence corresponding to
+  the unnormalized entropy:
+  \R{\[
+      F(\vecp) = \sum_{i=1}^n p_i \log p_i - \sum_{i=1}^n p_i
+    \]}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Inequalities for Unnormalized Relative entropy} 
+\begin{itemize}
+\item
+\B{No} \B{triangle inequality}
+\R{$ \exists \vecp_1,\vecp_2,\vecp_3\;\; \RE{\vecp_1}{\vecp_3} >
+  \RE{\vecp_1}{\vecp_2} + \RE{\vecp_2}{\vecp_3}
+$}
+\item \B{Generalized Pythagorean inequality}
+  For any closed convex set \R{$S$} and any point \R{$\vecp_1 \notin
+    S$}, define the projection of \R{$\vecp_1$} on \R{$S$} to be
+  \R{$\vecp_2 = \mbox{argmin}_{\vu \in S} \RE{\vecp_1}{\vu}$}, then:
+  \R{\[
+       \forall \vecp_3 \in S;\;\; \RE{\vecp_1}{\vecp_3} \geq \RE{\vecp_1}{\vecp_2} + \RE{\vecp_2}{\vecp_3}
+\]}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{half squared euclidean distance}
+\begin{itemize}
+\item prediction, outcome \R{$\vu,\vv \in R^n$}
+\item
+  \R{\[ \lambda_{\text{sq}}(\vu,\vv)  = \frac{1}{2} \|\vu-\vv\|^2 =
+      \frac{1}{2} \sum_{i=1}^n (u_i - v_i)^2
+  \]}
+\item
+Bregman divergence with respect to the square euclidean norm
+\R{$$\| \vv \|_2$$}
+\item Triangle inequality does not hold.
+\item \B{Pythagoras inequality} :
+  For any closed convex set \R{$S$} and any point \R{$\vv_1 \notin
+    S$}, define the projection of \R{$\vv_1$} on \R{$S$} to be 
+  \R{$\vv_2 = \mbox{argmin}_{\vu \in S} \| \vv_1 - \vu \|^2$}, then:
+  \R{\[
+      \forall \vv_3 \in S;\;\; \| \vv_1 - \vv_3 \|^2 \geq \| \vv_1 - \vv_2 \|^2 + \| \vv_2 - \vv_3 \|^2
+    \]}
+\end{itemize}
+\end{frame}
+\endgroup
+
+\includegraphics[width=4in]{ManfredSlides/skitch.2.png}
+
+
+\begin{frame}
+\frametitle{Bregman divergence regularization}
+\begin{itemize}
+\item Idea: Set $\vw_{t+1}$ to be  \R{$\vu$} that minimizes:
+  \R{\[
+       \Delta_F(\vw_t,\vu) + \alpha \costvec{t}(\vu) 
+  \]}
+\item In general, hard to compute the minimum.
+\item Efficient approximation \B{Mirror Descent}. Will be covered later.
+\end{itemize}
+\end{frame}
+
+\includegraphics[width=4in]{ManfredSlides/skitch3.png}\\
+\includegraphics[width=4in]{ManfredSlides/skitch.1.png}
