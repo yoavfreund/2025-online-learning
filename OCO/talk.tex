@@ -178,11 +178,6 @@ $\mathred{f_t(w) = w \cdot z}$:
   \begin{frame}{FTRL Regret Bound for linear functions}
     \B{\bf For linear} $\mathred{f_t(w) = \langle w,z_t\rangle}$ and $\mathred{R(w) = \frac{1}{2\eta}\|w\|_2^2}$\\
     \B{\bf Update rule} \R{$w_{t+1}=w_t - \eta z_t$}
-    \begin{theorem}[Theorem 2.4]
-\[
-\mathred{\text{Regret}_T(U) \leq \frac{B^2}{2\eta} + \eta T L^2}
-\]
-\end{theorem}
     Then, for all \(\mathbf{u}\) we have
     \begin{equation*}
         \textcolor{red}{\text{Regret}_T(\mathbf{u}) \leq \frac{1}{2\eta} \|\mathbf{u}\|_2^2 + \eta \sum_{t=1}^{T} \|\mathbf{z}_t\|_2^2.}
@@ -325,7 +320,7 @@ Setting $\mathred{\eta = \frac{B}{L}\sqrt{\frac{2}{T}}}$ gives:
 
 \begin{frame}
     \frametitle{Proof of strong convexity for Entropic Regularization}
-    To see this, note that 
+    $\frac{\partial^2}{\partial w[i]^2} w[i] \log w[i] = \frac{1}{w[i]}$ 
     \[
     \textcolor{red}{\langle \nabla^2 R(\mathbf{w})\mathbf{x},\mathbf{x} \rangle = \sum_i \frac{x[i]^2}{w[i]}}
     \]
@@ -373,7 +368,7 @@ Setting $\mathred{\eta = \frac{B}{L}\sqrt{\frac{2}{T}}}$ gives:
     \[
     \textcolor{red}{F_{t+1}(\mathbf{w}_t) \geq F_{t+1}(\mathbf{w}_{t+1}) + \frac{\sigma}{2} \|\mathbf{w}_t - \mathbf{w}_{t+1}\|^2.}
     \]
-    Summing the above two inequalities and rearranging, we obtain:
+    Taking the difference between the last two inequalities and rearranging, we obtain:
     \[
     \textcolor{red}{\sigma \|\mathbf{w}_t - \mathbf{w}_{t+1}\|^2 \leq f_t(\mathbf{w}_t) - f_t(\mathbf{w}_{t+1}).} \quad (2.7)
     \]
@@ -393,7 +388,7 @@ Setting $\mathred{\eta = \frac{B}{L}\sqrt{\frac{2}{T}}}$ gives:
 \end{frame}
 
 \begin{frame}
-    \frametitle{Combining the steps}
+    \frametitle{Main theorem regarding $\sigma$-strongly convex regularization functions}
     Let 
     \textcolor{red}{$f_1, \dots, f_T$} 
     be a sequence of convex functions such that 
@@ -416,7 +411,7 @@ Setting $\mathred{\eta = \frac{B}{L}\sqrt{\frac{2}{T}}}$ gives:
 \end{frame}
 
 \begin{frame}
-    \frametitle{Corollary 2.12}
+    \frametitle{Corollary for $l_2$ regularization}
     Let 
     \textcolor{red}{$f_1, \dots, f_T$} 
     be a sequence of convex functions such that 
@@ -454,8 +449,7 @@ Setting $\mathred{\eta = \frac{B}{L}\sqrt{\frac{2}{T}}}$ gives:
 
 
 \begin{frame}
-    \frametitle{\R{$l_2$} regularization}
-    Assume that the conditions of Corollary 2.12 hold. Let 
+    \frametitle{Experts using \R{$l_2$} regularization (1)}
     \textcolor{red}{$S$} 
     be a convex set and consider running FoReL with the regularization function:
     \[
@@ -465,6 +459,8 @@ Setting $\mathred{\eta = \frac{B}{L}\sqrt{\frac{2}{T}}}$ gives:
     \infty & \text{if } \mathbf{w} \notin S 
     \end{cases}}
     \]
+    Where $S$ us the $d$ dimensional simplex.
+
     Then, for all 
     \textcolor{red}{$\mathbf{u} \in S$},
     \[
@@ -473,12 +469,12 @@ Setting $\mathred{\eta = \frac{B}{L}\sqrt{\frac{2}{T}}}$ gives:
 \end{frame}
 
 \begin{frame}
-    \frametitle{\R{$l_2$} regularization for Experts}
-    In particular, if 
+    \frametitle{Experts using \R{$l_2$} regularization (2)}
+    If 
     \[
     \textcolor{red}{B \geq \max_{\mathbf{u} \in S} \|\mathbf{u}\|_2}
     \]
-    and 
+    Setting
     \[
     \textcolor{red}{B=1;\; L=\sqrt{d};\;\eta = \frac{B}{L \sqrt{2T}}=\frac{1}{\sqrt{2dT}}}
     \]
@@ -540,8 +536,8 @@ Setting $\mathred{\eta = \frac{B}{L}\sqrt{\frac{2}{T}}}$ gives:
   \begin{itemize}
   \item entropic regularization vs. $\ell_2$ regularization.
   \item $\log {d}$ vs $\sqrt{d}$
-  \item $L$: $\|x_t\|_{\infty} \geq \|x_t\|_{2}$ Liphsitz condition is more stingent with entropic
-  \item $B$: $\|u\|_1 \leq \|u\|_{2}$ Comparator length condition is more stringent with $\ell_2$
+  \item $L$: $\|x_t\|_{\infty} \geq \|x_t\|_{2}$ Liphsitz condition carries heavier penalty with entropic regularization.
+  \item $B$: $\|u\|_1 \leq \|u\|_{2}$ Comparator length carries heavier penalty with $l_2$ norm.
   \end{itemize}
 \end{frame}
 

@@ -1,5 +1,5 @@
-\documentclass{beamer}
-%\documentclass[handout]{beamer}
+%\documentclass{beamer}
+\documentclass[handout]{beamer}
 % This file is a solution template for:
 
 % - Giving a talk on some subject.
@@ -98,7 +98,7 @@
   \item Potential: \R{$\Phi(\RR)$} Quantifies \B{badness} of the
     state.
   \item A state is bad if adversary can force high regret in the future.
-  \item Choose prediction to balance \R{$\Phi(\RR_{t+1}) - \Phi(\RR_t)
+  \item Choose prediction \R{$\vw_t$} so that \R{$\Phi(\RR_{t+1}) - \Phi(\RR_t)
       + \vw_t \cdot \lossvec{t}$} is small for all possible \R{$\lossvec{t}$}
   \item \R{$\vw_t = \nabla \Phi(\RR_t)$} is a good choice.
   \item For finite number of experts, \R{$\RR_t$} is finite
@@ -147,7 +147,6 @@
 \begin{frame}
 \frametitle{Fenchel Duality}
 \begin{itemize}
-  \item \R{Fenchel duality allows non-differentiable functions and uses sub-gradient}
 \item Suppose \R{$F:A \to \real$} is a convex function over a convex set \R{$A
     \subseteq \real^n$}.
 \item The dual function to \R{$F$} is
@@ -162,7 +161,7 @@ $$}
   \begin{columns}
     \begin{column}{0.55\textwidth}
         \begin{itemize}
-            \item \R{$x,y \real$}
+            \item \R{$x,y \in \real$}
             \item \R{$ f^*(y) = \sup_{x \in \real}\paren{xy-f(x)}$}
             \item \R{$ -f^*(y) = \inf_{x \in \real}\paren{f(x)-xy}$}
         \end{itemize}
@@ -171,6 +170,23 @@ $$}
           \includegraphics[width=\textwidth]{figures/Legendre-Duality.png}
     \end{column}
 \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Sub-Gradients}
+  \begin{itemize}
+  \item   When a convex function \R{$F$} is not differentiable at a point $x$ we use the sub-gradient \R{$\partial x$}
+  \item $\partial x$ is the set of linear functions that lower bound $f$ and are equal to $f$ at $x$
+  \item Gradient descent means picking an arbitrary element from $\partial x$
+  \end{itemize}
+  \includegraphics[width=\textwidth]{figures/SubGradient.png}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fenchel Dual for discontinuous slope}
+    \includegraphics[width=\textwidth]{figures/DiscontinSlope.png}
+
 \end{frame}
 
 \begin{frame}
@@ -196,6 +212,8 @@ $$}
   \includegraphics[width=\textwidth]{figures/SlopeDuality.png}
 \end{frame}
 
+
+
 \begin{frame}
   \frametitle{Example: Exponential Potential}
   \begin{itemize}
@@ -208,6 +226,18 @@ $$}
    \end{itemize}
  \end{frame}
 
+ \begin{frame}
+   \frametitle{Bregman divergence}
+   The bregman divergence for the convex function $R$ is defined as
+\R{   \[
+D_R(\mathbf{w} \| \mathbf{u}) = R(\mathbf{w}) - \left( R(\mathbf{u}) + \langle \nabla R(\mathbf{u}), \mathbf{w} - \mathbf{u} \rangle \right).
+\]}
+\begin{center}
+\includegraphics[height=2in]{figures/BregmanDivergence.png}
+\end{center}
+
+ \end{frame}
+ 
 \begin{frame}
   \frametitle{Fenchel and Bregman}
   \begin{itemize}
@@ -338,3 +368,8 @@ $$}
 \end{document}
 
 
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
