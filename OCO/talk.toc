@@ -9,3 +9,9 @@
 \beamer@subsectionintoc {3}{4}{Strong Convexity}{19}{0}{3}
 \beamer@subsectionintoc {3}{5}{General Theorem regarding FTRL with Strong Convexity}{25}{0}{3}
 \beamer@subsectionintoc {3}{6}{Applications to expert advice}{31}{0}{3}
+\beamer@sectionintoc {4}{Mirror Descent}{37}{0}{4}
+\beamer@subsectionintoc {4}{1}{Potential Based Gradient descent}{37}{0}{4}
+\beamer@subsectionintoc {4}{2}{OMD for linear cost functions}{38}{0}{4}
+\beamer@subsectionintoc {4}{3}{sub-gradients}{40}{0}{4}
+\beamer@sectionintoc {5}{Duality}{43}{0}{5}
+\beamer@sectionintoc {6}{Algorithms for specific potentials}{57}{0}{6}

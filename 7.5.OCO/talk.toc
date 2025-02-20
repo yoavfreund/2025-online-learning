@@ -1,0 +1,17 @@
+\beamer@sectionintoc {1}{Online Convex Optimization}{3}{0}{1}
+\beamer@sectionintoc {2}{Follow The Leader}{5}{0}{2}
+\beamer@subsectionintoc {2}{1}{Quadratic Optimization}{8}{0}{2}
+\beamer@subsectionintoc {2}{2}{Failure of Follow the Leader}{9}{0}{2}
+\beamer@sectionintoc {3}{Follow The Regularized Leader}{10}{0}{3}
+\beamer@subsectionintoc {3}{1}{FTRL for linear functions}{13}{0}{3}
+\beamer@subsectionintoc {3}{2}{Online Gradient Descent}{15}{0}{3}
+\beamer@subsectionintoc {3}{3}{Doubling Trick}{18}{0}{3}
+\beamer@subsectionintoc {3}{4}{Strong Convexity}{19}{0}{3}
+\beamer@subsectionintoc {3}{5}{General Theorem regarding FTRL with Strong Convexity}{25}{0}{3}
+\beamer@subsectionintoc {3}{6}{Applications to expert advice}{31}{0}{3}
+\beamer@sectionintoc {4}{Mirror Descent}{37}{0}{4}
+\beamer@subsectionintoc {4}{1}{Potential Based Gradient descent}{37}{0}{4}
+\beamer@subsectionintoc {4}{2}{OMD for linear cost functions}{38}{0}{4}
+\beamer@subsectionintoc {4}{3}{sub-gradients}{40}{0}{4}
+\beamer@sectionintoc {5}{Duality}{43}{0}{5}
+\beamer@sectionintoc {6}{Algorithms for specific potentials}{61}{0}{6}

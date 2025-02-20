@@ -1,5 +1,0 @@
-\beamer@endinputifotherversion {3.33pt}
-\select@language {english}
-\beamer@sectionintoc {1}{OCO}{3}{0}{1}
-\beamer@sectionintoc {2}{Standard Convex Optimization}{5}{0}{2}
-\beamer@sectionintoc {3}{Online Convex optimization}{14}{0}{3}

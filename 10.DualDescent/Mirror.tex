@@ -1,0 +1,186 @@
+\documentclass{beamer}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{algorithm, algpseudocode}
+\usepackage{graphicx}
+
+\title{Regret Bound for Online Mirror Descent: Lazy and Agile Versions}
+\author{Based on Bregman Divergence Analysis}
+\date{Mathematical Proof}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Introduction}
+    \textbf{Objective:} Prove a regret bound for both Lazy and Agile Online Mirror Descent (OMD) algorithms using Bregman divergence.
+    \begin{itemize}
+        \item We analyze the regret in an online convex optimization setting.
+        \item Bregman divergence serves as a key tool in the proof.
+        \item We derive bounds on cumulative regret over $T$ iterations.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Bregman Divergence Definition}
+    Given a strictly convex differentiable function $R: K \to \mathbb{R}$, the Bregman divergence is defined as:
+    \begin{equation}
+        B_R(x || y) = R(x) - R(y) - \nabla R(y)^T (x - y).
+    \end{equation}
+    \begin{itemize}
+        \item Measures the difference between $R(x)$ and its first-order approximation at $y$.
+        \item Plays a crucial role in the analysis of mirror descent algorithms.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Lazy Online Mirror Descent Algorithm}
+    \begin{algorithm}[H]
+        \caption{Lazy Online Mirror Descent}
+        \begin{algorithmic}[1]
+            \State \textbf{Input:} Learning rate $\eta > 0$, regularization function $R(x)$, convex set $K$.
+            \State Initialize $y_1$ such that $\nabla R(y_1) = 0$ and $x_1 = \arg\min_{x \in K} B_R(x || y_1)$.
+            \For{$t = 1$ to $T$}
+                \State Play $x_t$.
+                \State Observe payoff function $f_t$ and compute $\nabla_t = \nabla f_t(x_t)$.
+                \State Update $y_t$:
+                \begin{equation}
+                    \nabla R(y_{t+1}) = \nabla R(y_t) - \eta \nabla_t.
+                \end{equation}
+                \State Compute: $x_{t+1} = \arg\min_{x \in K} B_R(x || y_{t+1})$.
+            \EndFor
+        \end{algorithmic}
+    \end{algorithm}
+\end{frame}
+
+\begin{frame}{Agile Online Mirror Descent Algorithm}
+    \begin{algorithm}[H]
+        \caption{Agile Online Mirror Descent}
+        \begin{algorithmic}[1]
+            \State \textbf{Input:} Learning rate $\eta > 0$, regularization function $R(x)$, convex set $K$.
+            \State Initialize $x_1 = \arg\min_{x \in K} R(x)$.
+            \For{$t = 1$ to $T$}
+                \State Play $x_t$.
+                \State Observe payoff function $f_t$ and compute $\nabla_t = \nabla f_t(x_t)$.
+                \State Update:
+                \begin{equation}
+                    \nabla R(x_{t+1}) = \nabla R(x_t) - \eta \nabla_t.
+                \end{equation}
+            \EndFor
+        \end{algorithmic}
+    \end{algorithm}
+\end{frame}
+
+\begin{frame}{Regret Bound for Lazy OMD}
+    \textbf{Theorem:} The regret of Lazy OMD for any $u \in K$ satisfies:
+    \begin{equation}
+        \sum_{t=1}^{T} (f_t(x_t) - f_t(u)) \leq \frac{B_R(u || y_1)}{\eta} + \frac{1}{2\eta} \sum_{t=1}^{T} \| \nabla_t \|_{*t}^2.
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Regret Bound for Agile OMD}
+    \textbf{Theorem:} The regret of Agile OMD for any $u \in K$ satisfies:
+    \begin{equation}
+        \sum_{t=1}^{T} (f_t(x_t) - f_t(u)) \leq \frac{R(u) - R(x_1)}{\eta} + \frac{1}{2\eta} \sum_{t=1}^{T} \| \nabla_t \|_{*t}^2.
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Proof of Regret Bound for Lazy OMD}
+    \textbf{Step 1: Expanding the Bregman Divergence Recursion}
+    \begin{equation}
+        B_R(u || y_{t+1}) = B_R(u || y_t) + (\nabla R(y_t) - \nabla R(y_{t+1}))^T (u - y_t) - B_R(y_{t+1} || y_t).
+    \end{equation}
+    \textbf{Step 2: Substituting the Update Rule}
+    \begin{equation}
+        \nabla R(y_t) - \nabla R(y_{t+1}) = \eta \nabla_t.
+    \end{equation}
+    \textbf{Step 3: Bounding the Sum}
+    \begin{equation}
+        \sum_{t=1}^{T} \nabla_t^T (x_t - u) \leq \frac{B_R(u || y_1)}{\eta} + \frac{1}{2\eta} \sum_{t=1}^{T} \| \nabla_t \|_{*t}^2.
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Proof of Regret Bound for Agile OMD}
+    \textbf{Step 1: Expanding the Bregman Divergence for Agile Updates}
+    \begin{equation}
+        R(u) - R(x_{t+1}) = R(u) - R(x_t) + \eta \nabla_t^T (u - x_t) - B_R(x_{t+1} || x_t).
+    \end{equation}
+    \textbf{Step 2: Summing Over All Iterations}
+    \begin{equation}
+        \sum_{t=1}^{T} (f_t(x_t) - f_t(u)) \leq \frac{R(u) - R(x_1)}{\eta} + \frac{1}{2\eta} \sum_{t=1}^{T} \| \nabla_t \|_{*t}^2.
+    \end{equation}
+\end{frame}
+
+
+\begin{frame}{Introduction}
+    \textbf{Objective:} Show how projection relates to Fixed Share and Variable Share algorithms.
+    \begin{itemize}
+        \item Projection in online learning ensures stability.
+        \item Fixed Share and Variable Share algorithms perform weight updates over experts.
+        \item Both can be derived using Bregman divergence.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Projection in Online Learning}
+    Given a convex function $R(x)$, the Bregman projection onto a convex set $K$ is:
+    \begin{equation}
+        x_{t+1} = \arg\min_{x \in K} B_R(x || x_t),
+    \end{equation}
+    where Bregman divergence is:
+    \begin{equation}
+        B_R(x || y) = R(x) - R(y) - \nabla R(y)^T (x - y).
+    \end{equation}
+    \begin{itemize}
+        \item Projection maintains feasibility in optimization.
+        \item It ensures stability when tracking changing solutions.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Mathematical Derivation of Fixed Share Algorithm}
+    The Fixed Share algorithm updates weights as:
+    \begin{equation}
+        w_t^i = (1 - \alpha) w_{t-1}^i + \frac{\alpha}{N} \sum_{j} w_{t-1}^j.
+    \end{equation}
+    The derivation follows from minimizing the objective function:
+    \begin{equation}
+        \arg\min_{w \in \Delta} D_{KL}(w || w_{t-1}) + \alpha \sum_{i} w^i.
+    \end{equation}
+    where KL divergence is defined as:
+    \begin{equation}
+        D_{KL}(w || w_{t-1}) = \sum_{i} w^i \log \frac{w^i}{w_{t-1}^i}.
+    \end{equation}
+    Applying first-order conditions, we obtain the Fixed Share update rule.
+\end{frame}
+
+\begin{frame}{Mathematical Derivation of Variable Share Algorithm}
+    The Variable Share algorithm modifies the share rate adaptively:
+    \begin{equation}
+        w_t = \arg\min_{w \in \Delta} D_{KL}(w || w_{t-1}) + \alpha_t \sum_{i} w^i.
+    \end{equation}
+    Solving for optimal weights:
+    \begin{equation}
+        w^i = \frac{w_{t-1}^i e^{-\alpha_t}}{\sum_{j} w_{t-1}^j e^{-\alpha_t}}.
+    \end{equation}
+    \textbf{Key Insights:}
+    \begin{itemize}
+        \item When the environment is stable, $\alpha_t$ is small (less adaptation).
+        \item When the environment is changing, $\alpha_t$ increases (faster adaptation).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Generalizing to Bregman Projection}
+    Both algorithms follow the framework:
+    \begin{equation}
+        w_t = \arg\min_{w \in \Delta} B_R(w || w_{t-1}) + \eta_t \sum_{i} w^i L_t^i.
+    \end{equation}
+    where:
+    \begin{itemize}
+        \item $B_R(w || w_{t-1})$ ensures stability.
+        \item $\eta_t$ adapts over time (Variable Share).
+    \end{itemize}
+    \textbf{Conclusion:} Fixed and Variable Share algorithms are special cases of Bregman projection.
+\end{frame}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -93,6 +93,10 @@
   Prediction learning and Games.
 \end{frame}
 
+\definecolor{mathcolor}{rgb}{1,0,0} % Define red color for math expressions
+
+
+
 \section{Tracking linear experts}
 \begin{frame}
 \frametitle{Tracking Linear Experts }
@@ -335,11 +339,178 @@ k \paren{1 + \frac{1}{\eta} \paren{ \ln {n-1} + \ln \frac{1}{\alpha} + \ln \frac
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\includegraphics[width=3.5in]{ManfredSlides/skitch6.png}
+\\
+\textbf{Key Idea:} \textcolor{mathcolor}{Projection onto a convex set reduces divergence}.
+\end{frame}
+
+\begin{frame}{Bounding Regret Using the Pythagorean Inequality}
+Using the inequality:
+\[
+D_R(w^* \| w_t) \geq D_R(w^* \| w_{t+1}) + D_R(w_{t+1} \| w_t),
+\]
+we obtain:
+\[
+\sum_{t=1}^{T} \langle w_t - w^*, z_t \rangle \leq D_R(w^* \| w_1) + \sum_{t=1}^{T} D_R(w_t \| w_{t+1}).
+\]
+
+\textbf{Interpretation:}
+\begin{itemize}
+    \item \textcolor{mathcolor}{Switching to a better expert is controlled} by \( D_R(w_t \| w_{t+1}) \).
+    \item \textcolor{mathcolor}{The total regret depends on the regularizer \( R(w) \)}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Application: Multiplicative Weights}
+For entropy-based regularization \( R(w) = \sum_i w_i \log w_i \), the update rule is:
+\[
+w_{t+1}^i = \frac{w_t^i e^{-\eta z_t^i}}{\sum_j w_t^j e^{-\eta z_t^j}}.
+\]
+
+\textbf{KL Divergence and Pythagorean Inequality:}
+\[
+D_{KL}(w^* \| w_t) \geq D_{KL}(w^* \| w_{t+1}) + D_{KL}(w_{t+1} \| w_t).
+\]
+
+\textbf{Conclusion:} 
+\begin{itemize}
+    \item \textcolor{mathcolor}{Exponential weight updates minimize regret}.
+    \item \textcolor{mathcolor}{Smaller switching cost improves performance}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Fixed Share Algorithm}
+\textbf{Fixed Share} is an online learning strategy that allows switching between experts.
+
+\textbf{Update Rule:} 
+\[
+w_{t+1}^i = (1 - \alpha) \frac{w_t^i e^{-\eta z_t^i}}{\sum_j w_t^j e^{-\eta z_t^j}} + \frac{\alpha}{N}
+\]
+where:
+\begin{itemize}
+    \item \( \textcolor{mathcolor}{\alpha} \) is the fixed share parameter controlling switching frequency.
+    \item \( \textcolor{mathcolor}{N} \) is the number of experts.
+\end{itemize}
+
+\textbf{Key Property:} \textcolor{mathcolor}{Distributes small weight to all experts, preventing early commitment}.
+\end{frame}
+
+\begin{frame}{Variable Share Algorithm}
+\textbf{Variable Share} improves upon Fixed Share by dynamically adjusting the switching rate.
+
+\textbf{Update Rule:} 
+\[
+w_{t+1}^i = (1 - \alpha_t) \frac{w_t^i e^{-\eta z_t^i}}{\sum_j w_t^j e^{-\eta z_t^j}} + \alpha_t S_t^i
+\]
+where:
+\begin{itemize}
+    \item \( \textcolor{mathcolor}{\alpha_t} \) is an \textbf{adaptive} switching rate.
+    \item \( \textcolor{mathcolor}{S_t^i} \) redistributes weight based on past performance.
+\end{itemize}
+
+\textbf{Key Property:} \textcolor{mathcolor}{More efficient than Fixed Share for non-stationary environments}.
+\end{frame}
+
+\begin{frame}{Comparison: Fixed vs. Variable Share}
+\begin{itemize}
+    \item \textbf{Fixed Share:} \textcolor{mathcolor}{Constant switching rate} \( \alpha \).
+    \item \textbf{Variable Share:} \textcolor{mathcolor}{Adaptive switching rate} \( \alpha_t \) based on history.
+    \item \textbf{Fixed Share is simpler} but **can be suboptimal** in dynamic settings.
+    \item \textbf{Variable Share performs better} in **changing environments**.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Summary}
+\begin{itemize}
+    \item The \textbf{Generalized Pythagorean Inequality} helps bound regret in expert learning.
+    \item The \textbf{divergence term} controls \textcolor{mathcolor}{switching cost}.
+    \item \textbf{Fixed Share}: \textcolor{mathcolor}{Constant switching rate} improves robustness.
+    \item \textbf{Variable Share}: \textcolor{mathcolor}{Adaptive switching rate} handles non-stationarity.
+    \item \textbf{Smooth switching} leads to \textcolor{mathcolor}{better regret bounds}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Effect on Expert Learning}
+\textbf{Standard Mirror Descent:}  
+\[
+w_{t+1} = \arg\min_{w} \left[ \eta \sum_{s=1}^{t} \langle w, z_s \rangle + D_R(w \| w_1) \right]
+\]
+\textbf{Regret Bound:}  
+\[
+\sum_{t=1}^{T} \langle w_t - w^*, z_t \rangle \leq D_R(w^* \| w_1) + \sum_{t=1}^{T} D_R(w_t \| w_{t+1}).
+\]
+\textcolor{mathcolor}{The Pythagorean inequality controls regret by bounding divergence.}
+\end{frame}
+
+\begin{frame}{Fixed Share Algorithm}
+\textbf{Fixed Share Update:}  
+\[
+w_{t+1}^i = (1 - \alpha) \frac{w_t^i e^{-\eta z_t^i}}{\sum_j w_t^j e^{-\eta z_t^j}} + \frac{\alpha}{N}.
+\]
+\textbf{Impact on Pythagorean Inequality:}
+\[
+D_R(w^* \| w_t) \geq D_R(w^* \| w_{t+1}) + D_R(w_{t+1} \| w_t).
+\]
+\textbf{Modification:}  
+\textcolor{mathcolor}{The divergence \( D_R(w_{t+1} \| w_t) \) increases due to the uniform mixing factor \( \alpha \).}
+
+\textbf{Regret Bound:}  
+\[
+\sum_{t=1}^{T} \langle w_t - w^*, z_t \rangle \leq D_R(w^* \| w_1) + \sum_{t=1}^{T} \left[ D_R(w_t \| w_{t+1}) + \alpha D_{KL}(w_t \| u) \right].
+\]
+\end{frame}
+
+\begin{frame}{Variable Share Algorithm}
+\textbf{Variable Share Update:}  
+\[
+w_{t+1}^i = (1 - \alpha_t) \frac{w_t^i e^{-\eta z_t^i}}{\sum_j w_t^j e^{-\eta z_t^j}} + \alpha_t S_t^i.
+\]
+\textbf{Impact on Pythagorean Inequality:}
+\[
+D_R(w^* \| w_t) \geq D_R(w^* \| w_{t+1}) + D_R(w_{t+1} \| w_t) + \alpha_t D_{KL}(w_t \| u).
+\]
+
+\textbf{Modification:}  
+\textcolor{mathcolor}{The divergence term now depends on \( \alpha_t \), making it adaptive rather than constant.}
+
+\textbf{Regret Bound:}  
+\[
+\sum_{t=1}^{T} \langle w_t - w^*, z_t \rangle \leq D_R(w^* \| w_1) + \sum_{t=1}^{T} \left[ D_R(w_t \| w_{t+1}) + \alpha_t D_{KL}(w_t \| u) \right].
+\]
+\end{frame}
+
+\begin{frame}{Comparison: Fixed Share vs. Variable Share}
+\begin{table}[]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Algorithm}  & \textbf{Effect on Pythagorean Inequality} & \textbf{Switching Cost} \\ \hline
+\textbf{Fixed Share}  & Constant divergence increase & \( \alpha D_{KL}(w_t \| u) \) (fixed) \\ \hline
+\textbf{Variable Share} & Adaptive divergence term & \( \alpha_t D_{KL}(w_t \| u) \) (dynamic) \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{Key Differences:}
+\begin{itemize}
+    \item **Fixed Share:** \textcolor{mathcolor}{Adds a fixed switching cost, increasing divergence uniformly}.
+    \item **Variable Share:** \textcolor{mathcolor}{Dynamically adjusts the divergence penalty, reducing unnecessary switching}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Summary}
+\begin{itemize}
+    \item The \textbf{Pythagorean Inequality} ensures **divergence decreases over time**.
+    \item **Fixed Share**: \textcolor{mathcolor}{Constant switching cost increases divergence}.
+    \item **Variable Share**: \textcolor{mathcolor}{Adaptive switching cost reduces unnecessary updates}.
+    \item **Fixed Share is simpler**, but **Variable Share performs better in non-stationary settings**.
+\end{itemize}
+\end{frame}
+
 \iffalse %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \fi %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\end{document}
 
 
 
@@ -427,3 +598,10 @@ Bregman divergence with respect to the square euclidean norm
 
 \includegraphics[width=4in]{ManfredSlides/skitch3.png}\\
 \includegraphics[width=4in]{ManfredSlides/skitch.1.png}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

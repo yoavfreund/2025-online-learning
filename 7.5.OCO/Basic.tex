@@ -1,0 +1,550 @@
+%\documentclass{beamer}
+\documentclass[handout]{beamer}
+
+\usepackage{xcolor}
+\usepackage{amsmath}
+
+\input ../macros.tex
+
+\beamerdefaultoverlayspecification{<+->}
+
+\definecolor{mathred}{RGB}{200,0,0}
+\newcommand{\redmath}[1]{\textcolor{mathred}{#1}}
+
+\mode<presentation>
+{
+  \usetheme{Montpellier}
+
+  %\setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+\title{Online Learning and Online Convex Optimization}
+\date{}
+
+\begin{document}
+\begin{small}
+\begin{frame}
+  \titlepage
+{\bf Chapter 2 in Shai Shalev Shwartz / Online Learning and Online convex Optimization} 
+\end{frame}
+
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents[pausesections]
+  % You might wish to add the option [pausesections]
+\end{frame}
+
+\section{Online Convex Optimization}
+\begin{frame}{Online Convex Optimization (OCO)}
+\begin{block}{Algorithm}
+\textbf{Input:} A convex set \( \textcolor{red}{S} \)
+
+\textbf{For} \( \textcolor{red}{t = 1,2,\dots} \)
+\begin{itemize}
+    \item Predict a vector \( \textcolor{red}{w_t \in S} \)
+    \item Receive a convex loss function \( \textcolor{red}{f_t: S \to \mathbb{R}} \)
+    \item Suffer loss \( \textcolor{red}{f_t(w_t)} \)
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{Regret Definition}
+    \textbf{Regret of the Algorithm:}
+    \begin{equation}
+        \textcolor{red}{\text{Regret}_T(u) = \sum_{t=1}^{T} f_t(w_t) - \sum_{t=1}^{T} f_t(u).}
+    \end{equation}
+    \textbf{Regret relative to a set of vectors \( U \):}
+    \begin{equation}
+        \textcolor{red}{\text{Regret}_T(U) = \max_{u \in U} \text{Regret}_T(u).}
+    \end{equation}
+\end{frame}
+
+
+\newcommand{\mathred}[1]{\textcolor{red}{#1}} % New command for red math
+\section{Follow The Leader}
+\begin{frame}{Follow-the-Leader Algorithm}
+\begin{block}{FTL Strategy}
+At round $\mathred{t}$, select:
+\[
+\mathred{w_t = \operatorname{argmin}_{w \in S} \sum_{i=1}^{t-1} f_i(w)}
+\]
+\end{block}
+
+\begin{itemize}
+\item Natural approach: Choose best performer on past data
+\item Simple but can be unstable
+\item Requires solving optimization problem each round
+\end{itemize}
+\end{frame}
+
+\begin{frame}{FTL Regret Analysis}
+\begin{theorem}[Lemma 2.1]
+  For any $\mathred{u \in S}$:
+  \R{\[
+    \text{Regret}_T(\mathbf{u}) = \sum_{t=1}^{T} \left(f_t(\mathbf{w}_t) - f_t(\mathbf{u})\right) \leq \sum_{t=1}^{T} \left(f_t(\mathbf{w}_t) - f_t(\mathbf{w}_{t+1})\right).
+  \]}
+\end{theorem}
+{\bf proof} \\
+{\bf Step 1:} Equivalent to
+\R{$$
+\sum_{t=1}^{T} f_t(\mathbf{w}_{t+1}) \leq \sum_{t=1}^{T} f_t(\mathbf{u})
+$$}
+\end{frame}
+
+\begin{frame}
+
+{\bf Step 2:} By induction on $\mathred{T}$:
+\begin{itemize}
+\item \textcolor{red}{Base case:} $\mathred{T=1}$ trivial as $\mathred{f_1(w_1) - f_1(u) \leq 0}$
+
+\item \textcolor{red}{Inductive step:} Assume holds for $\mathred{T-1}$, then
+\begin{align*}
+\mathred{\sum_{t=1}^T} &\mathred{[f_t(w_t) - f_t(u)]} \\
+&\mathred{= \underbrace{\sum_{t=1}^{T-1} [f_t(w_t) - f_t(u)]}_{\leq \sum_{t=1}^{T-1} [f_t(w_t) - f_t(w_{t+1})]} + [f_T(w_T) - f_T(u)]} \\
+&\mathred{\leq \sum_{t=1}^T [f_t(w_t) - f_t(w_{t+1})]}
+\end{align*}
+using $\mathred{w_{T+1} = \operatorname{argmin}_w \sum_{t=1}^T f_t(w)}$
+\end{itemize}
+\end{frame}
+
+\subsection{Quadratic Optimization}
+\begin{frame}{FTL for Quadratic Optimization}
+For $\mathred{f_t(w) = \frac{1}{2}\|w - z_t\|_2^2}$:
+\begin{itemize}
+\item FTL update: $\mathred{w_t = \frac{1}{t-1}\sum_{i=1}^{t-1} z_i}$
+\item Regret bound: $\mathred{O(\log T)}$
+\end{itemize}
+\begin{proof}[Regret Calculation for quadratic optimization]
+\begin{align*}
+\mathred{\text{Regret}_T(u)} &\mathred{\leq \sum_{t=1}^T \frac{1}{t} \|w_t - z_t\|^2} \\
+&\mathred{\leq \sum_{t=1}^T \frac{(2L)^2}{t} = 4L^2(\log T + 1)}
+\end{align*}
+where $\mathred{L = \max_t \|z_t\|}$
+\end{proof}
+\end{frame}
+
+\subsection{Failure of Follow the Leader}
+
+\begin{frame}{Failure of follow the leader}
+$\mathred{f_t(w) = w \cdot z}$:
+\begin{itemize}
+\item
+  $$z_t= \begin{cases}
+           -0.5 & \text{ if } t=1\\
+           1 & \text{ if } t \text{ is even} \\
+           -1 & \text{ if } t>1 \mbox{ and } t \text{ is odd}
+         \end{cases}
+         $$
+         \item $w_t=-1,1,-1,1,\ldots$
+  \item Cumulative loss is $T$.
+  \item Cumulative loss of $0$ is $0$
+  \item Regret is $T$.
+  \item {\bf Reason:} prediction is unstable
+  \item We need to regularize.
+    \item \R{$R(W)$} penalizes vectors which are large.
+  \end{itemize}
+\end{frame}
+
+\section{Follow The Regularized Leader}
+\begin{frame}{Follow-the-Regularized-Leader (FTRL)}
+        \begin{equation*}
+            \forall t, \quad \mathbf{w}_t = \arg\min_{\mathbf{w} \in S} \sum_{i=1}^{t-1} f_i(\mathbf{w}) + R(\mathbf{w})
+        \end{equation*}
+\begin{itemize}
+  \item For bad case above: $w_t=0,0,0,0,\ldots$
+  \item Each step requires solving a minimization problem.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Lemma 2.3: Follow-the-Regularized-Leader}
+    \textbf{Lemma 2.3.} Let $\mathbf{w}_1, \mathbf{w}_2, \dots$ be the sequence of vectors produced by FoReL. Then, for all $\mathbf{u} \in S$ we have:
+\R{    \begin{equation*}
+        \sum_{t=1}^{T} (f_t(\mathbf{w}_t) - f_t(\mathbf{u})) \leq R(\mathbf{u}) - R(\mathbf{w}_1) + \sum_{t=1}^{T} (f_t(\mathbf{w}_t) - f_t(\mathbf{w}_{t+1})).
+    \end{equation*}}
+\end{frame}
+
+
+\begin{frame}{Proof of Lemma 2.3}
+    \textit{Proof.} Observe that running FoReL on \R{$f_1, \dots, f_T$} is equivalent to running FTL on \R{$f_0, f_1, \dots, f_T$} where $f_0 = R$. Using Lemma 2.1, we obtain:
+\R{    \begin{equation*}
+        \sum_{t=0}^{T} (f_t(\mathbf{w}_t) - f_t(\mathbf{u})) \leq \sum_{t=0}^{T} (f_t(\mathbf{w}_t) - f_t(\mathbf{w}_{t+1})).
+    \end{equation*}}
+    Rearranging the above and using $f_0 = R$, we conclude our proof. \hfill $\square$
+  \end{frame}
+
+  \subsection{FTRL for linear functions}
+  \begin{frame}{FTRL Regret Bound for linear functions}
+    \B{\bf For linear} $\mathred{f_t(w) = \langle w,z_t\rangle}$ and $\mathred{R(w) = \frac{1}{2\eta}\|w\|_2^2}$\\
+    \B{\bf Update rule} \R{$w_{t+1}=w_t - \eta z_t$}
+    Then, for all \(\mathbf{u}\) we have
+    \begin{equation*}
+        \textcolor{red}{\text{Regret}_T(\mathbf{u}) \leq \frac{1}{2\eta} \|\mathbf{u}\|_2^2 + \eta \sum_{t=1}^{T} \|\mathbf{z}_t\|_2^2.}
+    \end{equation*}
+\end{frame}
+
+\begin{frame}{Choice of \(\eta\) and Final Bound for linear functions}
+    \textbf{Tunings:}
+    \begin{itemize}
+        \item Define the set \(\textcolor{red}{U = \{\mathbf{u} : \|\mathbf{u}\| \leq B\}}\).
+        \item Assume that
+        \[
+        \textcolor{red}{\frac{1}{T} \sum_{t=1}^{T} \|\mathbf{z}_t\|_2^2 \leq L^2.}
+        \]
+        \item Set \(\textcolor{red}{\eta = \frac{B}{L\sqrt{2T}}}\).
+    \end{itemize}
+
+    \textbf{Conclusion:}
+    \begin{equation*}
+        \textcolor{red}{\text{Regret}_T(U) \leq B L \sqrt{2T}.}
+    \end{equation*}
+\end{frame}
+
+\subsection{Online Gradient Descent}
+\begin{frame}{From linear functions to Online Gradient Descent}
+\begin{example}[OGD from FTRL]
+  Consider the OCO setup where the functions $f_1,f_2,\ldots$ are differentiable.\\
+  Let $\eta$ be the learning rate.
+\[
+  \mathred{w_{t+1} = w_t - \eta z_t,\;\;
+    z_t = \nabla f_t(w_t)}
+\]
+Identical to FTRL with regularization: $\mathred{R(w) = \frac{1}{2\eta}\|w\|_2^2}$
+\end{example}
+
+
+{\bf Regret bound on OGD:} From FTRL theorem:
+\begin{align*}
+\mathred{\text{Regret}} &\mathred{\leq \frac{\|u\|^2}{2\eta} + \eta \sum_{t=1}^T \|z_t\|^2} \\
+&\mathred{\leq \frac{B^2}{2\eta} + \eta T L^2}
+\end{align*}
+\end{frame}
+
+\begin{frame}{Regret Bound for OGD}
+  If we further assume that each \(\textcolor{red}{f_t}\) is \(\textcolor{red}{L_t}\)-Lipschitz with respect to \(\textcolor{red}{\|\cdot\|_2}\),
+  and let \(\textcolor{red}{L}\) be such that 
+  \[
+    \textcolor{red}{\frac{1}{T} \sum_{t=1}^{T} L_t^2 \leq L^2.}
+  \]
+  Then, for all \(\textcolor{red}{\mathbf{u}}\), the regret of OGD satisfies
+  \begin{equation*}
+    \textcolor{red}{\text{Regret}_T(\mathbf{u}) \leq \frac{1}{2\eta} \|\mathbf{u}\|_2^2 + \eta T L^2.}
+  \end{equation*}
+\end{frame}
+
+\begin{frame}{Bounding the norm of \R{$\mathbf{u}$}}
+    In particular, if \(\textcolor{red}{U = \{\mathbf{u} : \|\mathbf{u}\|_2 \leq B\}}\) and 
+    \(\textcolor{red}{\eta = \frac{B}{L\sqrt{2T}}}\) then
+
+    \begin{equation*}
+        \textcolor{red}{\text{Regret}_T(U) \leq B L \sqrt{2T}.}
+    \end{equation*}
+\end{frame}
+
+\subsection{Doubling Trick}
+\begin{frame}{Practical Considerations}
+\begin{block}{Doubling Trick}
+\begin{itemize}
+\item Removes need to know time horizon $\mathred{T}$
+\item Divide time into epochs $\mathred{2^m,2^{m+1}-1}$
+\item Regret increases by constant factor:
+\[
+\mathred{\sum_{m=0}^{\log T} \sqrt{2^m} = O(\sqrt{T})}
+\]
+\end{itemize}
+\end{block}
+
+\begin{example}[Optimal $\mathred{\eta}$]
+Setting $\mathred{\eta = \frac{B}{L}\sqrt{\frac{2}{T}}}$ gives:
+\[
+\mathred{BL\sqrt{2T}}
+\]
+\end{example}
+\end{frame}
+
+\subsection{Strong Convexity}
+\begin{frame}{Definition 2.4: Strong Convexity}
+    \begin{block}{Strong Convexity}
+        A function \( f: S \to \mathbb{R} \) is \(\sigma\)-strongly convex over \( S \) with respect to a norm \( \|\cdot\| \) if for any \( \mathbf{w} \in S \) we have:
+        \begin{equation*}
+            \forall \mathbf{z} \in \partial f(\mathbf{w}), \quad \forall \mathbf{u} \in S, \quad 
+            f(\mathbf{u}) \geq f(\mathbf{w}) + \langle \mathbf{z}, \mathbf{u} - \mathbf{w} \rangle + \frac{\sigma}{2} \|\mathbf{u} - \mathbf{w}\|^2.
+        \end{equation*}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Lemma 2.8: Strong Convexity implication}
+    \begin{block}{Lemma 2.8}
+        Let \( S \) be a nonempty convex set. Let \( f: S \to \mathbb{R} \) be a \( \sigma \)-strongly convex function over \( S \) with respect to a norm \( \|\cdot\| \). Let:
+        \[
+        \mathbf{w} = \arg\min_{\mathbf{v} \in S} f(\mathbf{v}).
+        \]
+        Then, for all \( \mathbf{u} \in S \), we have:
+        \begin{equation*}
+            f(\mathbf{u}) - f(\mathbf{w}) \geq \frac{\sigma}{2} \|\mathbf{u} - \mathbf{w}\|^2.
+          \end{equation*}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Strong Convexity Condition}
+    If \( R \) is twice differentiable, then it is easy to verify that a sufficient condition for strong convexity of \( R \) is that for all \( \redmath{\mathbf{w}, \mathbf{x}} \),
+    \[
+    \langle \redmath{\nabla^2 R(\mathbf{w}) \mathbf{x}}, \redmath{\mathbf{x}} \rangle \geq \redmath{\sigma \|\mathbf{x}\|^2},
+    \]
+    where \( \redmath{\nabla^2 R(\mathbf{w})} \) is the Hessian matrix of \( R \) at \( \redmath{\mathbf{w}} \), namely, the matrix of second-order partial derivatives of \( R \) at \( \redmath{\mathbf{w}} \) [39, Lemma 14].
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Example 2.4: Euclidean Regularization}
+    The function 
+    \[
+    \textcolor{red}{R(\mathbf{w}) = \frac{1}{2} \|\mathbf{w}\|_2^2}
+    \]
+    is 1-strongly-convex with respect to the $\ell_2$ norm over $\mathbb{R}^d$. To see this, simply note that the Hessian of $R$ at any $\mathbf{w}$ is the identity matrix.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Example 2.5: Entropic Regularization}
+    The function 
+    \[
+    \textcolor{red}{R(\mathbf{w}) = \sum_{i=1}^{d} w[i] \log(w[i])}
+    \]
+    is \textcolor{red}{$\frac{1}{B}$}-strongly-convex with respect to the $\ell_1$ norm over the set 
+    \[
+    \textcolor{red}{S = \{\mathbf{w} \in \mathbb{R}^d : \mathbf{w} > 0 \wedge \|\mathbf{w}\|_1 \leq B\}}.
+    \]
+    In particular, $R$ is 1-strongly-convex over the probability simplex, which is the set of positive vectors whose elements sum to 1.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Proof of strong convexity for Entropic Regularization}
+    $\frac{\partial^2}{\partial w[i]^2} w[i] \log w[i] = \frac{1}{w[i]}$ 
+    \[
+    \textcolor{red}{\langle \nabla^2 R(\mathbf{w})\mathbf{x},\mathbf{x} \rangle = \sum_i \frac{x[i]^2}{w[i]}}
+    \]
+    \[
+    \textcolor{red}{= \frac{1}{\|\mathbf{w}\|_1} \left(\sum_i w[i] \right) \left(\sum_i \frac{x[i]^2}{w[i]} \right)}
+    \]
+    \[
+    \textcolor{red}{\geq \frac{1}{\|\mathbf{w}\|_1} \left(\sum_i \sqrt{w[i]} \frac{x[i]}{\sqrt{w[i]}} \right)^2 = \frac{\|\mathbf{x}\|_1^2}{\|\mathbf{w}\|_1},}
+    \]
+    where the inequality follows from Cauchy–Schwarz inequality.
+\end{frame}
+
+\subsection{General Theorem regarding FTRL with Strong Convexity}
+\begin{frame}
+    \frametitle{Single Step of FTRL with Strong Convexity}
+    Let 
+    \[
+    \textcolor{red}{R : S \to \mathbb{R}}
+    \]
+    be a \textcolor{red}{$\sigma$}-strongly-convex function over $S$ with respect to a norm \textcolor{red}{$\|\cdot\|$}. Let \textcolor{red}{$\mathbf{w}_1, \mathbf{w}_2, \dots$} be the predictions of the FoReL algorithm. Then, for all $t$, if \textcolor{red}{$f_t$} is \textcolor{red}{$L_t$}-Lipschitz with respect to \textcolor{red}{$\|\cdot\|$}, then:
+    \[
+    \textcolor{red}{f_t(\mathbf{w}_t) - f_t(\mathbf{w}_{t+1}) \leq L_t \|\mathbf{w}_t - \mathbf{w}_{t+1}\| \leq \frac{L_t^2}{\sigma}.}
+    \]
+\end{frame}
+
+\begin{frame}
+    \frametitle{Proof (Single Step of FTRL with Strong Convexity)}
+    For all $t$ let 
+    \[
+    \textcolor{red}{F_t(\mathbf{w}) = \sum_{i=1}^{t-1} f_i(\mathbf{w}) + R(\mathbf{w})}
+    \]
+    and note that the FoReL rule is 
+    \[
+    \textcolor{red}{\mathbf{w}_t = \arg\min_{\mathbf{w} \in S} F_t(\mathbf{w})}.
+    \]
+    Note also that $F_t$ is \textcolor{red}{$\sigma$}-strongly-convex since the addition of a convex function to a strongly convex function keeps the strong convexity property. Therefore, Lemma 2.8 implies that:
+    \[
+    \textcolor{red}{F_t(\mathbf{w}_{t+1}) \geq F_t(\mathbf{w}_t) + \frac{\sigma}{2} \|\mathbf{w}_t - \mathbf{w}_{t+1}\|^2.}
+    \]
+\end{frame}
+
+\begin{frame}
+    \frametitle{Continuing the Proof (Single Step of FTRL with Strong Convexity)}
+    Repeating the same argument for $F_{t+1}$ and its minimizer $\mathbf{w}_{t+1}$, we get:
+    \[
+    \textcolor{red}{F_{t+1}(\mathbf{w}_t) \geq F_{t+1}(\mathbf{w}_{t+1}) + \frac{\sigma}{2} \|\mathbf{w}_t - \mathbf{w}_{t+1}\|^2.}
+    \]
+    Taking the difference between the last two inequalities and rearranging, we obtain:
+    \[
+    \textcolor{red}{\sigma \|\mathbf{w}_t - \mathbf{w}_{t+1}\|^2 \leq f_t(\mathbf{w}_t) - f_t(\mathbf{w}_{t+1}).} \quad (2.7)
+    \]
+\end{frame}
+
+\begin{frame}
+    \frametitle{Final Steps (Single Step of FTRL with Strong Convexity)}
+    Next, using the Lipschitzness of $f_t$, we get that:
+    \[
+    \textcolor{red}{f_t(\mathbf{w}_t) - f_t(\mathbf{w}_{t+1}) \leq L_t \|\mathbf{w}_t - \mathbf{w}_{t+1}\|.}
+    \]
+    Combining with Equation (2.7) and rearranging, we get:
+    \[
+    \textcolor{red}{\|\mathbf{w}_t - \mathbf{w}_{t+1}\| \leq L / \sigma.}
+    \]
+    Together with the above, we conclude our proof. \hfill \(\blacksquare\)
+\end{frame}
+
+\begin{frame}
+    \frametitle{Main theorem regarding $\sigma$-strongly convex regularization functions}
+    Let 
+    \textcolor{red}{$f_1, \dots, f_T$} 
+    be a sequence of convex functions such that 
+    \textcolor{red}{$f_t$} 
+    is 
+    \textcolor{red}{$L_t$}-Lipschitz 
+    with respect to some norm \textcolor{red}{$\|\cdot\|$}. Let 
+    \textcolor{red}{$L$} 
+    be such that 
+    \[
+    \textcolor{red}{\frac{1}{T} \sum_{t=1}^{T} L_t^2 \leq L^2.}
+    \]
+    Assume that FoReL is run on the sequence with a regularization function which is 
+    \textcolor{red}{$\sigma$}-strongly-convex 
+    with respect to the same norm. Then, for all 
+    \textcolor{red}{$\mathbf{u} \in S$},
+    \[
+    \textcolor{red}{\operatorname{Regret}_T(\mathbf{u}) \leq R(\mathbf{u}) - \min_{\mathbf{v} \in S} R(\mathbf{v}) + \frac{T L^2}{\sigma}.}
+    \]
+\end{frame}
+
+\begin{frame}
+    \frametitle{Corollary for $l_2$ regularization}
+    Let 
+    \textcolor{red}{$f_1, \dots, f_T$} 
+    be a sequence of convex functions such that 
+    \textcolor{red}{$f_t$} 
+    is 
+    \textcolor{red}{$L_t$}-Lipschitz 
+    with respect to \textcolor{red}{$\|\cdot\|_2$}. Let 
+    \textcolor{red}{$L$} 
+    be such that 
+    \[
+    \textcolor{red}{\frac{1}{T} \sum_{t=1}^{T} L_t^2 \leq L^2.}
+    \]
+    Assume that FoReL is run on the sequence with the regularization function 
+    \[
+    \textcolor{red}{R(\mathbf{w}) = \frac{1}{2\eta} \|\mathbf{w}\|_2^2.}
+    \]
+    Then, for all \textcolor{red}{$\mathbf{u}$},
+    \[
+    \textcolor{red}{\operatorname{Regret}_T(\mathbf{u}) \leq \frac{1}{2\eta} \|\mathbf{u}\|_2^2 + \eta T L^2.}
+    \]
+\end{frame}
+
+\subsection{Applications to expert advice}
+
+\begin{frame}{Applications to expert advice}
+  \begin{itemize}
+    \item Distribution \R{$w_t$}
+    \item Action Losses: \R{$x_t \in [0,1]^d$}
+    \item Algorithm Loss: \R{$\langle x_t, w_t \rangle$}
+    \item We want to bound regret.
+    \item we will compare $l_2$ regularization with Entropic
+      Regularization.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Experts using \R{$l_2$} regularization (1)}
+    \textcolor{red}{$S$} 
+    be a convex set and consider running FoReL with the regularization function:
+    \[
+    \textcolor{red}{R(\mathbf{w}) = 
+    \begin{cases} 
+    \frac{1}{2\eta} \|\mathbf{w}\|_2^2 & \text{if } \mathbf{w} \in S \\ 
+    \infty & \text{if } \mathbf{w} \notin S 
+    \end{cases}}
+    \]
+    Where $S$ us the $d$ dimensional simplex.
+
+    Then, for all 
+    \textcolor{red}{$\mathbf{u} \in S$},
+    \[
+    \textcolor{red}{\operatorname{Regret}_T(\mathbf{u}) \leq \frac{1}{2\eta} \|\mathbf{u}\|_2^2 + \eta T L^2.}
+    \]
+\end{frame}
+
+\begin{frame}
+    \frametitle{Experts using \R{$l_2$} regularization (2)}
+    If 
+    \[
+    \textcolor{red}{B \geq \max_{\mathbf{u} \in S} \|\mathbf{u}\|_2}
+    \]
+    Setting
+    \[
+    \textcolor{red}{B=1;\; L=\sqrt{d};\;\eta = \frac{B}{L \sqrt{2T}}=\frac{1}{\sqrt{2dT}}}
+    \]
+    then,
+    \[
+    \textcolor{red}{\operatorname{Regret}_T(S) \leq \sqrt{2dT}.}
+    \]
+\end{frame}
+
+
+\begin{frame}{Entropic Regularization}
+    Let \( f_1, \dots, f_T \) be a sequence of convex functions such that 
+    \( f_t \) is \( \redmath{L_t} \)-Lipschitz with respect to \( \|\cdot\|_1 \). 
+    Let \( \redmath{L} \) be such that 
+    \R{$
+    \frac{1}{T} \sum_{t=1}^{T} \redmath{L_t^2} \leq \redmath{L^2}.
+    $}
+    Assume that FoReL is run on the sequence with the regularization function 
+    \[
+    R(\mathbf{w}) = \frac{1}{\redmath{\eta}} \sum_{i} w[i] \log(w[i])
+    \]
+    and with the set 
+    \[
+    S = \{\mathbf{w} : \|\mathbf{w}\|_1 = \redmath{B} \wedge \mathbf{w} > 0 \} \subset \mathbb{R}^d.
+    \]
+    Then, 
+    \[
+    \text{Regret}_T(S) \leq \frac{\redmath{B \log(d)}}{\redmath{\eta}} + \redmath{\eta BTL^2}.
+    \]
+    In particular, setting \( \redmath{\eta = \frac{\sqrt{\log d}}{L\sqrt{2T}}} \) yields
+    \[
+    \text{Regret}_T(S) \leq \redmath{BL\sqrt{2\log(d)T}}.
+    \]
+  \end{frame}
+
+
+\begin{frame}{Entropic regularization for Experts}
+    The Entropic regularization is strongly convex with respect to the \( \ell_1 \) norm, and therefore the Lipschitzness requirement of the loss functions is also with respect to the \( \ell_1 \)-norm. 
+    
+    For linear functions, 
+    \R{\[
+    f_t(\mathbf{w}) = \langle \mathbf{w}, \mathbf{x_t} \rangle,
+    \]}
+    we have by Hölder’s inequality that,
+    \R{\[
+    | f_t(\mathbf{w}) - f_t(\mathbf{u}) | = | \langle \mathbf{w} - \mathbf{u}, \mathbf{x_t} \rangle | 
+    \leq \| \mathbf{w} - \mathbf{u} \|_1 \|\mathbf{x_t} \|_\infty.
+    \]}
+    Therefore, the Lipschitz parameter grows with the \R{\( \ell_\infty \)} norm of \( \mathbf{x_t} \) rather than the \R{\( \ell_2 \)} norm of \( \mathbf{x_t} \). 
+    
+    expert advice: \( \redmath{B = 1} \) and \( \redmath{L = 1} \)), we obtain the regret bound of 
+    \[
+    \redmath{\sqrt{2\log(d)T}}.
+    \]
+\end{frame}
+
+\begin{frame}
+  \frametitle{Comparison between regularizations}
+  \begin{itemize}
+  \item entropic regularization vs. $\ell_2$ regularization.
+  \item $\log {d}$ vs $\sqrt{d}$
+  \item $L$: $\|x_t\|_{\infty} \geq \|x_t\|_{2}$ Liphsitz condition carries heavier penalty with entropic regularization.
+  \item $B$: $\|u\|_1 \leq \|u\|_{2}$ Comparator length carries heavier penalty with $l_2$ norm.
+  \end{itemize}
+\end{frame}
+
+\end{small}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -1,0 +1,100 @@
+\documentclass{beamer}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{algorithm, algpseudocode}
+\usepackage{graphicx}
+
+\title{Online Mirrored Descent}
+\author{Based on Elad Hazan's Text}
+\date{Section 5.3 Overview}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Introduction to Online Mirrored Descent}
+    \textbf{Definition:} Online Mirrored Descent (OMD) is a generalization of gradient descent that applies transformations using a regularization function.
+    \begin{itemize}
+        \item Extends gradient descent by performing updates in a dual space.
+        \item Regularization controls stability and enables better bounds.
+        \item Two versions: \textbf{Lazy OMD} (projects at decision time) and \textbf{Agile OMD} (maintains feasibility at all times).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Mathematical Formulation of OMD}
+    \textbf{Decision Protocol:}
+    \begin{itemize}
+        \item At iteration $t$, the learner selects $x_t \in K$.
+        \item The adversary reveals a loss function $f_t$.
+        \item The learner updates $x_t$ using a regularized optimization step.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Algorithm: Online Mirrored Descent (OMD)}
+    \begin{algorithm}[H]
+        \caption{Online Mirrored Descent}
+        \begin{algorithmic}[1]
+            \State \textbf{Input:} Learning rate $\eta > 0$, regularization function $R(x)$.
+            \State Initialize $y_1$ such that $\nabla R(y_1) = 0$ and $x_1 = \arg\min_{x \in K} B_R(x || y_1)$.
+            \For{$t = 1$ to $T$}
+                \State Play $x_t$.
+                \State Observe payoff function $f_t$ and compute $\nabla_t = \nabla f_t(x_t)$.
+                \State Update $y_t$:
+                \begin{itemize}
+                    \item \textbf{Lazy:} $\nabla R(y_{t+1}) = \nabla R(y_t) - \eta \nabla_t$
+                    \item \textbf{Agile:} $\nabla R(y_{t+1}) = \nabla R(x_t) - \eta \nabla_t$
+                \end{itemize}
+                \State Project: $x_{t+1} = \arg\min_{x \in K} B_R(x || y_{t+1})$.
+            \EndFor
+        \end{algorithmic}
+    \end{algorithm}
+\end{frame}
+
+\begin{frame}{Equivalence of Lazy OMD and RFTL}
+    \textbf{Lemma:} When cost functions $f_1, \dots, f_T$ are linear, Lazy OMD and Regularized Follow-The-Leader (RFTL) produce identical predictions.
+    \begin{equation}
+        \arg\min_{x \in K} B_R(x || y_t) = \arg\min_{x \in K} \left( \sum_{s=1}^{t-1} \eta \nabla_s^T x + R(x) \right)
+    \end{equation}
+    \textbf{Proof:} This follows from the uniqueness of the solution for strictly convex $R(x)$ and the definition of the Bregman divergence.
+\end{frame}
+
+\begin{frame}{Regret Bounds for OMD}
+    \textbf{Theorem:} The regret of OMD for any $u \in K$ satisfies:
+    \begin{equation}
+        \text{regret}_T \leq \frac{\eta}{4} \sum_{t=1}^{T} \| \nabla_t \|_{*t}^2 + \frac{R(u) - R(x_1)}{2 \eta}.
+    \end{equation}
+    \textbf{Corollary:} If $\| \nabla_t \|_{*t} \leq G_R$ for all $t$, then optimal tuning of $\eta$ gives:
+    \begin{equation}
+        \text{regret}_T \leq D_R G_R \sqrt{T}.
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Proof of Regret Bound}
+    \textbf{Step 1: Bregman Divergence Expansion}
+    \begin{equation}
+        B_R(x || y) = R(x) - R(y) - \nabla R(y)^T (x - y).
+    \end{equation}
+    \textbf{Step 2: Expanding the Recursion for $y_t$}
+    \begin{equation}
+        \nabla R(y_{t+1}) = \nabla R(y_t) - \eta \nabla_t.
+    \end{equation}
+    \textbf{Step 3: Bounding the Sum of Divergences}
+    \begin{equation}
+        \sum_{t=1}^{T} B_R(x || y_t) \leq \frac{1}{2\eta} (R(x) - R(x_1)) + \frac{\eta}{4} \sum_{t=1}^{T} \| \nabla_t \|_{*t}^2.
+    \end{equation}
+\end{frame}
+
+\begin{frame}{Conclusion}
+    \begin{itemize}
+        \item Online Mirrored Descent generalizes online gradient descent using regularization.
+        \item Lazy OMD and RFTL are equivalent for linear functions.
+        \item The regret bound is dependent on the choice of $R(x)$ and learning rate $\eta$.
+        \item The proofs rely on properties of Bregman divergence and convexity arguments.
+    \end{itemize}
+\end{frame}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

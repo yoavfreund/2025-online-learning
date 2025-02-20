@@ -1,7 +1,6 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  13 FEB 2025 12:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  17 FEB 2025 16:02
 entering extended mode
  restricted \write18 enabled.
- file:line:error style messages enabled.
  %&-line parsing enabled.
 **talk.tex
 (./talk.tex
@@ -843,13 +842,16 @@ Dictionary: translator-theorem-dictionary, Language: English
 ) (./talk.nav) [1{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdf
 tex.map}
 
-] (./talk.toc) [2
+] (./talk.toc)
+Overfull \vbox (16.58102pt too high) detected at line 36
+ []
+
+[2
 
 ]
 LaTeX Font Info:    Trying to load font information for U+msa on input line 50.
 
-
-(/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
+ (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Trying to load font information for U+msb on input line 50.
@@ -946,6 +948,98 @@ Overfull \vbox (5.81232pt too high) detected at line 511
 
 ] [36
 
+] [37
+
+] [38
+
+] [39
+
+]
+<figures/SubGradient.png, id=497, 320.19624pt x 125.46875pt>
+File: figures/SubGradient.png Graphic file (type png)
+<use figures/SubGradient.png>
+Package pdftex.def Info: figures/SubGradient.png  used on input line 617.
+(pdftex.def)             Requested size: 245.83282pt x 96.3317pt.
+ [40
+
+ <./figures/SubGradient.png>] [41
+
+] [42
+
+]
+[43
+
+] [44
+
+] [45
+
+] [46
+
+]
+<figures/Legendre-Duality.png, id=559, 348.30125pt x 379.4175pt>
+File: figures/Legendre-Duality.png Graphic file (type png)
+<use figures/Legendre-Duality.png>
+Package pdftex.def Info: figures/Legendre-Duality.png  used on input line 721.
+(pdftex.def)             Requested size: 132.13239pt x 143.93698pt.
+ [47
+
+ <./figures/Legendre-Duality.png>]
+<figures/FromNonConvexToConvex.png, id=568, 560.0925pt x 137.51375pt>
+File: figures/FromNonConvexToConvex.png Graphic file (type png)
+<use figures/FromNonConvexToConvex.png>
+Package pdftex.def Info: figures/FromNonConvexToConvex.png  used on input line 
+730.
+(pdftex.def)             Requested size: 307.28987pt x 75.44814pt.
+ [48
+
+ <./figures/FromNonConvexToConvex.png>]
+<figures/SlopeDuality.png, id=579, 551.05875pt x 178.6675pt>
+File: figures/SlopeDuality.png Graphic file (type png)
+<use figures/SlopeDuality.png>
+Package pdftex.def Info: figures/SlopeDuality.png  used on input line 744.
+(pdftex.def)             Requested size: 307.28987pt x 99.63599pt.
+ [49
+
+ <./figures/SlopeDuality.png>] [50
+
+]
+<figures/BregmanDivergence.png, id=598, 221.82875pt x 189.70876pt>
+File: figures/BregmanDivergence.png Graphic file (type png)
+<use figures/BregmanDivergence.png>
+Package pdftex.def Info: figures/BregmanDivergence.png  used on input line 771.
+
+(pdftex.def)             Requested size: 132.13239pt x 112.99823pt.
+ [51
+
+ <./figures/BregmanDivergence.png>] [52
+
+] [53
+
+]
+<figures/MirrorDescent.png, id=624, 447.6725pt x 230.8625pt>
+File: figures/MirrorDescent.png Graphic file (type png)
+<use figures/MirrorDescent.png>
+Package pdftex.def Info: figures/MirrorDescent.png  used on input line 801.
+(pdftex.def)             Requested size: 307.28987pt x 158.47098pt.
+ [54
+
+ <./figures/MirrorDescent.png>] [55
+
+] [56
+
+]
+[57
+
+] [58
+
+] [59
+
+] [60
+
+] [61
+
+] [62
+
 ]
 \tf@nav=\write6
 \openout6 = `talk.nav'.
@@ -956,26 +1050,26 @@ Overfull \vbox (5.81232pt too high) detected at line 511
 \tf@snm=\write8
 \openout8 = `talk.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 545.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 545.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 927.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 927.
  (./talk.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 545.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 545.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 927.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 927.
 Package rerunfilecheck Info: File `talk.out' has not changed.
-(rerunfilecheck)             Checksum: 3041CD7CA08C63757227E25B2995FEB9;786.
+(rerunfilecheck)             Checksum: 4577256B46F4C208D0C56B89E5F7D4F2;1176.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 18269 strings out of 480608
- 347453 string characters out of 5903631
- 597981 words of memory out of 5000000
- 33632 multiletter control sequences out of 15000+600000
+ 18448 strings out of 480608
+ 350033 string characters out of 5903631
+ 600885 words of memory out of 5000000
+ 33745 multiletter control sequences out of 15000+600000
  546859 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 58i,17n,67p,771b,511s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 58i,17n,67p,771b,577s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 ></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.
 pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.p
@@ -993,10 +1087,10 @@ r/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
 ocal/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/loc
 al/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr
 /local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on talk.pdf (36 pages, 206324 bytes).
+Output written on talk.pdf (62 pages, 420946 bytes).
 PDF statistics:
- 507 PDF objects out of 1000 (max. 8388607)
- 381 compressed objects within 4 object streams
- 84 named destinations out of 1000 (max. 500000)
- 131 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 787 PDF objects out of 1000 (max. 8388607)
+ 592 compressed objects within 6 object streams
+ 142 named destinations out of 1000 (max. 500000)
+ 209 words of extra memory for PDF output out of 10000 (max. 10000000)
 
