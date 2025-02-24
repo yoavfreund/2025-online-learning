@@ -1,6 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  17 FEB 2025 11:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  24 FEB 2025 15:43
 entering extended mode
  restricted \write18 enabled.
+ file:line:error style messages enabled.
  %&-line parsing enabled.
 **tracking.tex
 (./tracking.tex
@@ -910,112 +911,95 @@ Dictionary: translator-theorem-dictionary, Language: English
 /pdftex.map}
 
 ]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 116
+LaTeX Font Info:    Trying to load font information for U+msa on input line 115
 .
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 116
+LaTeX Font Info:    Trying to load font information for U+msb on input line 115
 .
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10.95> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 116.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <8> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 116.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <6> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 116.
- [2
-
-]
-<figures/SwitchingExperts.pdf, id=59, 614.295pt x 144.54pt>
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 115.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <7> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 115.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <5> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 115.
+<figures/SwitchingExperts.pdf, id=39, 614.295pt x 144.54pt>
 File: figures/SwitchingExperts.pdf Graphic file (type pdf)
 <use figures/SwitchingExperts.pdf>
-Package pdftex.def Info: figures/SwitchingExperts.pdf  used on input line 131.
+Package pdftex.def Info: figures/SwitchingExperts.pdf  used on input line 115.
 (pdftex.def)             Requested size: 325.215pt x 76.522pt.
 
-Overfull \hbox (39.82518pt too wide) in paragraph at lines 131--131
+Overfull \hbox (39.82518pt too wide) in paragraph at lines 115--115
 [][][][][][][]  
  []
 
-[3
+[2
 
  <./figures/SwitchingExperts.pdf>]
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 151.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <7> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 151.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <5> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 151.
-
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 151.
+(amsmath)                 on input line 135.
 
-[4
+[3
+
+] [4
 
 ] [5
 
 ]
-Overfull \vbox (2.7489pt too high) detected at line 185
+<figures/IntermediateWeights-0.pdf, id=96, 614.295pt x 289.08pt>
+File: figures/IntermediateWeights-0.pdf Graphic file (type pdf)
+<use figures/IntermediateWeights-0.pdf>
+Package pdftex.def Info: figures/IntermediateWeights-0.pdf  used on input line 
+177.
+(pdftex.def)             Requested size: 312.9803pt x 147.28769pt.
+<figures/IntermediateWeights-1.pdf, id=97, 614.295pt x 289.08pt>
+File: figures/IntermediateWeights-1.pdf Graphic file (type pdf)
+<use figures/IntermediateWeights-1.pdf>
+Package pdftex.def Info: figures/IntermediateWeights-1.pdf  used on input line 
+177.
+(pdftex.def)             Requested size: 312.9803pt x 147.28769pt.
+<figures/IntermediateWeights-2.pdf, id=98, 614.295pt x 289.08pt>
+File: figures/IntermediateWeights-2.pdf Graphic file (type pdf)
+<use figures/IntermediateWeights-2.pdf>
+Package pdftex.def Info: figures/IntermediateWeights-2.pdf  used on input line 
+177.
+(pdftex.def)             Requested size: 312.9803pt x 147.28769pt.
+
+Overfull \hbox (5.69043pt too wide) in paragraph at lines 177--177
+[][][][][][][][][][]  
  []
 
 [6
 
-]
-<figures/IntermediateWeights-0.pdf, id=109, 614.295pt x 289.08pt>
-File: figures/IntermediateWeights-0.pdf Graphic file (type pdf)
-<use figures/IntermediateWeights-0.pdf>
-Package pdftex.def Info: figures/IntermediateWeights-0.pdf  used on input line 
-192.
-(pdftex.def)             Requested size: 312.9803pt x 147.28769pt.
-<figures/IntermediateWeights-1.pdf, id=110, 614.295pt x 289.08pt>
-File: figures/IntermediateWeights-1.pdf Graphic file (type pdf)
-<use figures/IntermediateWeights-1.pdf>
-Package pdftex.def Info: figures/IntermediateWeights-1.pdf  used on input line 
-192.
-(pdftex.def)             Requested size: 312.9803pt x 147.28769pt.
-<figures/IntermediateWeights-2.pdf, id=111, 614.295pt x 289.08pt>
-File: figures/IntermediateWeights-2.pdf Graphic file (type pdf)
-<use figures/IntermediateWeights-2.pdf>
-Package pdftex.def Info: figures/IntermediateWeights-2.pdf  used on input line 
-192.
-(pdftex.def)             Requested size: 312.9803pt x 147.28769pt.
-
-Overfull \hbox (5.69043pt too wide) in paragraph at lines 192--192
-[][][][][][][][][][]  
- []
-
-[7
-
  <./figures/IntermediateWeights-0.pdf> <./figures/IntermediateWeights-1.pdf> <.
-/figures/IntermediateWeights-2.pdf>] [8
+/figures/IntermediateWeights-2.pdf>] [7
 
 ]
 File: figures/SwitchingExperts.pdf Graphic file (type pdf)
 <use figures/SwitchingExperts.pdf>
-Package pdftex.def Info: figures/SwitchingExperts.pdf  used on input line 220.
+Package pdftex.def Info: figures/SwitchingExperts.pdf  used on input line 205.
 (pdftex.def)             Requested size: 325.215pt x 76.522pt.
 
-Overfull \hbox (39.82518pt too wide) in paragraph at lines 220--220
+Overfull \hbox (39.82518pt too wide) in paragraph at lines 205--205
 []  
  []
 
-[9
+[8
 
 ]
-Overfull \hbox (18.53853pt too wide) detected at line 239
-\T1/phv/m/sl/10.95 L[] \OMS/cmsy/m/n/10.95 ^^T \T1/phv/m/sl/10.95 L[] \OT1/cmss
-/m/n/10.95 + [][]
- []
-
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <14.4> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 239.
-[10
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 224.
+ [9
+
+] [10
 
 ] [11
 
@@ -1023,36 +1007,49 @@ LaTeX Font Info:    Font shape `T1/phv/m/it' in size <14.4> not available
 
 ] [13
 
-] [14
-
 ]
-Overfull \hbox (35.95743pt too wide) detected at line 322
-[] [] \T1/phv/m/sl/10.95 n \OT1/cmss/m/n/10.95 + []\T1/phv/m/sl/10.95 L[] \OT1/
-cmss/m/n/10.95 + \T1/phv/m/sl/10.95 k[]
+Overfull \hbox (29.47533pt too wide) detected at line 318
+\T1/phv/m/sl/10 L[] \OMS/cmsy/m/n/10 ^^@ \T1/phv/m/sl/10 L[] \OMS/cmsy/m/n/10 ^
+^T [] [] \T1/phv/m/sl/10 n \OT1/cmss/m/n/10 + []\T1/phv/m/sl/10 L[] \OT1/cmss/m
+/n/10 + \T1/phv/m/sl/10 k[]
  []
 
-[15
+[14
+
+] [15
 
 ]
-<figures/VariableShareFigure.jpg, id=243, 659.46375pt x 463.7325pt>
-File: figures/VariableShareFigure.jpg Graphic file (type jpg)
-<use figures/VariableShareFigure.jpg>
-Package pdftex.def Info: figures/VariableShareFigure.jpg  used on input line 32
-7.
-(pdftex.def)             Requested size: 242.77013pt x 170.71652pt.
+<figures/NoShare.png, id=227, 327.2225pt x 255.95625pt>
+File: figures/NoShare.png Graphic file (type png)
+<use figures/NoShare.png>
+Package pdftex.def Info: figures/NoShare.png  used on input line 333.
+(pdftex.def)             Requested size: 218.24931pt x 170.71652pt.
  [16
 
- <./figures/VariableShareFigure.jpg>] [17
+ <./figures/NoShare.png>]
+<figures/FixedShareFigure.png, id=236, 903.87688pt x 476.78125pt>
+File: figures/FixedShareFigure.png Graphic file (type png)
+<use figures/FixedShareFigure.png>
+Package pdftex.def Info: figures/FixedShareFigure.png  used on input line 338.
+(pdftex.def)             Requested size: 323.64384pt x 170.71652pt.
 
-]
-<ManfredSlides/skitch6.png, id=260, 449.68pt x 344.28625pt>
-File: ManfredSlides/skitch6.png Graphic file (type png)
-<use ManfredSlides/skitch6.png>
-Package pdftex.def Info: ManfredSlides/skitch6.png  used on input line 346.
-(pdftex.def)             Requested size: 252.94499pt x 193.66054pt.
+Overfull \hbox (16.35397pt too wide) in paragraph at lines 338--338
+[][]  
+ []
+
+[17
+
+ <./figures/FixedShareFigure.png>]
+<figures/VariableShareFigure.jpg, id=247, 659.46375pt x 463.7325pt>
+File: figures/VariableShareFigure.jpg Graphic file (type jpg)
+<use figures/VariableShareFigure.jpg>
+Package pdftex.def Info: figures/VariableShareFigure.jpg  used on input line 34
+3.
+(pdftex.def)             Requested size: 242.77013pt x 170.71652pt.
  [18
 
- <./ManfredSlides/skitch6.png>] [19
+ <./figures/VariableShareFigure.jpg>]
+[19
 
 ] [20
 
@@ -1060,121 +1057,7 @@ Package pdftex.def Info: ManfredSlides/skitch6.png  used on input line 346.
 
 ] [22
 
-] [23
-
-] [24
-
-] [25
-
 ]
-Overfull \hbox (4.41507pt too wide) detected at line 462
-[]\OMS/cmsy/m/n/10.95 h\T1/phv/m/sl/10.95 w[] \OMS/cmsy/m/n/10.95 ^^@ \T1/phv/m
-/sl/10.95 w[]\OML/cmm/m/it/10.95 ; \T1/phv/m/sl/10.95 z[]\OMS/cmsy/m/n/10.95 i 
-^^T \T1/phv/m/sl/10.95 D[]\OT1/cmss/m/n/10.95 (\T1/phv/m/sl/10.95 w[]\OMS/cmsy/
-m/n/10.95 k\T1/phv/m/sl/10.95 w[]\OT1/cmss/m/n/10.95 ) + [] [] \OML/cmm/m/it/10
-.95 :
- []
-
-[26
-
-]
-Overfull \hbox (7.81837pt too wide) detected at line 481
-[]\OMS/cmsy/m/n/10.95 h\T1/phv/m/sl/10.95 w[] \OMS/cmsy/m/n/10.95 ^^@ \T1/phv/m
-/sl/10.95 w[]\OML/cmm/m/it/10.95 ; \T1/phv/m/sl/10.95 z[]\OMS/cmsy/m/n/10.95 i 
-^^T \T1/phv/m/sl/10.95 D[]\OT1/cmss/m/n/10.95 (\T1/phv/m/sl/10.95 w[]\OMS/cmsy/
-m/n/10.95 k\T1/phv/m/sl/10.95 w[]\OT1/cmss/m/n/10.95 ) + [] [] \OML/cmm/m/it/10
-.95 :
- []
-
-[27
-
-]
-Overfull \hbox (85.83119pt too wide) in paragraph at lines 499--499
- [] 
- []
-
-[28
-
-] [29
-
-]
-<ManfredSlides/skitch9.png, id=361, 455.7025pt x 343.2825pt>
-File: ManfredSlides/skitch9.png Graphic file (type png)
-<use ManfredSlides/skitch9.png>
-Package pdftex.def Info: ManfredSlides/skitch9.png  used on input line 518.
-(pdftex.def)             Requested size: 289.07999pt x 217.7672pt.
-<ManfredSlides/skitch8.png, id=362, 452.69125pt x 346.29375pt>
-File: ManfredSlides/skitch8.png Graphic file (type png)
-<use ManfredSlides/skitch8.png>
-Package pdftex.def Info: ManfredSlides/skitch8.png  used on input line 519.
-(pdftex.def)             Requested size: 289.07999pt x 221.13582pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [30
-
- <./ManfredSlides/skitch9.png>]
-<ManfredSlides/skitch7.png, id=373, 452.69125pt x 347.2975pt>
-File: ManfredSlides/skitch7.png Graphic file (type png)
-<use ManfredSlides/skitch7.png>
-Package pdftex.def Info: ManfredSlides/skitch7.png  used on input line 520.
-(pdftex.def)             Requested size: 289.07999pt x 221.7768pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [31 <./ManfredSlides/skitch8.png>]
-File: ManfredSlides/skitch6.png Graphic file (type png)
-<use ManfredSlides/skitch6.png>
-Package pdftex.def Info: ManfredSlides/skitch6.png  used on input line 521.
-(pdftex.def)             Requested size: 289.07999pt x 221.33533pt.
-LaTeX Font Info:    Trying to load font information for T1+ptm on input line 54
-1.
-
-(/usr/local/texlive/2020/texmf-dist/tex/latex/psnfss/t1ptm.fd
-File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
-)
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [32 <./ManfredSlides/skitch7.png>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [33]
-[34] [35
-
-]
-Overfull \vbox (4.24219pt too high) detected at line 581
- []
-
-[36
-
-]
-<ManfredSlides/skitch.2.png, id=426, 450.68375pt x 346.29375pt>
-File: ManfredSlides/skitch.2.png Graphic file (type png)
-<use ManfredSlides/skitch.2.png>
-Package pdftex.def Info: ManfredSlides/skitch.2.png  used on input line 584.
-(pdftex.def)             Requested size: 289.07999pt x 222.13449pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [37
-
- <./ManfredSlides/skitch.2.png>] [38]
-<ManfredSlides/skitch3.png, id=446, 452.69125pt x 344.28625pt>
-File: ManfredSlides/skitch3.png Graphic file (type png)
-<use ManfredSlides/skitch3.png>
-Package pdftex.def Info: ManfredSlides/skitch3.png  used on input line 599.
-(pdftex.def)             Requested size: 289.07999pt x 219.85388pt.
-<ManfredSlides/skitch.1.png, id=447, 455.7025pt x 345.29pt>
-File: ManfredSlides/skitch.1.png Graphic file (type png)
-<use ManfredSlides/skitch.1.png>
-Package pdftex.def Info: ManfredSlides/skitch.1.png  used on input line 600.
-(pdftex.def)             Requested size: 289.07999pt x 219.04068pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [39
-
- <./ManfredSlides/skitch3.png>] [40 <./ManfredSlides/skitch.1.png>]
 \tf@nav=\write6
 \openout6 = `tracking.nav'.
 
@@ -1184,52 +1067,41 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 \tf@snm=\write8
 \openout8 = `tracking.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 602.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 602.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 438.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 438.
  (./tracking.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 602.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 602.
-
-
-Package rerunfilecheck Warning: File `tracking.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `tracking.out':
-(rerunfilecheck)             Before: CEC587D16BFF88C2A5BB0AF178581C12;292
-(rerunfilecheck)             After:  34A0BBFF4C02ED00CB714D0D7AF4877A;327.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 438.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 438.
+Package rerunfilecheck Info: File `tracking.out' has not changed.
+(rerunfilecheck)             Checksum: 278C0744FAAEC26483E1EEBB82345BB0;234.
  ) 
 Here is how much of TeX's memory you used:
- 19243 strings out of 480608
- 360733 string characters out of 5903631
+ 19081 strings out of 480608
+ 358453 string characters out of 5903631
  625486 words of memory out of 5000000
- 34534 multiletter control sequences out of 15000+600000
- 606961 words of font info for 104 fonts, out of 8000000 for 9000
+ 34431 multiletter control sequences out of 15000+600000
+ 570694 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 58i,15n,67p,775b,561s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 58i,15n,67p,775b,618s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/te
 xlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/tex
 live/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texl
-ive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texliv
+ive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texliv
 e/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/
-2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/20
-20/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/20
-20/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/202
-0/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2020/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2020/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2020/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2020/texmf
--dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2020/texmf-d
-ist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2020/tex
-mf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2020/texmf-dist
-/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/
-type1/urw/helvetic/uhvro8a.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/
-urw/times/utmr8a.pfb>
-Output written on tracking.pdf (40 pages, 676308 bytes).
+2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2
+020/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/202
+0/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2020
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2020/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2020/tex
+mf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2020
+/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2020/texmf-
+dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2020/texmf-dist/fo
+nts/type1/urw/helvetic/uhvro8a.pfb>
+Output written on tracking.pdf (22 pages, 374951 bytes).
 PDF statistics:
- 549 PDF objects out of 1000 (max. 8388607)
- 403 compressed objects within 5 object streams
- 87 named destinations out of 1000 (max. 500000)
- 143 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 349 PDF objects out of 1000 (max. 8388607)
+ 257 compressed objects within 3 object streams
+ 49 named destinations out of 1000 (max. 500000)
+ 110 words of extra memory for PDF output out of 10000 (max. 10000000)
 

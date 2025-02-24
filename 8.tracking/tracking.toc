@@ -1,6 +1,5 @@
 \babel@toc {english}{}
-\beamer@sectionintoc {1}{Tracking linear experts}{2}{0}{1}
-\beamer@sectionintoc {2}{Switching Experts}{3}{0}{2}
-\beamer@sectionintoc {3}{An inefficient algorithm}{4}{0}{3}
-\beamer@sectionintoc {4}{The fixed-share algorithm}{7}{0}{4}
-\beamer@sectionintoc {5}{The variable-share algorithm}{12}{0}{5}
+\beamer@sectionintoc {1}{Switching Experts}{2}{0}{1}
+\beamer@sectionintoc {2}{An inefficient algorithm}{3}{0}{2}
+\beamer@sectionintoc {3}{The fixed-share algorithm}{6}{0}{3}
+\beamer@sectionintoc {4}{The variable-share algorithm}{11}{0}{4}

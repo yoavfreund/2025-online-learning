@@ -1,6 +1,6 @@
-\beamer@sectionintoc {1}{Mirror Descent}{7}{0}{1}
-\beamer@subsectionintoc {1}{1}{Potential Based Gradient descent}{7}{0}{1}
-\beamer@subsectionintoc {1}{2}{OMD for linear cost functions}{17}{0}{1}
-\beamer@subsectionintoc {1}{3}{sub-gradients}{21}{0}{1}
-\beamer@sectionintoc {2}{Duality}{28}{0}{2}
-\beamer@sectionintoc {3}{Algorithms for specific potentials}{86}{0}{3}
+\beamer@sectionintoc {1}{Mirror Descent}{9}{0}{1}
+\beamer@subsectionintoc {1}{1}{Potential Based Gradient descent}{9}{0}{1}
+\beamer@subsectionintoc {1}{2}{OMD for linear cost functions}{19}{0}{1}
+\beamer@subsectionintoc {1}{3}{sub-gradients}{23}{0}{1}
+\beamer@sectionintoc {2}{Duality}{30}{0}{2}
+\beamer@sectionintoc {3}{Algorithms for specific potentials}{88}{0}{3}

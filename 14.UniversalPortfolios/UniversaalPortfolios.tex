@@ -1,0 +1,267 @@
+\documentclass{beamer}
+
+\usetheme{Madrid} % or any other Beamer theme you prefer
+
+\title{Example Presentation}
+\author{Your Name}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}[t]
+  \frametitle{6.1 The Horse Race}
+  \textbf{Assumption:} Let \(m\) horses run in a race. Let the \(i\)th horse win with probability \(p_i\).
+
+  \vspace{1em}
+  \textbf{Payoff:} 
+  \begin{itemize}
+    \item If horse \(i\) wins, the payoff is \(o_i\) for 1.
+    \item An investment of one dollar on horse \(i\) yields:
+    \[
+      \begin{cases}
+         o_i \text{ dollars,} & \text{if horse $i$ wins,}\\
+         0 \text{ dollars,}   & \text{if horse $i$ loses.}
+      \end{cases}
+    \]
+    \item The gambler distributes {\bf all} her money on the $m$ possible bets: $b_1,\ldots,b_m$, $b_i \geq 0$, $\sum_i b_i=1$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Some intuitive possibilities}
+  \begin{itemize}
+  \item Put all of the money on the horse with the highest return.
+  \item Put all of the money on the horse with the highest probability.
+  \item Risky: most probable horse might still lose.
+    \item Better to hedge.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Gambler's Wealth After \(n\) Races}
+  
+  Let \(S_n\) be the gambler's wealth after \(n\) races. Then
+  \[
+    S_n = \prod_{i=1}^n S(X_i),
+  \]
+  where \(S(X) = b(X)\,o(X)\) is the factor by which the gambler's wealth 
+  is multiplied when horse \(X\) wins.
+\end{frame}
+
+
+\begin{frame}{Constant rebalanced porfolios}
+    \begin{itemize}
+        \item Use a fixed distribution of the stocks $\vec{b}$
+        \item {\em Not} the same as buy and hold.
+        \item {\bf Example:}  $\vec{b}=(1/2,1/2)$\\
+        {\bf Iter:}~~ 1,2,3,4,5,... \\
+        {\bf Cash:} ~1,1,1,1,1,... \\
+        {\bf Stock:} 1,2,1,2,1,...
+        \item {\bf Wealth:}  $1,\frac{3}{2},\frac{3}{4}+\frac{3}{4}\frac{1}{2}=\frac{9}{8},\frac{9}{8}\frac{3}{2},\ldots$
+        \item Wealth increases by a factor of $\frac{9}{8}$ every two iterations.
+    \end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Kelly's rule}
+        \begin{itemize}
+        \item Suppose that the returns are drawn from a fixed and known distribution.
+        \item The optimal strategy, in terms of rate of increase of log wealth, is a constant rebalanced portfolio.
+        \item But which portfolio?
+        \end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\section{Introduction}
+%------------------------------------------------
+\begin{frame}{What Are Universal Portfolios?}
+  \begin{itemize}
+    \item \textbf{Concept:} Introduced by Thomas M. Cover, a universal portfolio is an investment strategy 
+          that asymptotically achieves the same growth rate of wealth as the best rebalanced portfolio in 
+          hindsight—\emph{without knowing the future in advance}.
+    \item \textbf{Key Idea:} Rather than fix a single strategy, the universal portfolio effectively averages 
+          over all possible rebalanced portfolios and updates weights based on observed performance.
+    \item \textbf{Goal:} Leverage the \emph{law of large numbers}–type property so that, over time, 
+          the universal portfolio tracks the growth rate of the best static rebalancing strategy.
+  \end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\section{Basic Setup}
+%------------------------------------------------
+\begin{frame}{Model Setup}
+  \begin{itemize}
+    \item Consider a market with \(m\) assets (e.g.\ stocks).
+    \item Trading occurs in \(\textbf{discrete time}\): \(t = 1, 2, \ldots, n\).
+    \item Let \(x_{t} \in \mathbb{R}^m\) be the gross returns of the \(m\) assets between time \(t-1\) and \(t\).
+      \begin{itemize}
+        \item For example, if the \(j\)-th asset goes up by \(2\%\), then \(x_{t}^{(j)} = 1.02\).
+      \end{itemize}
+    \item A portfolio vector \(b_t \in \mathbb{R}^m\) specifies how one’s capital is allocated among the \(m\) assets at time \(t\).
+      \begin{itemize}
+        \item The entries of \(b_t\) sum to 1 and are nonnegative: \(\sum_{j=1}^m b_t^{(j)} = 1\), \(b_t^{(j)} \ge 0\).
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Wealth Evolution}
+  \begin{itemize}
+    \item Let \(S_t\) denote the wealth at time \(t\).
+    \item Given a portfolio \(b_t\) at time \(t\), the wealth is updated by
+      \[
+        S_{t+1} = S_t \, \bigl( b_t \cdot x_{t+1} \bigr),
+      \]
+      where \(b_t \cdot x_{t+1}\) is the dot product of \(b_t\) and \(x_{t+1}\).
+    \item The goal is to choose \(\{b_t\}_{t=1}^n\) to maximize the final wealth \(S_{n+1}\) or equivalently 
+          \(\log S_{n+1}\).
+  \end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\section{Definition of the Universal Portfolio}
+%------------------------------------------------
+\begin{frame}{Cover's Universal Portfolio (Informal Definition)}
+  \begin{enumerate}
+    \item \textbf{Consider all constant-rebalanced portfolios.} A constant-rebalanced portfolio (CRP) 
+          is one that keeps the same fraction in each asset at every time step.
+    \item \textbf{Assign a prior.} Treat each CRP as an element in the simplex of possible weights \(b \in \Delta^m\). 
+          Typically, one uses the \emph{Dirichlet} (or uniform) prior over the simplex.
+    \item \textbf{Update posterior.} After each period, update this distribution (the “mixture”) over all CRPs 
+          based on how well each CRP performed.
+    \item \textbf{Form the next investment by averaging.} Allocate the portfolio \(b_{t+1}\) as a weighted average 
+          of all possible CRPs, weighted by their posterior performance.
+  \end{enumerate}
+  \[
+    b_{t+1} = \int b \, d\mu_t(b),
+  \]
+  where \(\mu_t\) is the posterior over the simplex after observing \(t\) periods.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Key Result}
+  \begin{itemize}
+    \item \textbf{Asymptotic Optimality:} Cover showed that the growth rate of the \emph{universal portfolio} 
+          will, in the limit, approach the growth rate of the best \emph{single} constant-rebalanced portfolio 
+          in hindsight.
+    \item Formally, let \(b^*\) be the CRP that maximizes \(\log S_n\) in hindsight. Then the ratio of 
+          the universal portfolio’s wealth \(U_n\) to the wealth of \(b^*\) (both starting at 1) 
+          grows sub-exponentially in \(n\). 
+    \[
+      \frac{U_n}{S_n(b^*)} \ge \exp(-o(n)) \quad \text{as } n \to \infty.
+    \]
+    \item This means that the universal portfolio is \emph{universally} good, without prior knowledge 
+          of which CRP is best.
+  \end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\section{Implementation Details}
+%------------------------------------------------
+\begin{frame}{Practical Construction}
+  \begin{enumerate}
+    \item \textbf{Discretize the Simplex:}
+      \begin{itemize}
+        \item In practice, the integral over all \(b\) in the simplex is approximated by a finite grid or sampling.
+      \end{itemize}
+    \item \textbf{Recompute Weights:}
+      \[
+        w_{t+1}(b) = \frac{w_t(b)\cdot \bigl(b \cdot x_{t+1}\bigr)}{\int w_t(u)\cdot \bigl(u \cdot x_{t+1}\bigr)\,du}
+      \]
+      where \(w_t(b)\) is the “weight” or “posterior” for CRP \(b\).
+    \item \textbf{Compute New Investment:}
+      \[
+        b_{t+1} = \int b \, w_{t+1}(b)\,db \quad \approx \sum_{b \in \mathcal{B}} b \, w_{t+1}(b).
+      \]
+    \item \textbf{Rebalance Accordingly:} Actually execute \(b_{t+1}\) in the market at time \(t+1\).
+  \end{enumerate}
+\end{frame}
+
+%------------------------------------------------
+\section{Example}
+%------------------------------------------------
+\begin{frame}{Simple Example (2 Assets)}
+  \begin{itemize}
+    \item Suppose there are 2 assets, so \(b \in [0,1]\) with \(b_1 = b\), \(b_2 = 1-b\).
+    \item \textbf{Uniform Prior:} Start with \(w_0(b) = 1\) for \(b \in [0,1]\).
+    \item \textbf{Observations:} If the asset returns over first period are \((x_1, x_2)\), then after seeing 
+          that outcome, the weight function updates:
+      \[
+        w_1(b) \propto b \, x_1 + (1-b) \, x_2.
+      \]
+    \item \textbf{Next Step:} The universal strategy at \(t=1\) invests
+      \[
+        b_1 = \int_0^1 b \,\frac{b \, x_1 + (1-b) \, x_2}{Z} \, db,
+      \]
+      where \(Z\) is a normalization constant to ensure the posterior integrates to 1.
+  \end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Numerical Illustration}
+  \begin{itemize}
+    \item By discretizing \(b \in [0,1]\) into many small steps, you can numerically approximate the integrals.
+    \item Over time, the algorithm will put more weight on the “best” fraction \(b^*\) that maximizes growth, 
+          but it still accounts for uncertainty and adapts as the environment changes.
+  \end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\section{Summary and References}
+%------------------------------------------------
+\begin{frame}{Summary}
+  \begin{itemize}
+    \item \textbf{Cover's Universal Portfolio} is a powerful idea that uses mixture methods over all possible 
+          constant-rebalanced portfolios.
+    \item \textbf{Guarantees:} It asymptotically matches the best constant-rebalanced strategy in hindsight.
+    \item \textbf{Implementation:} Although conceptually elegant, the naive integral approach can be computationally 
+          expensive. Practical approximations are used (discretization, sampling, etc.).
+    \item \textbf{Significance:} This method bridges information theory and portfolio choice, 
+          illustrating how “universal” strategies can learn from the market without predictions.
+  \end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{References}
+  \footnotesize
+  \begin{thebibliography}{9}
+    \bibitem{cover1991}
+      T. M. Cover,
+      \emph{Universal Portfolios},
+      Math. Finance, Vol. 1, No. 1 (1991), pp. 1--29.
+      
+    \bibitem{coverthomas}
+      T. M. Cover and J. A. Thomas,
+      \emph{Elements of Information Theory},
+      Wiley, 2nd edition, 2006.
+
+    \bibitem{coverbookchapter}
+      T. M. Cover,
+      \emph{Universal Portfolios}, 
+      in The Kelly Capital Growth Investment Criterion: Theory and Practice (2011), World Scientific.
+  \end{thebibliography}
+\end{frame}
+
+\begin{frame}{Blocks of Highlighted Text}
+    In this slide, some important text will be \alert{highlighted} because it's important. Please, don't abuse it.
+
+    \begin{block}{Block}
+        Sample text
+    \end{block}
+
+    \begin{alertblock}{Alertblock}
+        Sample text in red box
+    \end{alertblock}
+
+    \begin{examples}
+        Sample text in green box. The title of the block is ``Examples".
+    \end{examples}
+\end{frame}
+
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

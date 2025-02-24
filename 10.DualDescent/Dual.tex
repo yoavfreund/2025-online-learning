@@ -30,6 +30,16 @@
 {\bf Chapter 2 in Shai Shalev Shwartz / Online Learning and Online convex Optimization} 
 \end{frame}
 
+\begin{frame}{Follow-the-Regularized-Leader (FTRL)}
+        \begin{equation*}
+            \forall t, \quad \mathbf{w}_t = \arg\min_{\mathbf{w} \in S} \sum_{i=1}^{t-1} f_i(\mathbf{w}) + R(\mathbf{w})
+        \end{equation*}
+\begin{itemize}
+  \item Regularizer controls length of weight vector -> changes from iteration to iteration.
+  \item Each step requires solving a constrained minimization problem.
+    \end{itemize}
+\end{frame}
+
 \begin{frame}{Review: Property of FoRel Algorithm}
 \textbf{Lemma 2.3:}\\
 Let $\mathred{w_1, w_2, \dots}$ be the sequence of vectors produced by the FoReL algorithm. Then, for all $\mathred{u \in S}$, we have:
@@ -139,8 +149,8 @@ Then, for all \textcolor{red}{$u \in S$},
     state.
   \item A state is bad if adversary can force high regret in the future.
   \item Choose prediction so that \R{$\Phi(\RR_{t+1}) - \Phi(\RR_t)
-      + \vw_t \cdot \lossvec{t}$} is small for all possible \R{$\lossvec{t}$}
-  \item \R{$\vw_t = \nabla \Phi(\RR_t)$} is a good choice.
+      + \vw_t \cdot \lossvec{t}$} is small for all \R{$\lossvec{t}$}
+  \item \R{$\vw_t = \nabla \Phi(\RR_t)$} is a good choice for the interior of $S$.
   \item For finite number of experts, \R{$\RR_t$} is finite
     dimensional and we can compute \R{$\vw_t$} explicitly.
   \item Here, \R{$\RR = \{R(\vw)\}_{\vw \in \real^d}$} is uncountably infinite.
@@ -155,24 +165,24 @@ Then, for all \textcolor{red}{$u \in S$},
 \begin{frame}{FoReL Update Rule for linear cost function}
 Define \R{$\mathbf{z}_{1:t} = \sum_{i=1}^t \mathbf{z}_i$}, the FoReL update rule can be written as
   \[
-\mathbf{w}_{t+1} = \arg\min_{\mathbf{w}} \textcolor{mathcolor}{ R(\mathbf{w}) + \sum_{i=1}^{t} \langle \mathbf{w}, \mathbf{z}_i \rangle }
+\mathbf{w}_{t+1} = \arg\min_{\mathbf{w}\in S} \textcolor{mathcolor}{ R(\mathbf{w}) + \sum_{i=1}^{t} \langle \mathbf{w}, \mathbf{z}_i \rangle }
 \]
 \[
-= \arg\min_{\mathbf{w}} \textcolor{mathcolor}{ R(\mathbf{w}) + \langle \mathbf{w}, \mathbf{z}_{1:t} \rangle }
+= \arg\min_{\mathbf{w} \in S} \textcolor{mathcolor}{ R(\mathbf{w}) + \langle \mathbf{w}, \mathbf{z}_{1:t} \rangle }
 \]
 \[
-= \arg\max_{\mathbf{w}} \textcolor{mathcolor}{ \langle \mathbf{w}, -\mathbf{z}_{1:t} \rangle - R(\mathbf{w}) }.
+= \arg\max_{\mathbf{w} \in S} \textcolor{mathcolor}{ \langle \mathbf{w}, -\mathbf{z}_{1:t} \rangle - R(\mathbf{w}) }.
 \]
 \end{frame}
 
 \begin{frame}{Mirror Descent Update for linear functions}
   Update rule
   \[
-    \mathbf{w}_{t+1} = \arg\max_{\mathbf{w}} \textcolor{mathcolor}{ \langle \mathbf{w}, -\mathbf{z}_{1:t} \rangle - R(\mathbf{w}) }.
+    \mathbf{w}_{t+1} = \arg\max_{\mathbf{w} \in S} \textcolor{mathcolor}{ \langle \mathbf{w}, -\mathbf{z}_{1:t} \rangle - R(\mathbf{w}) }.
   \]
 Link Function:
 \[
-g(\theta) = \arg\max_{\mathbf{w}} \textcolor{mathcolor}{ \langle \mathbf{w}, \theta \rangle - R(\mathbf{w}) },
+g(\theta) = \arg\max_{\mathbf{w} \in S} \textcolor{mathcolor}{ \langle \mathbf{w}, \theta \rangle - R(\mathbf{w}) },
 \]
 Update rule can be re-written as
 \begin{enumerate}
@@ -225,7 +235,7 @@ Identical to FTRL with regularization: $\mathred{R(w) = \frac{1}{2\eta}\|w\|_2^2
 
 \textbf{for} \( t = 1,2,\dots \)
 \begin{itemize}
-    \item \textbf{predict} \( \mathbf{w}_t = \textcolor{mathcolor}{ g(\theta_t) } \)
+    \item \textbf{project} \( \mathbf{w}_t = \textcolor{mathcolor}{ g(\theta_t) } \)
     \item \textbf{update} \( \theta_{t+1} = \textcolor{mathcolor}{ \theta_t - \mathbf{z}_t } \) where \( \mathbf{z}_t \in \textcolor{mathcolor}{ \partial f_t(\mathbf{w}_t) } \)
     \end{itemize}
     Dual Decent: Instead of minimizing \R{$f$}, minimize \R{$\nabla f$}. \\
@@ -237,7 +247,7 @@ Identical to FTRL with regularization: $\mathred{R(w) = \frac{1}{2\eta}\|w\|_2^2
 \begin{frame}
   \frametitle{Duality}
   \begin{itemize}
-  \item OMD can be analyzed using elementary tools.
+  \item OMD can be analyzed using elementary tools from duality.
     \item Using Duality Gives better intuition, more general analysis, tighter bounds.
   \end{itemize}
 \end{frame}
@@ -429,7 +439,7 @@ This projection ensures \textcolor{red}{$w_{t+1}$} stays within the feasible set
 \end{frame}
 
 \begin{frame}
-  \frametitle{Mirror Descent (alternative Notatio)}
+  \frametitle{Mirror Descent (alternative Notation)}
   \begin{itemize}
   \item Gradient descent in dual space
     \R{$\theta_t = \theta_{t-1} - \lambda \nabla \ell_t(\theta_{t-1})$}

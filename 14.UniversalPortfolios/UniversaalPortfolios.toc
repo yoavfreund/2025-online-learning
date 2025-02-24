@@ -1,0 +1,6 @@
+\beamer@sectionintoc {1}{Introduction}{6}{0}{1}
+\beamer@sectionintoc {2}{Basic Setup}{7}{0}{2}
+\beamer@sectionintoc {3}{Definition of the Universal Portfolio}{9}{0}{3}
+\beamer@sectionintoc {4}{Implementation Details}{11}{0}{4}
+\beamer@sectionintoc {5}{Example}{12}{0}{5}
+\beamer@sectionintoc {6}{Summary and References}{14}{0}{6}

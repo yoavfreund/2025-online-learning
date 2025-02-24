@@ -95,25 +95,9 @@
 
 \definecolor{mathcolor}{rgb}{1,0,0} % Define red color for math expressions
 
+\begin{small}
 
 
-\section{Tracking linear experts}
-\begin{frame}
-\frametitle{Tracking Linear Experts }
-\begin{itemize}
-\item \B{Usually:} compare algorithm's total loss to total
-  loss of the best expert.
-\item \B{drifting experts:} Compare with a sequence of experts that
-  change over time.
-\item The amount of change is measured using total bregman
-  divergence.
-\item Regret depends on \R{$\sum_t \Delta_F(\vu_{t-1},\vu_t)$}
-\item \B{The Projection Update} After computing the unconstrained
-  update, project the $\vw_{t+1}$ onto a convex set.
-\item Does not allow the algorithm to over-commit to an extreme vector
-  from which it is hard to recover.
-\end{itemize}
-\end{frame}
 
 
 \section{Switching Experts}
@@ -178,8 +162,9 @@ w_{t,i}^m = w_{t,i}^s e^{-\eta L(y_t,x_{t,i})}
 \item \B{Share update}: redistribute the weights
 \item \B{Fixed-share}: 
 \R{\begin{eqnarray*}
-pool & = & \alpha \sum_{i=1}^n w_{t,i}^m \\
-w_{t+1,i}^s & = & (1-\alpha) w_{t,i}^m + \frac{1}{n-1} \paren{pool - \alpha w_{t,i}^m}
+pool & = & \alpha \sum_{j=1}^n w_{t,j}^m \\
+     w_{t+1,i}^s & = & (1-\alpha) w_{t,i}^m
+                       + \frac{1}{n-1} \paren{pool - \alpha w_{t,i}^m}
 \end{eqnarray*}}
 \end{itemize}
 \end{frame}
@@ -272,9 +257,9 @@ D_{\text{KL}}(\alpha^* || \alpha) =
 \item In the fixed-share algorithm, the 
 weight of a suboptimal expert never decreases below
 \R{$\alpha/n$}.
+\item The regret depends on the length of the sequence.
 \item The algorithm does not concentrate only on the best expert, even
 if the last switch is in the distant past.
-\item The regret depends on the length of the sequence.
 \end{itemize}
 \end{frame}
 
@@ -291,7 +276,15 @@ switches, not on the lenght of the sequence.
 \end{frame}
 
 \begin{frame}
-\frametitle{Variable-share}
+%  \frametitle{Fixed-share vs. Variable-share}
+\B{\bf Fixed-share}: 
+\R{\begin{eqnarray*}
+pool & = & \alpha \sum_{j=1}^n w_{t,j}^m \\
+     w_{t+1,i}^s & = & (1-\alpha) w_{t,i}^m
+                       + \frac{1}{n-1} \paren{pool - \alpha w_{t,i}^m}
+\end{eqnarray*}}
+
+\B{\bf Variable-share}
 \R{\begin{eqnarray*}
 pool & = & \sum_{i=1}^n \paren{1-\paren{1-\alpha}^{\ell_{t,i}}} w_{t,i}^m \\
 w_{t+1,i}^s & = & (1-\alpha)^{\ell_{t,i}} w_{t,i}^m + 
@@ -300,6 +293,8 @@ w_{t+1,i}^s & = & (1-\alpha)^{\ell_{t,i}} w_{t,i}^m +
 \pause
 If \R{$\ell_{t,i} = 0$}, then expert \R{$i$} does not contribute to the pool.\\
 \pause
+If \R{$\ell_{t,i} = 1$}, then expert \R{$i$} contributes like fixed share.\\
+\pause
 Expert can get fraction of the total weight arbitrarily close to \R{$1$}.\\
 \pause
 Shares the weight quickly if \R{$\ell_{t,i}>0$}
@@ -307,18 +302,39 @@ Shares the weight quickly if \R{$\ell_{t,i}>0$}
 
 \begin{frame}
 \frametitle{Bound for variable share}
-\begin{itemize}
-\item
 \R{
 \[
-\frac{1}{\eta} \ln n +
+L_A - L_* \leq \frac{1}{\eta} \ln n +
 \paren{ 1+ \frac{1}{(1-\alpha)\eta}} L_* +
 k \paren{1 + \frac{1}{\eta} \paren{ \ln {n-1} + \ln \frac{1}{\alpha} + \ln \frac{1}{1-\alpha} }}
 \]
 }
+\pause
+\begin{itemize}
 \item \R{$\alpha$} should be tuned so that it is (close to) 
-\R{$\frac{k}{2k+L_*}$}
+  \R{$\frac{k}{2k+L_*}$}
+  \item there is no dependence on $l$ the length of the sequence.
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Some Experiments}
+  Setup
+  \begin{itemize}
+  \item 2-3 expeerts
+  \item time is divided into equal length segments
+  \item In each segment a different expert is good.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{An experiment using static experts}
+\includegraphics[height=6cm]{figures/NoShare.png}
+\end{frame}
+
+\begin{frame}
+\frametitle{An experiment using fixed share}
+\includegraphics[height=6cm]{figures/FixedShareFigure.png}
 \end{frame}
 
 \begin{frame}
@@ -326,109 +342,45 @@ k \paren{1 + \frac{1}{\eta} \paren{ \ln {n-1} + \ln \frac{1}{\alpha} + \ln \frac
 \includegraphics[height=6cm]{figures/VariableShareFigure.jpg}
 \end{frame}
 
-\begin{frame}
-\frametitle{Switching within a small subset}
-\begin{itemize}
-\item Suppose the best switching sequence is repeatedly switching among a small subset of the experts
-\R{$n' \ll n$}
-\item In the context of speech recognition - the speaker repeatedly uses a small number of phonemes.
-\item If we know the subset, we can pay \R{$\ln n'$} per switch rather than \R{$\ln n$}
-\item Can track switches much more closely.
-\item Easy to describe an inefficient algorithm (consider all \R{${n \choose n'}$} subsets.)
-\item Switching to Slides from Manfred Warmuth.
-\end{itemize}
-\end{frame}
 
 \begin{frame}
-\includegraphics[width=3.5in]{ManfredSlides/skitch6.png}
-\\
-\textbf{Key Idea:} \textcolor{mathcolor}{Projection onto a convex set reduces divergence}.
-\end{frame}
+  \frametitle{Bounding Regret Using the Pythagorean Inequality}
 
-\begin{frame}{Bounding Regret Using the Pythagorean Inequality}
-Using the inequality:
-\[
-D_R(w^* \| w_t) \geq D_R(w^* \| w_{t+1}) + D_R(w_{t+1} \| w_t),
-\]
-we obtain:
-\[
-\sum_{t=1}^{T} \langle w_t - w^*, z_t \rangle \leq D_R(w^* \| w_1) + \sum_{t=1}^{T} D_R(w_t \| w_{t+1}).
-\]
-
-\textbf{Interpretation:}
-\begin{itemize}
-    \item \textcolor{mathcolor}{Switching to a better expert is controlled} by \( D_R(w_t \| w_{t+1}) \).
-    \item \textcolor{mathcolor}{The total regret depends on the regularizer \( R(w) \)}.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Application: Multiplicative Weights}
-For entropy-based regularization \( R(w) = \sum_i w_i \log w_i \), the update rule is:
-\[
-w_{t+1}^i = \frac{w_t^i e^{-\eta z_t^i}}{\sum_j w_t^j e^{-\eta z_t^j}}.
-\]
-
-\textbf{KL Divergence and Pythagorean Inequality:}
-\[
-D_{KL}(w^* \| w_t) \geq D_{KL}(w^* \| w_{t+1}) + D_{KL}(w_{t+1} \| w_t).
-\]
-
-\textbf{Conclusion:} 
-\begin{itemize}
-    \item \textcolor{mathcolor}{Exponential weight updates minimize regret}.
-    \item \textcolor{mathcolor}{Smaller switching cost improves performance}.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Fixed Share Algorithm}
-\textbf{Fixed Share} is an online learning strategy that allows switching between experts.
-
-\textbf{Update Rule:} 
-\[
-w_{t+1}^i = (1 - \alpha) \frac{w_t^i e^{-\eta z_t^i}}{\sum_j w_t^j e^{-\eta z_t^j}} + \frac{\alpha}{N}
-\]
-where:
-\begin{itemize}
-    \item \( \textcolor{mathcolor}{\alpha} \) is the fixed share parameter controlling switching frequency.
-    \item \( \textcolor{mathcolor}{N} \) is the number of experts.
-\end{itemize}
-
-\textbf{Key Property:} \textcolor{mathcolor}{Distributes small weight to all experts, preventing early commitment}.
-\end{frame}
-
-\begin{frame}{Variable Share Algorithm}
-\textbf{Variable Share} improves upon Fixed Share by dynamically adjusting the switching rate.
-
-\textbf{Update Rule:} 
-\[
-w_{t+1}^i = (1 - \alpha_t) \frac{w_t^i e^{-\eta z_t^i}}{\sum_j w_t^j e^{-\eta z_t^j}} + \alpha_t S_t^i
-\]
-where:
-\begin{itemize}
-    \item \( \textcolor{mathcolor}{\alpha_t} \) is an \textbf{adaptive} switching rate.
-    \item \( \textcolor{mathcolor}{S_t^i} \) redistributes weight based on past performance.
-\end{itemize}
-
-\textbf{Key Property:} \textcolor{mathcolor}{More efficient than Fixed Share for non-stationary environments}.
-\end{frame}
-
-\begin{frame}{Comparison: Fixed vs. Variable Share}
-\begin{itemize}
-    \item \textbf{Fixed Share:} \textcolor{mathcolor}{Constant switching rate} \( \alpha \).
-    \item \textbf{Variable Share:} \textcolor{mathcolor}{Adaptive switching rate} \( \alpha_t \) based on history.
-    \item \textbf{Fixed Share is simpler} but **can be suboptimal** in dynamic settings.
-    \item \textbf{Variable Share performs better} in **changing environments**.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Summary}
-\begin{itemize}
-    \item The \textbf{Generalized Pythagorean Inequality} helps bound regret in expert learning.
-    \item The \textbf{divergence term} controls \textcolor{mathcolor}{switching cost}.
-    \item \textbf{Fixed Share}: \textcolor{mathcolor}{Constant switching rate} improves robustness.
-    \item \textbf{Variable Share}: \textcolor{mathcolor}{Adaptive switching rate} handles non-stationarity.
-    \item \textbf{Smooth switching} leads to \textcolor{mathcolor}{better regret bounds}.
-\end{itemize}
+  \textbf{Pythagorean Inequality:}
+  \[
+    D_{R}\bigl(w^* \,\|\, w_t\bigr)
+    \;\ge\;
+    D_{R}\bigl(w^* \,\|\, w_{t+1}\bigr)
+    \;+\;
+    D_{R}\bigl(w_{t+1} \,\|\, w_t\bigr).
+  \]
+  \pause
+  \textbf{plus three-point identity:}
+  \[
+    D_{R}(a\,\|\,b) 
+    \;+\; 
+    D_{R}(b\,\|\,c)
+    \;-\; 
+    D_{R}(a\,\|\,c)
+    \;=\;
+    \langle a - b,\;\nabla R(c) - \nabla R(b)\rangle.
+  \]
+\pause
+  \textbf{yields regret bound:}
+  \[
+    \sum_{t=1}^{T} \langle w_t - w^*,\, z_t\rangle
+    \;\le\;
+    D_{R}\bigl(w^* \,\|\, w_1\bigr)
+    \;+\;
+    \sum_{t=1}^{T} D_{R}\bigl(w_{t+1} \,\|\, w_t\bigr).
+  \]
+  \pause
+  \textbf{Interpretation:}
+  \begin{itemize}
+    \item Switching to a better expert is controlled by 
+          \(D_{R}\bigl(w_{t+1}\,\|\,w_t\bigr)\).
+    \item The total regret depends on the regularizer \(R(w)\).
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Effect on Expert Learning}
@@ -479,6 +431,11 @@ D_R(w^* \| w_t) \geq D_R(w^* \| w_{t+1}) + D_R(w_{t+1} \| w_t) + \alpha_t D_{KL}
 \sum_{t=1}^{T} \langle w_t - w^*, z_t \rangle \leq D_R(w^* \| w_1) + \sum_{t=1}^{T} \left[ D_R(w_t \| w_{t+1}) + \alpha_t D_{KL}(w_t \| u) \right].
 \]
 \end{frame}
+
+
+\end{small}
+
+\end{document}
 
 \begin{frame}{Comparison: Fixed Share vs. Variable Share}
 \begin{table}[]
@@ -598,8 +555,6 @@ Bregman divergence with respect to the square euclidean norm
 
 \includegraphics[width=4in]{ManfredSlides/skitch3.png}\\
 \includegraphics[width=4in]{ManfredSlides/skitch.1.png}
-
-\end{document}
 
 %%% Local Variables:
 %%% mode: latex
