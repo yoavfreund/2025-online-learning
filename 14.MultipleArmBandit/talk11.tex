@@ -1,5 +1,5 @@
-%\documentclass{beamer}
-\documentclass[handout]{beamer}
+\documentclass{beamer}
+%\documentclass[handout]{beamer}
 % This file is a solution template for:
 
 % - Giving a talk on some subject.
@@ -245,7 +245,9 @@ is run with
         \gamma = \min\braces{1,\sqrt{\frac{K\ln K}{(e-1)T}}}.
 $$}
 \item
-Then
+  \R{$\Gbest=$} Total gain of best Arm.\\
+  \R{$G_{\Aest}=$} total gain of Algorith (RV)
+\item Then
 \R{\[
         \Gbest-\E[G_{\Aest}]
 \leq
@@ -297,7 +299,7 @@ Setting \R{$\gamma = O(\sqrt{\frac{K \log K}{T}})$} guarantees \B{variance} of e
 \end{frame}
 
 \begin{frame}
-\frametitle{Bound for \B{Exp3.1}}
+  \frametitle{Bound for \B{Exp3.1}}
 \R{\begin{eqnarray*}
         \Gbest - \E[G_{\Abound}]
 &\leq&
@@ -306,13 +308,7 @@ Setting \R{$\gamma = O(\sqrt{\frac{K \log K}{T}})$} guarantees \B{variance} of e
 8(e-1)K
 +
 2 K \ln K\\
-\pause
-&\leq&
-10.5\;\sqrt{ \Gbest K \ln K}
-+
-13.8\;K
-+
-2 K \ln K
+&=&O(\sqrt{\Gbest K \ln K}
 \end{eqnarray*}
 }
 \end{frame}
@@ -336,11 +332,12 @@ Setting \R{$\gamma = O(\sqrt{\frac{K \log K}{T}})$} guarantees \B{variance} of e
         \gamma = \min\braces{1,\sqrt{\frac{K(S\ln(KT)+e)}{(e-1)T}}}~.
 $}
 \item Then
-\R{\[
-        G_{j^T} - \E\left[G_{\Aests}\right]
-\leq
-        2\sqrt{e-1} \sqrt{KT\left(S\ln(KT)+e\right)}
-\]}
+\R{\begin{eqnarray*}
+     G_{S} - \E\left[G_{\Aests}\right]
+&\leq&
+2\sqrt{e-1} \sqrt{KT\left(S\ln(KT)+e\right)}\\
+&=&O(\sqrt{KTS \ln (KT)})
+\end{eqnarray*}}
 
 \end{itemize}
 \end{frame}
@@ -356,8 +353,8 @@ $}
 \item Expert \R{$i$} predicts with \B{a distribution over actions} \R{$\stratv{i}{t} \in [0,1]^K$}
 \item Reward of expert \R{$i$} is \R{$\stratv{i}{t}\cdot\xvt$}
 \item Considering experts as actions, we get a bound 
-\R{$O(\sqrt{g N \log N})$} on the regret.
-\item By acting smarter, we can get a bound \R{$O(\sqrt{g K \log N})$}
+\R{$O(\sqrt{\Gbest N \log N})$} on the regret.
+\item By acting smarter, we can get a bound \R{$O(\sqrt{\Gbest K \log N})$}
 \end{itemize}
 \end{frame}
 
@@ -374,7 +371,8 @@ $}
 \item We can achieve diminishing regret even when only gain of chosen action is observable.
 \item The increase in the regret is a result of the limited information. 
 \R{$ O(\sqrt{TK\log K})$} instead of \R{$ O(\sqrt{T \log K})$}.
-\item We can handle non-stationary setups.
+\item We can handle sequences with \R{$S$} switches:
+  \R{$O(\sqrt{KTS \ln (KT)})$}
 \item If we have \B{many} strategies \R{$N$} but only \B{few} actions \R{$K$} we can achieve bounds of the form \R{$O(\sqrt{TK\log N})$}.
 \end{itemize}
 \end{frame}
@@ -393,3 +391,8 @@ $}
 \end{document}
 
 
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
