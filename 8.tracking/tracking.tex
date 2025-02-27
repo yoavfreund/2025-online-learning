@@ -1,5 +1,5 @@
-%\documentclass{beamer}
-\documentclass[handout]{beamer}
+\documentclass{beamer}
+%\documentclass[handout]{beamer}
 % This file is a solution template for:
 
 % - Giving a talk on some subject.
@@ -342,6 +342,19 @@ k \paren{1 + \frac{1}{\eta} \paren{ \ln {n-1} + \ln \frac{1}{\alpha} + \ln \frac
 \includegraphics[height=6cm]{figures/VariableShareFigure.jpg}
 \end{frame}
 
+\begin{frame}{Analysis using Bregman divergences}  
+\textbf{Mirror Descent (non-switching)}
+\[
+w_{t+1} = \arg\min_{w} \left[ \eta \sum_{s=1}^{t} \langle w, z_s \rangle + D_R(w \| w_1) \right]
+\]
+\textbf{Regret Bound:}  
+\[
+\sum_{t=1}^{T} \langle w_t - w^*, z_t \rangle \leq D_R(w^* \| w_1) + \sum_{t=1}^{T} D_R(w_t \| w_{t+1}).
+\]
+\end{frame}
+
+%Pythagorean inequality figure
+\includegraphics[width=4in]{ManfredSlides/skitch6.png}
 
 \begin{frame}
   \frametitle{Bounding Regret Using the Pythagorean Inequality}
@@ -375,25 +388,14 @@ k \paren{1 + \frac{1}{\eta} \paren{ \ln {n-1} + \ln \frac{1}{\alpha} + \ln \frac
     \sum_{t=1}^{T} D_{R}\bigl(w_{t+1} \,\|\, w_t\bigr).
   \]
   \pause
-  \textbf{Interpretation:}
+  \textbf{Incorporating Switching:}
   \begin{itemize}
-    \item Switching to a better expert is controlled by 
+    \item Switching is controlled by 
           \(D_{R}\bigl(w_{t+1}\,\|\,w_t\bigr)\).
     \item The total regret depends on the regularizer \(R(w)\).
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Effect on Expert Learning}
-\textbf{Standard Mirror Descent:}  
-\[
-w_{t+1} = \arg\min_{w} \left[ \eta \sum_{s=1}^{t} \langle w, z_s \rangle + D_R(w \| w_1) \right]
-\]
-\textbf{Regret Bound:}  
-\[
-\sum_{t=1}^{T} \langle w_t - w^*, z_t \rangle \leq D_R(w^* \| w_1) + \sum_{t=1}^{T} D_R(w_t \| w_{t+1}).
-\]
-\textcolor{mathcolor}{The Pythagorean inequality controls regret by bounding divergence.}
-\end{frame}
 
 \begin{frame}{Fixed Share Algorithm}
 \textbf{Fixed Share Update:}  
@@ -475,7 +477,6 @@ D_R(w^* \| w_t) \geq D_R(w^* \| w_{t+1}) + D_R(w_{t+1} \| w_t) + \alpha_t D_{KL}
 \includegraphics[width=4in]{ManfredSlides/skitch9.png}\\
 \includegraphics[width=4in]{ManfredSlides/skitch8.png}\\
 \includegraphics[width=4in]{ManfredSlides/skitch7.png}\\
-\includegraphics[width=4in]{ManfredSlides/skitch6.png}
 
 \begingroup
 \small
