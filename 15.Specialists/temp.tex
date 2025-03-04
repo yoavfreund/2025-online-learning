@@ -1,0 +1,54 @@
+\documentclass{beamer}
+\usepackage{xcolor}
+
+% Define a color for mathematical expressions
+\newcommand{\redmath}[1]{\textcolor{red}{#1}}
+
+\begin{document}
+
+\begin{frame}{Algorithm Bayes}
+\textbf{Parameters:} Prior distribution $\redmath{p_1 \in \Delta_N}$; number of trials $\redmath{T}$.
+
+\vspace{1em}
+\textbf{Algorithm:} Iterate for $\redmath{t = 1, 2, \dots, T}$
+\begin{enumerate}
+    \item Predict with the weighted average of the experts' predictions:
+          \[
+          \hat{y}_t = \sum_{i=1}^{N} \redmath{p_t(i) y_t(i)}
+          \]
+    \item Observe outcome $\redmath{y_t}$.
+    \item Update the posterior distribution:
+          \[
+          p_{t+1}(i) = \frac{\redmath{p_t(i) L(y_t(i), \hat{y}_t)}}{\redmath{Z_t}}
+          \]
+          where the normalizing factor is:
+          \[
+          Z_t = \sum_{i=1}^{N} \redmath{p_t(i) L(y_t(i), \hat{y}_t)}
+          \]
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Algorithm SBayes}
+\textbf{Parameters:} Prior distribution $\redmath{p_1 \in \Delta_N}$; number of trials $\redmath{T}$.
+
+\vspace{1em}
+\textbf{Algorithm:} Iterate for $\redmath{t = 1, 2, \dots, T}$
+\begin{enumerate}
+    \item Predict with the weighted average of the predictions of the awake specialists:
+          \[
+          \hat{y}_t = \frac{\sum_{i \in S_t} \redmath{p_t(i) y_t(i)}}{\sum_{i \in S_t} \redmath{p_t(i)}}
+          \]
+          where $\redmath{S_t}$ is the set of awake specialists.
+    \item Observe outcome $\redmath{y_t}$.
+    \item Update the posterior distribution:
+          \[
+          p_{t+1}(i) = \frac{\redmath{p_t(i) L(y_t(i), \hat{y}_t)}}{\redmath{Z_t}}, \quad \text{for } i \in S_t
+          \]
+          Otherwise, if $i \notin S_t$, then $p_{t+1}(i) = p_t(i)$.
+          \[
+          Z_t = \sum_{i \in S_t} \redmath{p_t(i) L(y_t(i), \hat{y}_t)}
+          \]
+\end{enumerate}
+\end{frame}
+
+\end{document}

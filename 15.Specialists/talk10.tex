@@ -1,5 +1,5 @@
-%\documentclass{beamer}
-\documentclass[handout]{beamer}
+\documentclass{beamer}
+%\documentclass[handout]{beamer}
 % This file is a solution template for:
 
 % - Giving a talk on some subject.
@@ -27,14 +27,24 @@
   % or whatever (possibly just delete it)
 }
 
-\usepackage{xmpmulti} % package that defines \multiinclude
+\usepackage{xcolor}
+\usepackage{amsmath}
+
+%\input ../macros.tex
+
+\beamerdefaultoverlayspecification{<+->}
+
+% Define a color for mathematical expressions
+\definecolor{mathred}{RGB}{200,0,0}
+\newcommand{\redmath}[1]{\textcolor{mathred}{#1}}
 
 \usepackage[english]{babel}
 
 \usepackage[latin1]{inputenc}
-
+\usepackage{xcolor}
 \usepackage{times}
 \usepackage[T1]{fontenc}
+
 % Or whatever. Note that the encoding and the font should match. If T1
 % does not look nice, try deleting the line with the fontenc.
 
@@ -81,7 +91,7 @@
 \input{../macros}
 
 \begin{document}
-
+\begin{small}
 \iffalse %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \fi %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -125,7 +135,7 @@ On each iteration \R{$t=1,2,3,\ldots$}
 \item Algorithm has to predict on each iteration
 \item Each specialist might sleep some of the time.
 \item \R{$\Rightarrow$} makes no sense to compare to total loss of best specialist.
-\item \R{$\vu$}: a probability distributions, 
+\item \R{$\vu$}: comparator distribution, 
 \R{$u_i \geq 0,\;\; \sum_i u_i =1 $}.
 \item Average loss w.r.t. \R{$\vu$}:
 \R{$ \ell_{\vu}^t \doteq \frac{\sum_{i \in E^t} u_i \ell_i^t}{\sum_{i \in E^t} u_i}
@@ -136,9 +146,9 @@ $}
 \end{frame}
 
 \begin{frame}
-\frametitle{Applying Vovk-style algs to specialists}
+\frametitle{Ideas}
 \begin{itemize}
-\item We use \B{normalized} weights: 
+\item We focus on \B{normalized} weights: 
 \R{$$v_i^t = \frac{\wt{t}{i}}{\sum_{j=1}^N \wt{t}{i}},\;\;
  \vv^t = \frac{\wtvec{t}}{W^t}$$}
 \item \B{Algorithm}: treat the set \R{$E_t$} as the set of experts.
@@ -149,16 +159,86 @@ $}
 \item
 In particular: total weight is always \R{1}.
 \end{itemize}
-\end{frame}
+\end{frame} 
 
 \begin{frame}
-\frametitle{Bound for log-loss case}
+\frametitle{The log-loss case}
+\begin{itemize}
+\item \R{$x_{t,i}$} prediction of expert \R{$i$} on iteration \R{$t$}
+\item \R{$\hat{y}_t$} prediction of algorithm.
+\item \R{$y_t$} outcome at iteration \R{$t$} (0 or 1) 
+\item 
+\R{$$\ell_A^t = L(\hat{y}_t,y_t) =
+  \begin{cases}
+    -\ln \hat{y}_t & \mbox{ if } y_t=1\\
+    -\ln (1-\hat{y}_t) & \mbox{ if } y_t=0
+  \end{cases}
+  $$}
+\item \R{$\ell_i^t$} defined similarly for expert \R{$i$}
+\end{itemize}
+\end{frame}
+
+% Define a color for mathematical expressions
+%\newcommand{\redmath}[1]{\textcolor{red}{#1}}
+
+\begin{frame}{Algorithm Bayes}
+%\textbf{Parameters:} Prior distribution $\redmath{p_1 \in \Delta_N}$; number of trials $\redmath{T}$.
+
+  Iterate for $\redmath{t = 1, 2, \dots, T}$
+  \pause
+\begin{enumerate}
+    \item Predict with the weighted average of the experts' predictions:
+          \[
+          \redmath{\hat{y}_t = \sum_{i=1}^{N} p_{t,i} x_{t,i}}
+          \]
+    \item Observe outcome $\redmath{y_t}$.
+    \item Update the posterior distribution:
+          \[
+            \redmath{p_{t+1,i} = 
+            \begin{cases}
+              \frac{p_{t,i} x_{t,i}}{\hat{y}_t} & \mbox{ if } y_t=1\\
+              \frac{p_{t,i} (1-x_{t,i})}{1-\hat{y}_t} & \mbox{ if } y_t=0
+            \end{cases}}
+        \]
+        
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Algorithm SBayes}
+%\textbf{Parameters:} Prior distribution $\redmath{p_1 \in \Delta_N}$; number of trials $\redmath{T}$.
+
+  Iterate for $\redmath{t = 1, 2, \dots, T}$
+  \pause
+\begin{enumerate}
+    \item Predict with the weighted average of the predictions of the awake specialists:
+          \[ \redmath{
+            \hat{y}_t = \frac{\sum_{i \in E_t} p_{t,i} x_{t,i}}
+            {\sum_{i \in E_t} p_{t,i}}}
+          \]
+          where $\redmath{E_t}$ is the set of awake specialists.
+    \item Observe outcome $\redmath{y_t}$.
+\item Update the posterior distribution:
+          \[\mbox{ if } i \in E_t: \;\;\;
+            \redmath{p_{t+1,i} =
+                          \begin{cases}
+              \frac{p_{t,i} x_{t,i}}{\hat{y}_t} & \mbox{ if } y_t=1\\
+              \frac{p_{t,i} (1-x_{t,i})}{1-\hat{y}_t} & \mbox{ if } y_t=0
+            \end{cases}}
+          \]
+          \[\mbox{ if } i \notin E_t: \;\;\;
+            \redmath{p_{t+1,i} =   p_{t,i}}
+          \]
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Bound for SBayes}
 \begin{itemize}
 \item
-Bound for \B{log loss} (Theorem 1), for any distribution $\vu$:
-\R{$
+  For any sequence of awake specialists \R{$E_1,\ldots,E_T$}, specialist predictions and outcomes, and for any comparator $\vu$:
+\R{$$
 \sum_{t=1} u(E^t) \ell_A^t \leq \sum_{t=1}^T \sum_{i \in E^t} u_i \ell_i^t + \RE{\vu}{\vv^1}
-$}
+$$}
 \item \R{$ \RE{\vu}{\vv} \doteq \sum_i u_i \log \frac{u_i}{v_i}$}
 \item \R{$ u(E^t) \doteq \sum_{i\in E^t} u_i $}
 \item If we assume that \R{$u(E^t) = U$} is constant, we get
@@ -169,6 +249,62 @@ L_A \leq \sum_{t=1}^T \ell_{\vu}^t + \frac{\RE{\vu}{\vv^1}}{U}
 \end{frame}
 
 \section{bounding cumulative loss using relative entropy}
+
+\begin{frame}
+  \frametitle{Proof of Bound (1)}
+  Lemma:
+  \R{\[
+      \RE{\vu}{p_t} - \RE{\vu}{p_{t+1}}
+      = u(E_t)L(\hat{y}_t,y_t) - \sum_{i \in E_t} u_i L(x_{t,i},y_t)
+    \]}
+  \pause
+  From definition of \R{$\RE{}{}$}:
+  \R{\[
+      \RE{\vu}{p_t} - \RE{\vu}{p_{t+1}}
+      = \sum_{i \in E_t} u_i \ln \frac{p_{t+1,i}}{p_{t,i}}
+    \]}
+  \pause
+  If \R{$y_t=1$} the RHS is equal to
+  \R{\begin{eqnarray*}
+       \sum_{i \in E_t}u_i \ln \frac{x_{t,i}}{\hat{y}_t}
+       &=& \sum_{i \in E_t}u_i \ln x_{t,i} -u(E_t) \ln \hat{y_t}\\
+       &=& -\sum_{i \in E_t}u_i L(X_{t,i},y_t) + u(E_t) L(\hat{y}_t,y_t)
+    \end{eqnarray*}}
+  \pause
+  Similarly for \R{$y_t=0$}
+\end{frame}
+
+\begin{frame}
+\frametitle{Visual intuition}
+
+\R{$
+\RE{\vu}{\vv^{t}} - \RE{\vu}{\vv^{t+1}} = \ell_A^t - \vu \cdot \boldell^t
+$}
+\pause \\
+\includegraphics[height=5cm,width=10cm]{figures/divergenceAnalysis.pdf}
+\pause \\
+\R{$\vv^{t+1}$} is chosen to minimize \R{$\RE{\vv^{t+1}}{\vv^t}+\vv^{t+1} \cdot \boldell^t$}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Proof of Bound (2)}
+  Summing over \R{$t=1,\ldots,T$}:
+  \R{\[
+      \RE{\vu}{p_t} - \RE{\vu}{p_{t+1}}
+      = u(E_t)L(\hat{y}_t,y_t) - \sum_{i \in E_t} u_i L(x_{t,i},y_t)
+    \]}
+  \pause
+  We get
+  \R{\begin{eqnarray*}
+      \RE{\vu}{p_1} &\geq& \RE{\vu}{p_1} - \RE{\vu}{p_{T+1}}\\ &=&
+      \sum_{t=1}^T u(E_t)L(\hat{y}_t,y_t) - \sum_{t=1}^T \sum_{i \in E_t} u_i L(x_{t,i},y_t)
+    \end{eqnarray*}}
+
+\end{frame}
+
+\iffalse
 \begin{frame}
 \frametitle{Cumulative loss vs. Final total weight}
 
@@ -185,7 +321,7 @@ $$}
 \onslide<6-> -\log \frac{W^{T+1}}{W^1} = -\sum_{t=1}^T \log p_A^t(c^t)
 \onslide<7-> = L_A^T
 \]}
-\onslide<9-> \R{\bf EQUALITY} not bound!
+%%\onslide<9-> \R{\bf EQUALITY} not bound!
 \end{frame}
 
 
@@ -239,21 +375,6 @@ $}
 \end{itemize}
 \end{frame}
 
-\begin{frame}
-\frametitle{Visual intuition}
-
-\R{$
-\RE{\vu}{\vv^{t}} - \RE{\vu}{\vv^{t+1}} = \ell_A^t - \vu \cdot \boldell^t
-$}
-\pause \\
-\includegraphics[height=5cm,width=10cm]{figures/divergenceAnalysis.pdf}
-\pause \\
-\R{$\vv^{t+1}$} is chosen to minimize \R{$\RE{\vv^{t+1}}{\vv^t}+\vv^{t+1} \cdot \boldell^t$}
-\pause \\
-Last line \B{is confusing!} I don't understand it!
-\pause \\
-But Manfred Warmuth does!
-\end{frame}
 
 \begin{frame}
 \frametitle{Proof of Lemma}
@@ -272,7 +393,7 @@ $}
 \end{eqnarray*}}
 \end{itemize}
 \end{frame}
-
+\fi
 
 \iffalse
 \begin{frame}
@@ -326,14 +447,43 @@ $}
 \section{Applications of specialists}
 
 \begin{frame}
-\frametitle{Example Application}
+\frametitle{Example 1 Pruning trees}
 \begin{itemize}
 \item Consider the context algorithm.
-\item Let each node in the tree be a specialist.
-\item Gives an inferior algorithm (regret bound is twice as large)
-\item But much easier to generalize.
+  \item Each pruning is a generalist.
+\item Each node is a specialist.
+\item Gives an inferior algorithm (regret bound is twice as large as Context alg
+  \item But much easier to generalize.
 \end{itemize}
 \end{frame}
+
+\begin{frame}
+  \frametitle{Example 2: Switching Experts}
+  \begin{itemize}
+  \item Consider the fixed share switching algorithm
+  \item Each sequence of $d$ switches between base expert = generalist.
+  \item Specialist for each base expert - sleeps unless active.
+  \item gives the same algorithm.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example 3: Routing}
+  \begin{itemize}
+  \item Consider a communication network defined by a DAG.
+  \item goal: send packets from source to sink with minimal delay.
+  \item protocol: after route is selected, delay is known.
+  \item This is a multiple arm problem.
+  \item Generalist: a possible route.
+  \item Specialist: The choice of next hop for an individual router.
+  \item Number of generalist is exponential in the number of specialists.
+  \item Is it possible to achieve, using specialists?
+    \item I don't know, could not find in the literature.
+  \end{itemize}
+\end{frame}
+
+
+\iffalse %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
 \frametitle{Generic Example}
@@ -347,9 +497,6 @@ $}
 \end{itemize}
 
 \end{frame}
-
-\iffalse %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{frame}
 \frametitle{XXX}
 \begin{itemize}
@@ -358,7 +505,12 @@ $}
 \end{frame}
 
 \fi %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\end{small}
 \end{document}
 
 
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
